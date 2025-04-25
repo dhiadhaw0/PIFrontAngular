@@ -1,0 +1,11 @@
+<section class="py-0 py-md-5">
+  <div class="container">
+    <div class="row g-4 g-lg-7 justify-content-center align-items-center">
+      @for (data of clientList; track $index) {
+        <div class="col-5 col-sm-3 col-xl-2">
+          <img src="{{ data.image }}" class="grayscale" alt="" />
+        </div>
+      }
+    </div>
+  </div>
+</section>

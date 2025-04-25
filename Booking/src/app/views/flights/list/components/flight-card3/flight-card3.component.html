@@ -1,0 +1,397 @@
+<div class="card border">
+  <div
+    class="card-header d-sm-flex justify-content-sm-between align-items-center"
+  >
+    <div class="d-flex align-items-center mb-2 mb-sm-0">
+      <img src="assets/images/element/12.svg" class="w-30px me-2" alt="" />
+      <h6 class="fw-normal mb-0">Wizixo Airline (SA - 1254)</h6>
+    </div>
+    <h6 class="fw-normal mb-0">
+      <span class="text-body">Travel Class:</span> Economy
+    </h6>
+  </div>
+
+  <div class="card-body p-4 pb-0">
+    <div class="row g-4">
+      <div class="col-sm-4 col-md-3">
+        <h4>14:50</h4>
+        <p class="mb-0">BOM - Terminal 2 Mumbai, India</p>
+      </div>
+
+      <div class="col-sm-4 col-md-3 my-sm-auto text-center">
+        <h5>9hr 50min</h5>
+        <div class="position-relative my-4">
+          <hr class="bg-primary opacity-5 position-relative" />
+
+          <div
+            class="icon-md bg-primary text-white rounded-circle position-absolute top-50 start-50 translate-middle"
+          >
+            <i class="fa-solid fa-fw fa-plane rtl-flip"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-md-3">
+        <h4>07:35</h4>
+        <p class="mb-0">JFK - Terminal 2 New York, USA</p>
+      </div>
+
+      <div class="col-md-3 text-md-end">
+        <h4>{{ currencyType }}18,500</h4>
+        <a routerLink="/flights/detail" class="btn btn-dark mb-0 mb-sm-2"
+          >Book Now</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer pt-4">
+    <ul
+      class="list-inline bg-light rounded-2 d-sm-flex text-center justify-content-sm-between mb-0 px-4 py-2"
+    >
+      <li class="list-inline-item text-danger">Only 25 Seat Left</li>
+      <li class="list-inline-item text-danger">Non-Refundable</li>
+      <li class="list-inline-item">
+        <a
+          class="btn-more d-flex align-items-center collapsed p-0 mb-0"
+          (click)="collapse.toggle()"
+          data-bs-toggle="collapse"
+          href="javascript:void(0);"
+          role="button"
+          aria-expanded="false"
+          aria-controls="flightDetail"
+        >
+          Flight detail<i
+            class="fa-solid ms-2"
+            [ngClass]="isCollapsed ? 'fa-angle-down' : 'fa-angle-up'"
+          ></i>
+        </a>
+      </li>
+    </ul>
+
+    <div class="pt-3">
+      <div
+        class="multi-collapse collapse"
+        id="flightDetail"
+        #collapse="ngbCollapse"
+        [(ngbCollapse)]="isCollapsed"
+      >
+        <ul
+          ngbNav
+          #nav="ngbNav"
+          class="nav nav-pills nav-justified nav-responsive bg-primary bg-opacity-10 rounded p-2 mb-3"
+          id="flight-pills-tab"
+          role="tablist"
+        >
+          <li ngbNavItem class="nav-item" role="presentation">
+            <button
+              ngbNavLink
+              class="nav-link mb-0"
+              id="flight-info"
+              data-bs-toggle="pill"
+              data-bs-target="#flight-info-tab"
+              type="button"
+              role="tab"
+              aria-controls="flight-info-tab"
+              aria-selected="true"
+            >
+              Flight Information
+            </button>
+            <ng-template ngbNavContent>
+              <div
+                class="tab-pane fade show active"
+                id="flight-info-tab"
+                role="tabpanel"
+                aria-labelledby="flight-info"
+              >
+                <div class="card border">
+                  <div class="card-header">
+                    <div
+                      class="d-sm-flex justify-content-sm-between align-items-center"
+                    >
+                      <div class="d-flex mb-2 mb-sm-0">
+                        <img
+                          src="assets/images/element/09.svg"
+                          class="w-40px me-2"
+                          alt=""
+                        />
+                        <h6 class="fw-normal mb-0">
+                          Phillippines Airline (PA - 5620)
+                        </h6>
+                      </div>
+                      <h6 class="fw-normal mb-0">
+                        <span class="text-body">Travel Class:</span> Economy
+                      </h6>
+                    </div>
+                  </div>
+
+                  <div class="card-body p-4">
+                    <div class="row g-4">
+                      <div class="col-sm-4">
+                        <h4>BOM</h4>
+                        <h6 class="mb-0">14:50</h6>
+                        <p class="mb-0">
+                          Chhatrapati Shivaji International Airport
+                        </p>
+                      </div>
+
+                      <div class="col-sm-4 my-sm-auto text-center">
+                        <h5>9hr 50min</h5>
+
+                        <div class="position-relative my-4">
+                          <hr class="bg-primary opacity-5 position-relative" />
+
+                          <div
+                            class="icon-md bg-primary text-white rounded-circle position-absolute top-50 start-50 translate-middle"
+                          >
+                            <i class="fa-solid fa-fw fa-plane rtl-flip"></i>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <h4>CDG</h4>
+                        <h6 class="mb-0">11:50</h6>
+                        <p class="mb-0">Ch. De Gaulle, Paris, France</p>
+                      </div>
+                    </div>
+
+                    <div
+                      class="bg-light text-center fw-normal rounded-2 mt-3 mb-4 p-2"
+                    >
+                      Change of planes: 3h 15m Layover in France
+                    </div>
+
+                    <div class="row g-4">
+                      <div class="col-sm-4">
+                        <h4>CDG</h4>
+                        <h6 class="mb-0">2:50</h6>
+                        <p class="mb-0">Ch. De Gaulle, Paris, France</p>
+                      </div>
+
+                      <div class="col-sm-4 my-sm-auto text-center">
+                        <h5>5hr 50min</h5>
+
+                        <div class="position-relative my-4">
+                          <hr class="bg-primary opacity-5 position-relative" />
+
+                          <div
+                            class="icon-md bg-primary text-white rounded-circle position-absolute top-50 start-50 translate-middle"
+                          >
+                            <i class="fa-solid fa-fw fa-plane rtl-flip"></i>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <h4>JFK</h4>
+                        <h6 class="mb-0">7:35</h6>
+                        <p class="mb-0">John F Kennedy Intl-NY</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+
+          <li class="nav-item" ngbNavItem role="presentation">
+            <button
+              ngbNavLink
+              class="nav-link mb-0"
+              id="flight-fare"
+              data-bs-toggle="pill"
+              data-bs-target="#flight-fare-tab"
+              type="button"
+              role="tab"
+              aria-controls="flight-fare-tab"
+              aria-selected="false"
+            >
+              Fare Detail
+            </button>
+            <ng-template ngbNavContent>
+              <div
+                class="tab-pane fade show active"
+                id="flight-fare-tab"
+                role="tabpanel"
+                aria-labelledby="flight-fare"
+              >
+                <div class="card card-body">
+                  <div class="table-responsive-lg">
+                    <table class="table caption-bottom mb-0">
+                      <caption class="pb-0">
+                        *From The Date Of Departure
+                      </caption>
+
+                      <thead class="table-dark">
+                        <tr>
+                          <th scope="col" class="border-0 rounded-start">
+                            Base Fare
+                          </th>
+                          <th scope="col" class="border-0">Taxes and Fees</th>
+                          <th scope="col" class="border-0 rounded-end">
+                            Total Fees
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td>{{ currencyType }}36,500</td>
+                          <td>{{ currencyType }}1,050</td>
+                          <td>
+                            <h5 class="mb-0">{{ currencyType }}37,550</h5>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+
+          <li class="nav-item" ngbNavItem role="presentation">
+            <button
+              ngbNavLink
+              class="nav-link mb-0"
+              id="flight-baggage"
+              data-bs-toggle="pill"
+              data-bs-target="#flight-baggage-tab"
+              type="button"
+              role="tab"
+              aria-controls="flight-baggage-tab"
+              aria-selected="false"
+            >
+              Baggage Rules
+            </button>
+            <ng-template ngbNavContent>
+              <div
+                class="tab-pane show active fade"
+                id="flight-baggage-tab"
+                role="tabpanel"
+                aria-labelledby="flight-baggage"
+              >
+                <div class="card border">
+                  <div
+                    class="card-header d-flex align-items-center border-bottom"
+                  >
+                    <img
+                      src="assets/images/element/09.svg"
+                      class="h-20px me-1"
+                      alt=""
+                    />
+                    <h5 class="card-title mb-0">BOM - CDG</h5>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="table-responsive-lg">
+                      <table class="table caption-bottom mb-0">
+                        <caption class="pb-0">
+                          *1PC = 23KG
+                        </caption>
+
+                        <thead class="table-dark">
+                          <tr>
+                            <th scope="col" class="border-0 rounded-start">
+                              Baggage Type
+                            </th>
+                            <th scope="col" class="border-0">Check In</th>
+                            <th scope="col" class="border-0 rounded-end">
+                              Cabin
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody class="border-top-0">
+                          <tr>
+                            <td>Adult</td>
+                            <td>2 PC</td>
+                            <td>7 Kg</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+
+          <li ngbNavItem class="nav-item" role="presentation">
+            <button
+              ngbNavLink
+              class="nav-link mb-0"
+              id="flight-policy"
+              data-bs-toggle="pill"
+              data-bs-target="#flight-policy-tab"
+              type="button"
+              role="tab"
+              aria-controls="flight-policy-tab"
+              aria-selected="false"
+            >
+              Cancellation Rules
+            </button>
+            <ng-template ngbNavContent>
+              <div
+                class="tab-pane"
+                id="flight-policy-tab"
+                role="tabpanel"
+                aria-labelledby="flight-policy"
+              >
+                <div class="card border">
+                  <div
+                    class="card-header d-flex align-items-center border-bottom"
+                  >
+                    <img
+                      src="assets/images/element/09.svg"
+                      class="h-20px me-1"
+                      alt=""
+                    />
+                    <h5 class="card-title mb-0">BOM - CDG</h5>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="table-responsive-lg">
+                      <table class="table caption-bottom mb-0">
+                        <caption class="pb-0">
+                          *From The Date Of Departure
+                        </caption>
+
+                        <thead class="table-dark">
+                          <tr>
+                            <th scope="col" class="border-0 rounded-start">
+                              Time Frame
+                            </th>
+                            <th scope="col" class="border-0 rounded-end">
+                              Air Free + MMT Free
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody class="border-top-0">
+                          <tr>
+                            <td>0 hours to 24 hours</td>
+                            <td>Non Refundable</td>
+                          </tr>
+                          <tr>
+                            <td>24 hours to 365 days</td>
+                            <td>
+                              {{ currencyType }}16,325 + {{ currencyType }}250
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+
+        <div [ngbNavOutlet]="nav"></div>
+      </div>
+    </div>
+  </div>
+</div>

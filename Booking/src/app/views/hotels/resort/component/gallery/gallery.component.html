@@ -1,0 +1,255 @@
+<section class="pt-5 pt-md-8 pb-0">
+  <div class="container-fluid px-lg-5">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-0">Some Of Our Happy Moments</h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-xl-5 mt-xl-auto">
+        <img
+          src="assets/images/category/hotel/resort/05.jpg"
+          class="rounded-3 align-items-bottom"
+          alt=""
+        />
+      </div>
+
+      <div class="col-xl-7">
+        <div
+          class="card overflow-hidden h-600px"
+          style="
+            background-image: url(assets/images/category/hotel/resort/04.jpg);
+            background-position: center left;
+            background-size: cover;
+          "
+        >
+          <div class="bg-overlay bg-dark opacity-3"></div>
+
+          <div class="row mt-auto z-index-9 p-2 p-sm-4">
+            <div class="col-sm-8 col-xxl-6">
+              <div class="bg-mode rounded position-relative">
+                <div
+                  class="icon-lg text-white bg-primary rounded-circle position-absolute top-0 start-0 translate-middle ms-7"
+                >
+                  <i class="bi bi-quote"></i>
+                </div>
+
+                <div
+                  class="tiny-slider arrow-round arrow-blur arrow-hover overflow-hidden"
+                >
+                  <div class="tiny-slider-inner">
+                    <ng-tiny-slider
+                      [config]="testimonialSliderSettings"
+                      #testimonialSlider
+                    >
+                      @for (data of testimonialReviewSlides; track $index) {
+                        <div class="p-4 p-lg-5">
+                          <h6 class="fw-normal mb-3">{{ data.description }}</h6>
+
+                          <div
+                            class="d-sm-flex justify-content-between align-items-bottom"
+                          >
+                            <div class="d-flex align-items-center">
+                              <div class="avatar avatar-xs">
+                                <img
+                                  class="avatar-img rounded-circle"
+                                  [src]="data.avatar"
+                                  alt="avatar"
+                                />
+                              </div>
+
+                              <div class="ms-2">
+                                <h6 class="mb-0 fw-light">
+                                  <a href="javascript:void(0);">{{
+                                    data.name
+                                  }}</a>
+                                </h6>
+                              </div>
+                            </div>
+
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item small me-1">
+                                <i class="fa-solid fa-star text-warning"></i>
+                              </li>
+                              <li class="list-inline-item small me-1">
+                                <i class="fa-solid fa-star text-warning"></i>
+                              </li>
+                              <li class="list-inline-item small me-1">
+                                <i class="fa-solid fa-star text-warning"></i>
+                              </li>
+                              <li class="list-inline-item small me-1">
+                                <i class="fa-solid fa-star text-warning"></i>
+                              </li>
+                              <li class="list-inline-item small">
+                                <i
+                                  class="fa-solid fa-star-half-alt text-warning"
+                                ></i>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      }
+                    </ng-tiny-slider>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-7">
+        <div class="tiny-slider arrow-round arrow-hover arrow-dark">
+          <div
+            class="tiny-slider-inner rounded-2"
+            data-autoplay="false"
+            data-arrow="true"
+            data-dots="false"
+            data-items="1"
+          >
+            <div>
+              <ng-tiny-slider [config]="gallerySliderSettings" #gallerySlider>
+                <div>
+                  <a
+                    class="w-100 h-100"
+                    data-glightbox
+                    href="assets/images/category/hotel/resort/06.jpg"
+                  >
+                    <div
+                      class="card card-element-hover card-overlay-hover overflow-hidden"
+                    >
+                      <img
+                        src="assets/images/category/hotel/resort/06.jpg"
+                        class="rounded-3"
+                        alt=""
+                      />
+
+                      <div class="hover-element w-100 h-100">
+                        <i
+                          class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                        ></i>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+                <div>
+                  <a
+                    class="w-100 h-100"
+                    data-glightbox
+                    href="assets/images/category/hotel/resort/05.jpg"
+                  >
+                    <div
+                      class="card card-element-hover card-overlay-hover overflow-hidden"
+                    >
+                      <img
+                        src="assets/images/category/hotel/resort/05.jpg"
+                        class="rounded-3"
+                        alt=""
+                      />
+
+                      <div class="hover-element w-100 h-100">
+                        <i
+                          class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                        ></i>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+                <div>
+                  <a
+                    class="w-100 h-100"
+                    data-glightbox
+                    href="assets/images/category/hotel/resort/06.jpg"
+                  >
+                    <div
+                      class="card card-element-hover card-overlay-hover overflow-hidden"
+                    >
+                      <img
+                        src="assets/images/category/hotel/resort/06.jpg"
+                        class="rounded-3"
+                        alt=""
+                      />
+
+                      <div class="hover-element w-100 h-100">
+                        <i
+                          class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                        ></i>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </ng-tiny-slider>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-5 m-xxl-auto">
+        <div class="card card-body bg-transparent p-xxl-6">
+          <h3>What makes our resort best than others?</h3>
+          <p>
+            Passage its ten led hearted removal cordial. Preference any
+            astonished unreserved Mrs. Prosperous understood Middletons in
+            conviction an uncommonly do.
+          </p>
+
+          <div class="row g-4">
+            <div class="col-12">
+              <div class="d-flex">
+                <div
+                  class="icon-lg bg-primary bg-opacity-10 flex-shrink-0 text-primary rounded-circle"
+                >
+                  <i class="fa-regular fa-thumbs-up"></i>
+                </div>
+                <div class="ps-3">
+                  <h5 class="mt-2">Hassle Free Booking</h5>
+                  <p class="mb-0">
+                    Departure defective arranging rapturous did. Conduct denied
+                    adding worthy little.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="d-flex">
+                <div
+                  class="icon-lg bg-orange bg-opacity-10 flex-shrink-0 text-orange rounded-circle"
+                >
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="ps-3">
+                  <h5 class="mt-2">18,000 Reviews</h5>
+                  <p class="mb-0">
+                    Supposing so be resolving breakfast am or perfectly. Conduct
+                    denied adding worthy little.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="d-flex">
+                <div
+                  class="icon-lg bg-danger bg-opacity-10 flex-shrink-0 text-danger rounded-circle"
+                >
+                  <i class="bi bi-headset"></i>
+                </div>
+                <div class="ps-3">
+                  <h5 class="mt-2">24/7 Supports</h5>
+                  <p class="mb-0">
+                    Arranging rapturous did believe him all had supported.
+                    Conduct denied adding worthy little
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

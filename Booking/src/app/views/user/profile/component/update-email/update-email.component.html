@@ -1,0 +1,35 @@
+<div class="card border">
+  <div class="card-header border-bottom">
+    <h4 class="card-header-title">Update email</h4>
+    <p class="mb-0">
+      Your current email address is
+      <span class="text-primary">example&#64;gmail.com</span>
+    </p>
+  </div>
+
+  <div class="card-body">
+    <form novalidate [formGroup]="updateEmail">
+      <label class="form-label"
+        >Enter your new email id<span class="text-danger">*</span></label
+      >
+      <input
+        type="email"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': formSubmit && form['email'].errors }"
+        placeholder="Enter your email id"
+      />
+      @if (formSubmit && form['email'].errors) {
+        <div class="invalid-feedback">Please enter your email</div>
+      }
+      <div class="text-end mt-3">
+        <a
+          (click)="onSubmit()"
+          href="javascript:void(0);"
+          class="btn btn-primary mb-0"
+          >Save Email</a
+        >
+      </div>
+    </form>
+  </div>
+</div>

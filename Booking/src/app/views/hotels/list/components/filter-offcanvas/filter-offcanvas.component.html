@@ -1,0 +1,516 @@
+<button
+  class="btn btn-primary-soft btn-primary-check mb-0 d-xl-none"
+  type="button"
+  (click)="showFilter(content)"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#offcanvasSidebar"
+  aria-controls="offcanvasSidebar"
+>
+  <i class="fa-solid fa-sliders-h me-1"></i> Show filters
+</button>
+
+<ng-template
+  #content
+  let-offcanvas
+  tabindex="-1"
+  id="offcanvasSidebar"
+  aria-labelledby="offcanvasSidebarLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Advance Filters</h5>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="offcanvas.close()"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body flex-column p-3 p-xl-0">
+    <form class="rounded-3 shadow">
+      <div class="card card-body rounded-0 rounded-top p-4">
+        <h6 class="mb-2">Hotel Type</h6>
+
+        <div class="col-12">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="hotelType1"
+            />
+            <label class="form-check-label" for="hotelType1">All</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="hotelType2"
+            />
+            <label class="form-check-label" for="hotelType2">Hotel</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="hotelType3"
+            />
+            <label class="form-check-label" for="hotelType3">Apartment</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="hotelType4"
+            />
+            <label class="form-check-label" for="hotelType4">Resort</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="hotelType5"
+            />
+            <label class="form-check-label" for="hotelType5">Villa</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="hotelType6"
+            />
+            <label class="form-check-label" for="hotelType6">Lodge</label>
+          </div>
+
+          <div
+            #collapse="ngbCollapse"
+            [(ngbCollapse)]="isCollapsed"
+            class="multi-collapse collapse"
+            id="hotelType"
+          >
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="hotelType7"
+              />
+              <label class="form-check-label" for="hotelType7"
+                >Guest House</label
+              >
+            </div>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="hotelType10"
+              />
+              <label class="form-check-label" for="hotelType10">Cottage</label>
+            </div>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="hotelType8"
+              />
+              <label class="form-check-label" for="hotelType8">Beach Hut</label>
+            </div>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="hotelType9"
+              />
+              <label class="form-check-label" for="hotelType9"
+                >Farm house</label
+              >
+            </div>
+          </div>
+
+          <a
+            class="p-0 mb-0 mt-2 btn-more d-flex align-items-center collapsed"
+            (click)="collapse.toggle()"
+            href="javascript:void(0);"
+            role="button"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="hotelType"
+          >
+            See <span class="see-more ms-1">more</span
+            ><span class="see-less ms-1">less</span
+            ><i class="fa-solid fa-angle-down ms-2"></i>
+          </a>
+        </div>
+      </div>
+
+      <hr class="my-0" />
+
+      <div class="card card-body rounded-0 p-4">
+        <h6 class="mb-2">Price range</h6>
+
+        <div class="col-12">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="priceRange1"
+            />
+            <label class="form-check-label" for="priceRange1"
+              >Up to {{ currencyType }}500</label
+            >
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="priceRange2"
+            />
+            <label class="form-check-label" for="priceRange2"
+              >{{ currencyType }}500 - {{ currencyType }}1000</label
+            >
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="priceRange3"
+            />
+            <label class="form-check-label" for="priceRange3"
+              >{{ currencyType }}1000 - {{ currencyType }}1500</label
+            >
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="priceRange4"
+            />
+            <label class="form-check-label" for="priceRange4"
+              >{{ currencyType }}1500 - {{ currencyType }}2000</label
+            >
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="priceRange5"
+            />
+            <label class="form-check-label" for="priceRange5"
+              >{{ currencyType }}2000+</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-0" />
+
+      <div class="card card-body rounded-0 p-4">
+        <h6 class="mb-2">Popular Type</h6>
+
+        <div class="col-12">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="popolarType1"
+            />
+            <label class="form-check-label" for="popolarType1"
+              >Free Breakfast Included</label
+            >
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="popolarType2"
+            />
+            <label class="form-check-label" for="popolarType2"
+              >Pay At Hotel Available</label
+            >
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="popolarType3"
+            />
+            <label class="form-check-label" for="popolarType3"
+              >Free Cancellation Available</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-0" />
+
+      <div class="card card-body rounded-0 p-4">
+        <h6 class="mb-2">Customer Rating</h6>
+
+        <ul class="list-inline mb-0 g-3">
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-c1" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-c1"
+              >3+</label
+            >
+          </li>
+
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-c2" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-c2"
+              >3.5+</label
+            >
+          </li>
+
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-c3" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-c3"
+              >4+</label
+            >
+          </li>
+
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-c4" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-c4"
+              >4.5+</label
+            >
+          </li>
+        </ul>
+      </div>
+
+      <hr class="my-0" />
+
+      <div class="card card-body rounded-0 p-4">
+        <h6 class="mb-2">Rating Star</h6>
+
+        <ul class="list-inline mb-0 g-3">
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-6" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-6"
+              >1<i class="bi bi-star-fill"></i
+            ></label>
+          </li>
+
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-7" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-7"
+              >2<i class="bi bi-star-fill"></i
+            ></label>
+          </li>
+
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-8" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-8"
+              >3<i class="bi bi-star-fill"></i
+            ></label>
+          </li>
+
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-15" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-15"
+              >4<i class="bi bi-star-fill"></i
+            ></label>
+          </li>
+
+          <li class="list-inline-item mb-0">
+            <input type="checkbox" class="btn-check" id="btn-check-16" />
+            <label
+              class="btn btn-sm btn-light btn-primary-soft-check"
+              for="btn-check-16"
+              >5<i class="bi bi-star-fill"></i
+            ></label>
+          </li>
+        </ul>
+      </div>
+
+      <hr class="my-0" />
+
+      <div class="card card-body rounded-0 rounded-bottom p-4">
+        <h6 class="mb-2">Amenities</h6>
+
+        <div class="col-12">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="amenitiesType1"
+            />
+            <label class="form-check-label" for="amenitiesType1">All</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="amenitiesType2"
+            />
+            <label class="form-check-label" for="amenitiesType2"
+              >Air Conditioning</label
+            >
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="amenitiesType3"
+            />
+            <label class="form-check-label" for="amenitiesType3">Bar</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="amenitiesType4"
+            />
+            <label class="form-check-label" for="amenitiesType4">Bonfire</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="amenitiesType5"
+            />
+            <label class="form-check-label" for="amenitiesType5"
+              >Business Services</label
+            >
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="amenitiesType6"
+            />
+            <label class="form-check-label" for="amenitiesType6"
+              >Caretaker</label
+            >
+          </div>
+
+          <div
+            #amenitiesCollapes="ngbCollapse"
+            [(ngbCollapse)]="amenitiesCollapsed"
+            class="multi-collapse collapse"
+            id="amenitiesCollapes"
+          >
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="amenitiesType7"
+              />
+              <label class="form-check-label" for="amenitiesType7"
+                >Dining</label
+              >
+            </div>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="amenitiesType8"
+              />
+              <label class="form-check-label" for="amenitiesType8"
+                >Free Internet</label
+              >
+            </div>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="amenitiesType9"
+              />
+              <label class="form-check-label" for="amenitiesType9"
+                >Hair nets</label
+              >
+            </div>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="amenitiesType10"
+              />
+              <label class="form-check-label" for="amenitiesType10"
+                >Masks</label
+              >
+            </div>
+          </div>
+
+          <a
+            class="p-0 mb-0 mt-2 btn-more d-flex align-items-center collapsed"
+            (click)="amenitiesCollapes.toggle()"
+            role="button"
+            [attr.aria-expanded]="!amenitiesCollapsed"
+            aria-controls="amenitiesCollapes"
+          >
+            See <span class="see-more ms-1">more</span
+            ><span class="see-less ms-1">less</span
+            ><i class="fa-solid fa-angle-down ms-2"></i>
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="d-flex justify-content-between p-2 p-xl-0 mt-xl-4">
+    <button class="btn btn-link p-0 mb-0">Clear all</button>
+    <button class="btn btn-primary mb-0">Filter Result</button>
+  </div>
+</ng-template>
