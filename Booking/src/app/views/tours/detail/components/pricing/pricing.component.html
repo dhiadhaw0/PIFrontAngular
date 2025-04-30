@@ -1,0 +1,183 @@
+<div class="row g-4">
+  <div class="col-md-6 col-xl-12">
+    <div class="card card-body border bg-transparent">
+      <div class="hstack gap-2 mb-1">
+        <h3 class="card-title mb-0">{{ currencyType }}280</h3>
+        <span class="fs-5">/person</span>
+      </div>
+
+      <div class="d-flex justify-content-between mb-4">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item me-1 h6 mb-0">4.5</li>
+          <li class="list-inline-item me-0 small">
+            <i class="fa-solid fa-star text-warning"></i>
+          </li>
+          <li class="list-inline-item me-0 small">
+            <i class="fa-solid fa-star text-warning"></i>
+          </li>
+          <li class="list-inline-item me-0 small">
+            <i class="fa-solid fa-star text-warning"></i>
+          </li>
+          <li class="list-inline-item me-0 small">
+            <i class="fa-solid fa-star text-warning"></i>
+          </li>
+          <li class="list-inline-item me-0 small">
+            <i class="fa-solid fa-star-half-alt text-warning"></i>
+          </li>
+        </ul>
+        <a
+          href="javascript:void(0);"
+          class="mb-0 m-0 text-reset text-primary-hover"
+          >(365 reviews)</a
+        >
+      </div>
+
+      <div class="d-grid gap-2">
+        <a routerLink="/tours/booking" class="btn btn-primary">Book Now</a>
+        <button
+          class="btn btn-outline-primary mb-0"
+          (click)="openModal(content)"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#inquiryForm"
+        >
+          <i class="bi bi-eye fa-fw me-2"></i>Send Inquiry
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xl-12">
+    <div class="card card-body bg-light p-4">
+      <h4 class="card-title">Need Help?</h4>
+
+      <ul class="list-group list-group-borderless">
+        <li class="list-group-item py-3">
+          <a href="javascript:void(0);" class="h6 mb-0">
+            <i class="bi fa-fw bi-telephone-forward text-primary fs-5 me-2"></i>
+            <span class="fw-light me-1">Call us on:</span>+31 123 456 789
+          </a>
+        </li>
+
+        <li class="list-group-item py-0">
+          <hr class="my-0" />
+        </li>
+
+        <li class="list-group-item py-3">
+          <h6 class="mb-0">
+            <i class="bi fa-fw bi-alarm text-primary fs-5 me-2"></i>
+            <span class="h6 fw-light me-1 mb-0">Timing:</span>10AM to 7PM
+          </h6>
+        </li>
+
+        <li class="list-group-item py-0">
+          <hr class="my-0" />
+        </li>
+
+        <li class="list-group-item py-3">
+          <a href="javascript:void(0);" class="h6 mb-0">
+            <i class="bi fa-fw bi-headset text-primary fs-5 me-2"></i>Let Us
+            Call You
+          </a>
+        </li>
+
+        <li class="list-group-item py-0">
+          <hr class="my-0" />
+        </li>
+
+        <li class="list-group-item pt-3 pb-0">
+          <a routerLink="/pages/contact" class="h6 mb-0">
+            <i class="bi fa-fw bi-calendar-check text-primary fs-5 me-2"></i
+            >Book Appointments
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="inquiryFormlabel">Get Inquiry</h5>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modal.close()"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="modal-body p-3">
+    <div class="card bg-transparent">
+      <div class="card-header bg-transparent">
+        <h6 class="card-title mb-0">
+          Our expert will get in touch with you shortly
+        </h6>
+      </div>
+
+      <div class="card-body pt-0">
+        <form [formGroup]="modalForm">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input
+              type="text"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': formSubmit && form['name'].errors }"
+              class="form-control"
+              placeholder="Enter Your name"
+            />
+            <div class="invalid-feedback">Please enter your name</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Email id</label>
+            <input
+              type="email"
+              formControlName="email"
+              [ngClass]="{ 'is-invalid': formSubmit && form['email'].errors }"
+              class="form-control"
+              placeholder="Enter Your emil id"
+            />
+            <div class="invalid-feedback">Please enter your email</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Phone number</label>
+            <input
+              type="text"
+              formControlName="number"
+              [ngClass]="{ 'is-invalid': formSubmit && form['number'].errors }"
+              class="form-control"
+              placeholder="Enter Your phone number"
+            />
+            <div class="invalid-feedback">
+              phoneNo must be a `number` type, but the final value was: `NaN`
+              (cast from the value `""`).
+            </div>
+          </div>
+
+          <div class="mb-3 ms-2 form-check">
+            <input type="checkbox" class="form-check-input" id="inquiryCheck" />
+            <label class="form-check-label" for="inquiryCheck"
+              >I agree to receive updates and offers</label
+            >
+          </div>
+
+          <div class="d-grid gap-2 d-md-block">
+            <button
+              class="btn btn-dark mb-0"
+              type="submit"
+              (click)="onSubmit()"
+            >
+              Send Inquiry
+            </button>
+            <button class="btn btn-link mb-0" type="button">
+              Call on: +123 456 89
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

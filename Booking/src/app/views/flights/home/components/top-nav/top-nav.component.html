@@ -1,0 +1,85 @@
+@if (staticAlert) {
+  <ngb-alert
+    [dismissible]="false"
+    class="alert topNav alert-warning py-2 text-white m-0 bg-primary border-0 rounded-0 alert-dismissible fade show text-center overflow-hidden"
+    role="alert"
+  >
+    <p class="text-white m-0">
+      Traveling internationally? Get update information on COVID-19 travel
+      guidance and restrictions<a
+        href="javascript:void(0)"
+        class="btn btn-xs btn-dark ms-2 mb-0"
+        >Learn more!</a
+      >
+    </p>
+    <button
+      type="button"
+      class="btn-close btn-close-white opacity-9 p-3"
+      (click)="staticAlert = false"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </ngb-alert>
+}
+
+<sticky-header-component>
+  <nav class="navbar navbar-expand-xl">
+    <div class="container">
+      <app-logo-box />
+
+      <vertical-menu-button
+        [showText]="false"
+        className="ms-auto mx-3 me-xl-0 p-0 p-sm-1"
+      />
+
+      <app-menu
+        [startBookingMenu]="true"
+        [showExtraPages]="true"
+        [menuClassName]="'me-auto'"
+      />
+
+      <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+        <app-theme-switcher
+          [btnclassName]="'btn btn-link text-warning p-0 mb-0'"
+        />
+
+        <li class="nav-item dropdown nav-search me-2" ngbDropdown>
+          <a
+            class="nav-link mb-0 py-0 arrow-none"
+            role="button"
+            ngbDropdownToggle
+            href="javascript:void(0)"
+            id="navSearch"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            data-bs-auto-close="outside"
+            data-bs-display="static"
+          >
+            <i class="bi bi-search fs-5"></i>
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-end shadow rounded p-2"
+            ngbDropdownMenu
+            aria-labelledby="navSearch"
+          >
+            <form class="input-group">
+              <input
+                class="form-control border-primary"
+                type="search"
+                placeholder="Search..."
+                aria-label="Search"
+              />
+              <button class="btn btn-primary m-0" type="submit">Search</button>
+            </form>
+          </div>
+        </li>
+
+        <li class="nav-item ms-2 d-none d-sm-block">
+          <a href="javascript:void(0)" class="btn btn-sm btn-primary-soft mb-0"
+            ><i class="fa-solid fa-right-to-bracket me-1"></i> Sign Up</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</sticky-header-component>

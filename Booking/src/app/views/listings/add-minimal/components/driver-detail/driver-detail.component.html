@@ -1,0 +1,76 @@
+<div class="card shadow">
+  <div class="card-header border-bottom">
+    <h5 class="mb-0">Driver Detail</h5>
+  </div>
+
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label">Title</label>
+        <select
+          selectFormInput
+          [options]="{ searchEnabled: false }"
+          class="form-select js-choice"
+        >
+          <option>Mr</option>
+          <option>Mrs</option>
+        </select>
+      </div>
+
+      <div class="col-md-9">
+        <label class="form-label">Driver Name</label>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="First name" />
+          <input type="text" class="form-control" placeholder="Last name" />
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Contact Number</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Enter contact number"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">License Number</label>
+        <input
+          class="form-control"
+          type="email"
+          placeholder="Enter license number"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">State</label>
+        <select
+          selectFormInput
+          class="form-select js-choice"
+          data-search-enabled="true"
+        >
+          <option value="">Select state</option>
+          <option>India</option>
+          <option>Usa</option>
+          <option>Japan</option>
+          <option>United Kingdom</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">City</label>
+        <input class="form-control" type="text" placeholder="Enter city" />
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Address</label>
+        <textarea
+          class="form-control"
+          rows="2"
+          placeholder="Enter keywords"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+</div>

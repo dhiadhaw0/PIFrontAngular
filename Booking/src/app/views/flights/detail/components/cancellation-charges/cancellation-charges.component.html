@@ -1,0 +1,189 @@
+<div class="card card-body border p-4">
+  <div class="cardt-title mb-3">
+    <h5 class="mb-0">Cancellation & Date Change Charges</h5>
+  </div>
+
+  <h6 class="text-danger">Non Refundable</h6>
+  <p class="mb-2">
+    The Cancellation penalty on this booking will depend on how close to the
+    departure date you cancel your ticket. View fare rules to know more
+  </p>
+  <div>
+    <a
+      (click)="openChangeModal(ChangeContent)"
+      href="javascript:void(0);"
+      class="btn btn-link p-0 mb-0 text-decoration-underline"
+      data-bs-toggle="modal"
+      data-bs-target="#cancellation"
+    >
+      <i class="bi bi-eye-fill"></i> View Detail
+    </a>
+  </div>
+</div>
+
+<ng-template #ChangeContent let-modal class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="cancellationlabel">
+      Cancellation & Date Change Charges
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modal.close()"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="modal-body p-3">
+    <ul
+      ngbNav
+      #nav="ngbNav"
+      class="nav nav-pills nav-justified nav-responsive bg-primary bg-opacity-10 rounded p-2 mb-3"
+      id="tour-pills-tab"
+      role="tablist"
+    >
+      <li ngbNavItem class="nav-item" role="presentation">
+        <button
+          ngbNavLink
+          class="nav-link rounded-start mb-0"
+          id="tour-pills-tab-1"
+          data-bs-toggle="pill"
+          data-bs-target="#tour-pills-tab1"
+          type="button"
+          role="tab"
+          aria-controls="tour-pills-tab1"
+          aria-selected="true"
+        >
+          Cancellation Charge
+        </button>
+        <ng-template ngbNavContent>
+          <div
+            class="tab-pane fade show active"
+            id="tour-pills-tab1"
+            role="tabpanel"
+            aria-labelledby="tour-pills-tab-1"
+          >
+            <div class="card border">
+              <div class="card-header border-bottom">
+                <h5 class="card-title mb-0">
+                  <img
+                    src="assets/images/element/09.svg"
+                    class="h-50px"
+                    alt=""
+                  />
+                  BOM - CDG
+                </h5>
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive-lg">
+                  <table
+                    class="table table-bordered rounded caption-bottom overflow-hidden mb-0"
+                  >
+                    <caption class="pb-0">
+                      *From The Date Of Departure
+                    </caption>
+
+                    <thead class="table-dark border-light">
+                      <tr>
+                        <th scope="col">Time Frame</th>
+                        <th scope="col">Air Free + MMT Free</th>
+                      </tr>
+                    </thead>
+
+                    <tbody class="border-top-0">
+                      <tr>
+                        <td>0 hours to 24 hours</td>
+                        <td>Non Refundable</td>
+                      </tr>
+                      <tr>
+                        <td>24 hours to 365 days</td>
+                        <td>
+                          {{ currencyType }}16,325 + {{ currencyType }}250
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+
+      <li class="nav-item" ngbNavItem="" role="presentation">
+        <button
+          ngbNavLink
+          class="nav-link rounded-end mb-0"
+          id="tour-pills-tab-2"
+          data-bs-toggle="pill"
+          data-bs-target="#tour-pills-tab2"
+          type="button"
+          role="tab"
+          aria-controls="tour-pills-tab2"
+          aria-selected="false"
+        >
+          Date Change Charge
+        </button>
+        <ng-template ngbNavContent>
+          <div
+            class="tab-pane fade active show"
+            id="tour-pills-tab2"
+            role="tabpanel"
+            aria-labelledby="tour-pills-tab-2"
+          >
+            <div class="card border">
+              <div class="card-header border-bottom">
+                <h5 class="card-title mb-0">
+                  <img
+                    src="assets/images/element/09.svg"
+                    class="h-50px"
+                    alt=""
+                  />
+                  JFK - BOM
+                </h5>
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive-lg">
+                  <table
+                    class="table table-bordered rounded caption-bottom overflow-hidden mb-0"
+                  >
+                    <caption class="pb-0">
+                      *From The Date Of Departure
+                    </caption>
+
+                    <thead class="table-dark border-light">
+                      <tr>
+                        <th scope="col">Time Frame</th>
+                        <th scope="col">
+                          Air Free + MMT Free + Fare Difference
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody class="border-top-0">
+                      <tr>
+                        <td>0 hours to 24 hours</td>
+                        <td>Non Refundable</td>
+                      </tr>
+                      <tr>
+                        <td>24 hours to 365 days</td>
+                        <td>
+                          {{ currencyType }}16,325 + {{ currencyType }}250 +
+                          Fare Difference
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </div>
+</ng-template>

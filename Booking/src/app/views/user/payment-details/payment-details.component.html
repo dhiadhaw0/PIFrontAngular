@@ -1,0 +1,163 @@
+<div class="card bg-transparent border">
+  <div class="card-header bg-transparent border-bottom">
+    <h4 class="card-header-title">Payment Details</h4>
+  </div>
+
+  <div class="card-body p-2 p-sm-4">
+    <h5>Saved Card</h5>
+    <div class="row g-4">
+      @for (item of paymentCards; track $index) {
+        <div class="col-md-6">
+          <div class="card">
+            <div class="bg-{{ item.variant }} p-4 rounded-3">
+              <div class="d-flex justify-content-between align-items-start">
+                <img class="w-40px" [src]="item.companyLogo" alt="" />
+
+                <div class="dropdown" ngbDropdown>
+                  <a
+                    class="text-white arrow-none"
+                    ngbDropdownToggle
+                    href="javascript:void(0);"
+                    id="creditcardDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    aria-expanded="false"
+                  >
+                    <svg width="24" height="24" fill="none">
+                      <circle
+                        fill="currentColor"
+                        cx="12.5"
+                        cy="3.5"
+                        r="2.5"
+                      ></circle>
+                      <circle
+                        fill="currentColor"
+                        opacity="0.5"
+                        cx="12.5"
+                        cy="11.5"
+                        r="2.5"
+                      ></circle>
+                      <circle
+                        fill="currentColor"
+                        opacity="0.3"
+                        cx="12.5"
+                        cy="19.5"
+                        r="2.5"
+                      ></circle>
+                    </svg>
+                  </a>
+                  <ul
+                    ngbDropdownMenu
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="creditcardDropdown"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="javascript:void(0);"
+                        ><i
+                          class="bi bi-credit-card-2-front-fill me-2 fw-icon"
+                        ></i
+                        >Edit card</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="javascript:void(0);"
+                        ><i class="bi bi-calculator me-2 fw-icon"></i>Currency
+                        converter</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <h4 class="text-white mt-4">**** **** **** {{ item.number }}</h4>
+              <div class="d-flex justify-content-between text-white">
+                <span>Valid thru: {{ item.validDate }}</span>
+                <span>CVV: ***</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="card border mt-4">
+      <div class="card-header border-bottom">
+        <h5 class="card-header-title">Add New Card</h5>
+      </div>
+
+      <div class="card-body">
+        <form class="row text-start g-4">
+          <div class="col-12">
+            <label class="form-label"
+              >Card Number<span class="text-danger">*</span></label
+            >
+            <div class="position-relative">
+              <input
+                type="text"
+                class="form-control"
+                mask="XXXX XXXX XXXX XXXX"
+                placeholder="XXXX XXXX XXXX XXXX"
+              />
+              <img
+                src="assets/images/element/visa.svg"
+                class="w-40px position-absolute top-50 end-0 translate-middle-y me-2 d-none d-sm-block"
+                alt=""
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label"
+              >Expiration Date<span class="text-danger">*</span></label
+            >
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                mask="XX"
+                maxlength="2"
+                placeholder="Month"
+              />
+              <input
+                type="text"
+                class="form-control"
+                mask="XXXX"
+                maxlength="4"
+                placeholder="Year"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label"
+              >CVV / CVC<span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              mask="XXX"
+              maxlength="3"
+              placeholder="xxx"
+            />
+          </div>
+
+          <div class="col-12">
+            <label class="form-label"
+              >Name on Card<span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              aria-label="name of card holder"
+              placeholder="Enter card holder name"
+            />
+          </div>
+
+          <div class="col-12">
+            <button class="btn btn-primary mb-0">Add card</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

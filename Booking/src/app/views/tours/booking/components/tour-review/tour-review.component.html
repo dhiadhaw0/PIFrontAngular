@@ -1,0 +1,870 @@
+<section>
+  <div class="container">
+    <div #stepperRef id="stepper" class="bs-stepper stepper-outline">
+      <div class="bs-stepper-header" role="tablist">
+        <div class="step" data-target="#step-1">
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-link step-trigger mb-0 bg-transparent"
+              role="tab"
+              id="steppertrigger1"
+              aria-controls="step-1"
+            >
+              <span class="bs-stepper-circle">1</span>
+            </button>
+            <h6 class="bs-stepper-label d-none d-md-block">Tour Review</h6>
+          </div>
+        </div>
+        <div class="line"></div>
+
+        <div class="step" data-target="#step-2">
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-link step-trigger mb-0 bg-transparent"
+              role="tab"
+              id="steppertrigger2"
+              aria-controls="step-2"
+            >
+              <span class="bs-stepper-circle">2</span>
+            </button>
+            <h6 class="bs-stepper-label d-none d-md-block">Traveler Info</h6>
+          </div>
+        </div>
+        <div class="line"></div>
+
+        <div class="step" data-target="#step-3">
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-link step-trigger mb-0 bg-transparent"
+              role="tab"
+              id="steppertrigger3"
+              aria-controls="step-3"
+            >
+              <span class="bs-stepper-circle">3</span>
+            </button>
+            <h6 class="bs-stepper-label d-none d-md-block">Make Payment</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="bs-stepper-content p-0 pt-4">
+        <div class="row g-4">
+          <div class="col-xl-8">
+            <div>
+              <div
+                id="step-1"
+                role="tabpanel"
+                stepperInstance
+                class="content fade"
+                aria-labelledby="steppertrigger1"
+              >
+                <div class="vstack gap-4">
+                  <h4 class="mb-0">Tour Review</h4>
+
+                  <hr class="my-0" />
+
+                  <div class="card shadow rounded-2 overflow-hidden">
+                    <div class="row g-0">
+                      <div class="col-sm-6 col-md-4">
+                        <img
+                          src="assets/images/category/tour/4by3/03.jpg"
+                          class=""
+                          alt=""
+                        />
+                      </div>
+
+                      <div class="col-sm-6 col-md-8">
+                        <div class="card-body p-3">
+                          <h5 class="card-title mb-1">
+                            <a href="javascript:void(0);"
+                              >Beautiful Bali with Malaysia</a
+                            >
+                          </h5>
+
+                          <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-0 small">
+                              <i class="fa-solid fa-star text-warning me-1"></i>
+                            </li>
+                            <li class="list-inline-item me-0 small">
+                              <i class="fa-solid fa-star text-warning me-1"></i>
+                            </li>
+                            <li class="list-inline-item me-0 small">
+                              <i class="fa-solid fa-star text-warning me-1"></i>
+                            </li>
+                            <li class="list-inline-item me-0 small">
+                              <i class="fa-solid fa-star text-warning me-1"></i>
+                            </li>
+                            <li class="list-inline-item me-0 small">
+                              <i
+                                class="fa-solid fa-star-half-alt text-warning"
+                              ></i>
+                            </li>
+                          </ul>
+
+                          <ul class="nav nav-divider small mb-0 mt-2">
+                            <li class="nav-item mb-1">
+                              <i class="far fa-calendar-alt me-2"></i>April
+                              12-17
+                            </li>
+                            <li class="nav-item mb-1">
+                              <i class="fa-solid fa-bed me-2"></i>1 Room
+                            </li>
+                            <li class="nav-item mb-1">
+                              <i class="bi bi-people-fill me-2"></i>2 Guests
+                            </li>
+                            <li class="nav-item mb-1">
+                              <i class="bi bi-geo-alt-fill me-2"></i>From New
+                              York
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card border">
+                    <div
+                      class="card-header border-bottom d-flex justify-content-between"
+                    >
+                      <h5 class="mb-0">Flight Details</h5>
+                      <a
+                        href="javascript:void(0);"
+                        class="btn btn-link p-0 mb-0 text-primary-hover text-reset text-decoration-underline"
+                        >View details</a
+                      >
+                    </div>
+
+                    <div class="card-body">
+                      @for (data of tourFlightDetail; track $index) {
+                        <div
+                          class="p-3 bg-light rounded-2 d-sm-flex justify-content-sm-between align-items-center"
+                          [ngClass]="$index == 0 ? 'mb-4' : ' my-4'"
+                        >
+                          <h6 class="mb-0">{{ data.place }}</h6>
+                          <h6 class="fw-normal mb-0">
+                            <span class="text-body">Date:</span> {{ data.date }}
+                          </h6>
+                        </div>
+
+                        <div class="row g-4">
+                          <div class="col-md-3">
+                            <img
+                              src="assets/images/element/09.svg"
+                              class="w-80px mb-3"
+                              alt=""
+                            />
+
+                            <h6 class="fw-normal small mb-0">
+                              Phillippines Airline
+                            </h6>
+                          </div>
+
+                          <div class="col-4 col-md-3">
+                            <h5>{{ data.departure.tag }}</h5>
+                            <h6 class="mb-0">{{ data.departure.time }}</h6>
+                          </div>
+
+                          <div class="col-4 col-md-3 text-center">
+                            <h6>{{ data.travelDuration }}</h6>
+
+                            <div class="position-relative my-4">
+                              <hr
+                                class="bg-primary opacity-5 position-relative"
+                              />
+
+                              <div
+                                class="icon-md bg-primary text-white rounded-circle position-absolute top-50 start-50 translate-middle"
+                              >
+                                <i class="fa-solid fa-fw fa-plane"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-4 col-md-3 text-end">
+                            <h5>{{ data.arrival.tag }}</h5>
+                            <h6 class="mb-0">{{ data.arrival.time }}</h6>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="card border">
+                    <div
+                      class="card-header border-bottom d-flex justify-content-between"
+                    >
+                      <h5 class="mb-0">Hotel Details</h5>
+                      <a
+                        href="javascript:void(0);"
+                        class="btn btn-link p-0 mb-0 text-primary-hover text-reset text-decoration-underline"
+                        >View details</a
+                      >
+                    </div>
+
+                    <div class="card-body">
+                      @for (
+                        item of hotelDetails;
+                        track $index;
+                        let last = $last
+                      ) {
+                        <div class="row">
+                          <div class="col-sm-8">
+                            <h6>{{ item.name }}</h6>
+                            <h6 class="mb-1 fw-light">
+                              <span class="text-secondary">Room:</span>
+                              {{ item.room }}
+                            </h6>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning me-1"></i>
+                              </li>
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning me-1"></i>
+                              </li>
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning me-1"></i>
+                              </li>
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning me-1"></i>
+                              </li>
+                              <li class="list-inline-item me-0 small">
+                                <i
+                                  class="fas fa-star-half-alt text-warning"
+                                ></i>
+                              </li>
+                            </ul>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <h6 class="mb-0">{{ item.date }}</h6>
+                            <p class="text-success mb-0">Breakfast Included</p>
+                          </div>
+                        </div>
+
+                        @if (!last) {
+                          <hr />
+                        }
+                      }
+                    </div>
+                  </div>
+
+                  <div class="card border">
+                    <div
+                      class="card-header border-bottom d-flex justify-content-between"
+                    >
+                      <h5 class="mb-0">Transfer Details</h5>
+                      <a
+                        href="javascript:void(0);"
+                        class="btn btn-link p-0 mb-0 text-primary-hover text-reset text-decoration-underline"
+                        >View details</a
+                      >
+                    </div>
+
+                    <div class="card-body">
+                      <div
+                        class="d-flex gap-1 justify-content-between flex-wrap"
+                      >
+                        <h6 class="mb-0">Private Transfer</h6>
+
+                        <p class="mb-0">
+                          Vehicle type:
+                          <span class="h6 fw-light">Sedan - AC</span>
+                        </p>
+
+                        <h6 class="mb-0 fw-normal">12 April 2022</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card border">
+                    <div class="card-header border-bottom">
+                      <h5 class="mb-0">Cancellation & Date change</h5>
+                    </div>
+
+                    <div class="card-body">
+                      <ul class="list-group list-group-borderless">
+                        <li class="list-group-item">
+                          <span class="h6 fw-normal me-1 mb-0"
+                            ><i class="bi bi-dot"></i>10 days:</span
+                          >
+                          <span>100%</span>
+                        </li>
+                        <li class="list-group-item">
+                          <span class="h6 fw-normal me-1 mb-0"
+                            ><i class="bi bi-dot"></i>10 to 15 days:</span
+                          >
+                          <span>75% + Non Refundable Component</span>
+                        </li>
+                        <li class="list-group-item">
+                          <span class="h6 fw-normal me-1 mb-0"
+                            ><i class="bi bi-dot"></i>15 to 30 days:</span
+                          >
+                          <span>30% + Non Refundable Component</span>
+                        </li>
+                        <li class="list-group-item">
+                          <span class="h6 fw-normal me-1 mb-0"
+                            ><i class="bi bi-dot"></i>10Hotel / Air:</span
+                          >
+                          <span
+                            >100% in case of non-refundable ticket / Hotel
+                            Room</span
+                          >
+                        </li>
+                        <li class="list-group-item">
+                          <span class="h6 fw-normal me-1 mb-0"
+                            ><i class="bi bi-dot"></i>10Cruise / Visa:</span
+                          >
+                          <span>On Actuals</span>
+                        </li>
+                      </ul>
+                      <p class="mt-2">
+                        All Prices are in Indian Rupees and are subject to
+                        change without prior notice.<br />In the case FIT flight
+                        inclusive package, the full amount of the flight will be
+                        payable at the time of booking.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="text-end">
+                    <button
+                      (click)="stepperInstance?.next()"
+                      class="btn btn-primary next-btn mb-0"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id="step-2"
+                role="tabpanel"
+                stepperInstance
+                class="content fade"
+                aria-labelledby="steppertrigger2"
+              >
+                <div class="vstack gap-4">
+                  <h4 class="mb-0">Traveler Detail</h4>
+
+                  <hr class="my-0" />
+
+                  <div class="alert alert-warning d-flex" role="alert">
+                    <span class="alert-heading h5 mb-0 me-2"
+                      ><i class="bi bi-exclamation-octagon-fill"></i
+                    ></span>
+                    A customer passport is mandatory. The passport must have 2
+                    blank pages and 6-month validity.
+                  </div>
+
+                  <div class="card border">
+                    <div class="card-header border-bottom">
+                      <h5 class="mb-0">Traveler 1</h5>
+                    </div>
+
+                    <div class="card-body">
+                      <div class="row g-4">
+                        <div class="col-md-2">
+                          <label class="form-label">Title</label>
+                          <div class="form-control-bg-light">
+                            <select
+                              selectFormInput
+                              [options]="{ searchEnabled: false }"
+                              class="form-select form-select-sm js-choice border-0"
+                            >
+                              <option value="Mr">Mr</option>
+                              <option value="Mrs">Mrs</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-5">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">First name</label>
+                            <input
+                              [(ngModel)]="firstName"
+                              [ngClass]="{
+                                'is-invalid': !firstName && paymentSubmitted
+                              }"
+                              type="text"
+                              class="form-control"
+                            />
+                            @if (!firstName && paymentSubmitted) {
+                              <div class="invalid-feedback">
+                                Please enter your first name
+                              </div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="col-md-5">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">Last name</label>
+                            <input
+                              [(ngModel)]="lastName"
+                              [ngClass]="{
+                                'is-invalid': !lastName && paymentSubmitted
+                              }"
+                              type="text"
+                              class="form-control"
+                            />
+                            @if (!lastName && paymentSubmitted) {
+                              <div class="invalid-feedback">
+                                Please enter your last name
+                              </div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">Date of birth</label>
+                            <input
+                              type="text"
+                              class="form-control flatpickr"
+                              mwlFlatpickr
+                              data-date-format="d M Y"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">Passport number</label>
+                            <input
+                              [(ngModel)]="password"
+                              [ngClass]="{
+                                'is-invalid': !password && paymentSubmitted
+                              }"
+                              type="text"
+                              class="form-control"
+                            />
+                            @if (!password && paymentSubmitted) {
+                              <div class="invalid-feedback">
+                                passportNo must be a `number` type, but the
+                                final value was: `NaN` (cast from the value
+                                `""`).
+                              </div>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card border">
+                    <div class="card-header border-bottom">
+                      <h5 class="mb-0">Traveler 2</h5>
+                    </div>
+
+                    <div class="card-body">
+                      <div class="row g-4">
+                        <div class="col-md-2">
+                          <label class="form-label">Title</label>
+                          <div class="form-control-bg-light">
+                            <select
+                              selectFormInput
+                              [options]="{ searchEnabled: false }"
+                              class="form-select form-select-sm js-choice border-0"
+                            >
+                              <option value="Mr">Mr</option>
+                              <option value="Mrs">Mrs</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-5">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">First name</label>
+                            <input
+                              [(ngModel)]="firstName"
+                              [ngClass]="{
+                                'is-invalid': !firstName && paymentSubmitted
+                              }"
+                              type="text"
+                              class="form-control"
+                            />
+                            @if (!firstName && paymentSubmitted) {
+                              <div class="invalid-feedback">
+                                Please enter your first name
+                              </div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="col-md-5">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">Last name</label>
+                            <input
+                              [(ngModel)]="lastName"
+                              [ngClass]="{
+                                'is-invalid': !lastName && paymentSubmitted
+                              }"
+                              type="text"
+                              class="form-control"
+                            />
+                            @if (!lastName && paymentSubmitted) {
+                              <div class="invalid-feedback">
+                                Please enter your last name
+                              </div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">Date of birth</label>
+                            <input
+                              type="text"
+                              class="form-control flatpickr"
+                              mwlFlatpickr
+                              data-date-format="d M Y"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">Passport number</label>
+                            <input
+                              [(ngModel)]="password"
+                              [ngClass]="{
+                                'is-invalid': !password && paymentSubmitted
+                              }"
+                              type="password"
+                              class="form-control"
+                            />
+                            @if (!password && paymentSubmitted) {
+                              <div class="invalid-feedback">
+                                passportNo must be a `number` type, but the
+                                final value was: `NaN` (cast from the value
+                                `""`).
+                              </div>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card border">
+                    <div class="card-header border-bottom">
+                      <h5 class="mb-0">
+                        Your booking detail will be sent here
+                      </h5>
+                    </div>
+
+                    <div class="card-body">
+                      <div class="row g-4">
+                        <div class="col-md-6">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">Mobile Number</label>
+                            <input
+                              [(ngModel)]="mobileNumber"
+                              [ngClass]="{
+                                'is-invalid': !mobileNumber && paymentSubmitted
+                              }"
+                              type="number"
+                              class="form-control"
+                            />
+                            @if (!mobileNumber && paymentSubmitted) {
+                              <div class="invalid-feedback">
+                                mobileNo must be a `number` type, but the final
+                                value was: `NaN` (cast from the value `""`).
+                              </div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-control-bg-light">
+                            <label class="form-label">Email id</label>
+                            <input
+                              [(ngModel)]="emailId"
+                              [ngClass]="{
+                                'is-invalid': !emailId && paymentSubmitted
+                              }"
+                              type="email"
+                              class="form-control"
+                            />
+                            @if (!emailId && paymentSubmitted) {
+                              <div class="invalid-feedback">
+                                Please enter your email
+                              </div>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hstack gap-2 flex-wrap justify-content-between">
+                    <button
+                      (click)="stepperInstance?.previous()"
+                      class="btn btn-secondary prev-btn mb-0"
+                    >
+                      Previous
+                    </button>
+                    <button
+                      (click)="paymentContinue()"
+                      class="btn btn-primary next-btn mb-0"
+                    >
+                      Continue to payment
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id="step-3"
+                role="tabpanel"
+                stepperInstance
+                class="content fade"
+                aria-labelledby="steppertrigger3"
+              >
+                <div class="vstack gap-4">
+                  <h4 class="mb-0">Payment options</h4>
+
+                  <hr class="my-0" />
+
+                  <div class="card border">
+                    <div
+                      class="card-header border-bottom d-sm-flex justify-content-between align-items-center"
+                    >
+                      <h5 class="mb-2 mb-sm-0">Credit or Debit Card</h5>
+                      <ul class="list-inline my-0">
+                        <li class="list-inline-item">
+                          <a href="javascript:void(0);"
+                            ><img
+                              src="assets/images/element/visa.svg"
+                              class="h-30px me-1"
+                              alt=""
+                          /></a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a href="javascript:void(0);"
+                            ><img
+                              src="assets/images/element/mastercard.svg"
+                              class="h-30px me-1"
+                              alt=""
+                          /></a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a href="javascript:void(0);"
+                            ><img
+                              src="assets/images/element/expresscard.svg"
+                              class="h-30px me-1"
+                              alt=""
+                          /></a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="card-body">
+                      <div class="row g-4">
+                        <div class="col-12">
+                          <label class="form-label">Card Number</label>
+                          <div class="position-relative form-control-bg-light">
+                            <input
+                              type="text"
+                              class="form-control"
+                              mask="XXXX XXXX XXXX XXXX"
+                              placeholder="XXXX XXXX XXXX XXXX"
+                            />
+                            <img
+                              src="assets/images/element/visa.svg"
+                              class="w-30px position-absolute top-50 end-0 translate-middle-y me-2 d-none d-sm-block"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label class="form-label">Expiration Month</label>
+                          <div class="form-control-bg-light">
+                            <input
+                              type="text"
+                              class="form-control"
+                              mask="XX"
+                              maxlength="2"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label class="form-label">Expiration Year</label>
+                          <div class="form-control-bg-light">
+                            <input
+                              type="text"
+                              class="form-control"
+                              mask="XXXX"
+                              maxlength="4"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label class="form-label">CVV / CVC</label>
+                          <div class="form-control-bg-light">
+                            <input
+                              type="text"
+                              class="form-control"
+                              mask="XXX"
+                              maxlength="3"
+                              placeholder="XXX"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-12">
+                          <label class="form-label"
+                            >Name of the cardholder</label
+                          >
+                          <div class="form-control-bg-light">
+                            <input
+                              type="text"
+                              class="form-control"
+                              aria-label="name of the cardholder"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card border">
+                    <div class="card-header border-bottom">
+                      <h5 class="mb-0">Pay with Paypal</h5>
+                    </div>
+
+                    <div class="card-body text-center">
+                      <img
+                        src="assets/images/element/paypal.svg"
+                        class="h-70px mb-3"
+                        alt=""
+                      />
+                      <p class="mb-3">
+                        <strong>Tips:</strong> Simply click on the payment
+                        button below to proceed to the PayPal payment page.
+                      </p>
+
+                      <a
+                        href="javascript:void(0);"
+                        class="btn btn-sm btn-outline-primary mb-0"
+                        >Pay with Paypal</a
+                      >
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <button
+                      (click)="stepperInstance?.previous()"
+                      class="btn btn-secondary prev-btn mb-0"
+                    >
+                      Previous
+                    </button>
+                    <button class="btn btn-success next-btn mb-0">
+                      Pay now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="col-xl-4">
+            <div class="vstack gap-4">
+              <booking-price-summary />
+
+              <div class="card border">
+                <div class="card-header border-bottom">
+                  <h5 class="card-title mb-0">Sign In Now To Book An Online</h5>
+                </div>
+
+                <div class="card-body">
+                  <div class="form-control-bg-light">
+                    <label class="form-label">Email id</label>
+                    <input
+                      type="email"
+                      [(ngModel)]="email"
+                      class="form-control form-control-lg"
+                      [ngClass]="{ 'is-invalid': !email && formSubmit }"
+                      placeholder="Enter your email"
+                    />
+                    @if (!email && formSubmit) {
+                      <div class="invalid-feedback d-block">
+                        Please enter your email
+                      </div>
+                    }
+                  </div>
+
+                  <div class="mt-4 form-control-bg-light">
+                    <label class="form-label">Mobile number</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="number"
+                      [ngClass]="{ 'is-invalid': !number && formSubmit }"
+                      class="form-control form-control-lg"
+                      placeholder="Enter your mobile number"
+                    />
+                    @if (!number && formSubmit) {
+                      <div class="invalid-feedback">
+                        mobileNo must be a `number` type, but the final value
+                        was: `NaN` (cast from the value `""`).
+                      </div>
+                    }
+                  </div>
+
+                  <div class="mt-4 form-check form-check-light mb-0">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="exampleCheck1"
+                    />
+                    <label class="form-check-label" for="exampleCheck1"
+                      >I Already Have Booking Account</label
+                    >
+                  </div>
+
+                  <div class="d-grid mt-4">
+                    <button
+                      type="button"
+                      (click)="message()"
+                      class="mb-0 btn btn-primary next-btn"
+                    >
+                      Book as Guest
+                    </button>
+                  </div>
+
+                  <div class="position-relative my-4">
+                    <hr />
+                    <p
+                      class="small position-absolute top-50 start-50 translate-middle bg-mode text-center"
+                    >
+                      Or via social media
+                    </p>
+                  </div>
+
+                  <div class="d-grid gap-2 d-md-block text-center">
+                    <button
+                      class="btn btn-sm bg-facebook mb-0 me-1"
+                      type="button"
+                    >
+                      <i class="fa-brands fa-facebook-f me-2"></i>Facebook
+                    </button>
+                    <button class="btn btn-sm bg-google mb-0" type="button">
+                      <i class="fa-brands fa-google me-2"></i>Google
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
