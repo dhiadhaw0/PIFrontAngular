@@ -1,0 +1,56 @@
+<li ngbDropdown class="nav-item dropdown {{ className }}">
+  <a
+    ngbDropdownToggle
+    class="nav-notification btn btn-light p-0 mb-0 arrow-none"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+    data-bs-auto-close="outside"
+  >
+    <i class="bi bi-bell fa-fw"></i>
+  </a>
+
+  <span class="notif-badge animation-blink"></span>
+
+  <div
+    ngbDropdownMenu
+    class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg"
+  >
+    <div class="card bg-transparent">
+      <div
+        class="card-header bg-transparent d-flex justify-content-between align-items-center border-bottom"
+      >
+        <h6 class="m-0">
+          Notifications
+          <span class="badge bg-danger bg-opacity-10 text-danger ms-2"
+            >4 new</span
+          >
+        </h6>
+        <a class="small" href="javascript:void(0);">Clear all</a>
+      </div>
+
+      <div class="card-body p-0">
+        <ul class="list-group list-group-flush list-unstyled p-2">
+          @for (data of notificationList; track $index) {
+            <li>
+              <a
+                href="javascript:void(0);"
+                class="list-group-item list-group-item-action rounded notif-unread border-0 mb-1 p-3"
+              >
+                <h6 class="mb-2">{{ data.title }}</h6>
+                <p class="mb-0 small">{{ data.content }}</p>
+                <span>{{ data.content }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="card-footer bg-transparent text-center border-top">
+        <a href="javascript:void(0);" class="btn btn-sm btn-link mb-0 p-0"
+          >See all incoming activity</a
+        >
+      </div>
+    </div>
+  </div>
+</li>

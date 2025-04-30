@@ -1,0 +1,8 @@
+<div class="wallet-qr-container card p-4 text-center">
+  <h3 class="mb-3">Wallet QR Code</h3>
+  <qrcode [qrdata]="walletAddress" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
+  <div class="mt-3">
+    <strong>Wallet Address:</strong>
+    <div class="text-break">{{ walletAddress }}</div>
+  </div>
+</div> 

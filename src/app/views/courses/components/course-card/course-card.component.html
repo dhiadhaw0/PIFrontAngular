@@ -1,0 +1,41 @@
+<div class="card h-100">
+  <!-- Image -->
+  <img [src]="course.image" class="card-img-top" alt="{{ course.name }}">
+
+  <!-- Card body -->
+  <div class="card-body pb-0">
+    <!-- Badge and rating -->
+    <div class="d-flex justify-content-between mb-3">
+      <span class="badge bg-purple-soft">{{ course.type }}</span>
+      <div class="rating">
+        <i class="fas fa-star text-warning"></i>
+        <span class="text-muted ms-1">{{ course.rating }}</span>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h5 class="card-title"><a href="#" class="text-decoration-none">{{ course.name }}</a></h5>
+
+    <!-- Info -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <i class="fas fa-user-graduate me-2"></i>
+        {{ course.instructor }}
+      </div>
+      <div>
+        <i class="fas fa-clock me-2"></i>
+        {{ course.duration }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Card footer -->
+  <div class="card-footer pt-0 pb-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="price-wrap">
+        <h5 class="mb-0">{{ course.price }}TND</h5>
+      </div>
+      <a href="#" class="btn btn-sm btn-primary-soft">View Details</a>
+    </div>
+  </div>
+</div>

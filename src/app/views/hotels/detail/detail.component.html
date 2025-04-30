@@ -1,0 +1,63 @@
+<detail-topbar />
+
+<main>
+  <section class="py-3 py-sm-0 overflow-hidden">
+    <div class="container">
+      <button
+        class="btn btn-primary d-sm-none w-100 mb-0"
+        type="button"
+        (click)="openSearchFilter(content)"
+        aria-controls="offcanvasEditsearch"
+      >
+        <i class="bi bi-pencil-square me-2"></i>Edit Search
+      </button>
+
+      <div
+        class="offcanvas-sm offcanvas-top"
+        tabindex="-1"
+        id="offcanvasEditsearch"
+        aria-labelledby="offcanvasEditsearchLabel"
+      >
+        <detail-availability-filter />
+      </div>
+    </div>
+    <detail-hotel-gallery class="overflow-hidden" />
+  </section>
+
+  <section class="pt-0">
+    <div class="container">
+      <div data-sticky-container class="row g-4 g-xl-5">
+        <div class="col-xl-7 order-1">
+          <div class="vstack gap-5">
+            <detail-about />
+
+            <detail-amenities />
+
+            <detail-room />
+
+            <detail-customer-review />
+
+            <detail-policies />
+          </div>
+        </div>
+        <aside class="col-xl-5 order-xl-2">
+          <detail-price-overview />
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<hotel-detail-footer1 />
+<ng-template #content let-offcanvas>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasEditsearchLabel">Edit search</h5>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="offcanvas.close()"
+      aria-label="Close"
+    ></button>
+  </div>
+  <detail-availability-filter />
+</ng-template>

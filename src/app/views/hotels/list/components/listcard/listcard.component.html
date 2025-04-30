@@ -1,0 +1,188 @@
+<div class="vstack gap-4">
+  @for (item of hotelList; track $index) {
+    <div class="card shadow p-2">
+      <div class="row g-0">
+        <div class="col-md-5 position-relative">
+          <div class="position-absolute top-0 start-0 z-index-1 m-2">
+            <div class="badge text-bg-danger">{{ item.sale }}</div>
+          </div>
+
+          <div
+            class="tiny-slider arrow-round arrow-xs arrow-dark overflow-hidden rounded-2"
+          >
+            <div
+              class="tiny-slider-inner"
+              data-autoplay="false"
+              data-arrow="true"
+              data-dots="false"
+              data-items="1"
+            >
+              <ng-tiny-slider [config]="listSliderSettings" #listSlider>
+                @for (img of item.images; track $index) {
+                  <div>
+                    <img [src]="img" alt="Card image" />
+                  </div>
+                }
+              </ng-tiny-slider>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <div
+            class="card-body py-md-2 d-flex flex-column h-100 position-relative"
+          >
+            <div class="d-flex justify-content-between align-items-center">
+              <ng-template #t let-fill="fill">
+                @if (fill > 0) {
+                  <i
+                    class="fa-solid fa-star text-warning me-1"
+                    [style.width.%]="fill"
+                    style="font-size: small"
+                  ></i>
+                } @else {
+                  <i
+                    class="fa-solid fa-star-half-alt text-warning me-1"
+                    style="font-size: small"
+                  >
+                  </i>
+                }
+              </ng-template>
+
+              <ngb-rating
+                [(rate)]="item.rating"
+                [starTemplate]="t"
+                [readonly]="true"
+                [max]="5"
+              />
+
+              <ul class="list-inline mb-0 z-index-2">
+                <li class="list-inline-item">
+                  <a
+                    href="javascript:void(0);"
+                    class="btn btn-sm btn-round btn-light"
+                    ><i class="fa-solid fa-fw fa-heart"></i
+                  ></a>
+                </li>
+
+                <li ngbDropdown class="list-inline-item dropdown">
+                  <a
+                    ngbDropdownToggle
+                    href="javascript:void(0);"
+                    class="btn btn-sm btn-round btn-light arrow-none"
+                    role="button"
+                    id="dropdownShare"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="fa-solid fa-fw fa-share-alt"></i>
+                  </a>
+
+                  <ul
+                    ngbDropdownMenu
+                    class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded"
+                    aria-labelledby="dropdownShare"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="javascript:void(0);"
+                        ><i class="fab fa-twitter-square me-2"></i>Twitter</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="javascript:void(0);"
+                        ><i class="fab fa-facebook-square me-2"></i>Facebook</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="javascript:void(0);"
+                        ><i class="fab fa-linkedin me-2"></i>LinkedIn</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="javascript:void(0);"
+                        ><i class="fa-solid fa-copy me-2"></i>Copy link</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <h5 class="card-title mb-1">
+              <a routerLink="/hotels/detail">{{ item.name }} </a>
+            </h5>
+            <small><i class="bi bi-geo-alt me-2"></i>{{ item.address }}</small>
+
+            <ul class="nav nav-divider mt-3">
+              @for (feature of item.features; track $index) {
+                @if ($index < 3) {
+                  <li class="nav-item">{{ feature }}</li>
+                } @else {
+                  <li class="nav-item">
+                    <a href="javascript:void(0);" class="mb-0 text-primary"
+                      >More+</a
+                    >
+                  </li>
+                }
+              }
+            </ul>
+
+            <ul class="list-group list-group-borderless small mb-0 mt-2">
+              @if (item.schemes) {
+                @for (scheme of item.schemes; track $index) {
+                  <li class="list-group-item d-flex text-success p-0">
+                    <i class="bi bi-patch-check-fill me-2"></i>{{ scheme }}
+                  </li>
+                }
+              } @else {
+                <li class="list-group-item d-flex text-danger p-0">
+                  <i class="bi bi-patch-check-fill me-2"></i>Non Refundable
+                </li>
+              }
+            </ul>
+
+            <div
+              class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto"
+            >
+              <div class="d-flex align-items-center">
+                <h5 class="fw-bold mb-0 me-1">
+                  {{ currencyType }}{{ item.price }}
+                </h5>
+                <span class="mb-0 me-2">/day</span>
+                @if (item.sale) {
+                  <span class="text-decoration-line-through mb-0"
+                    >{{ currencyType }}1000</span
+                  >
+                }
+              </div>
+
+              <div class="mt-3 mt-sm-0">
+                <a
+                  href="javascript:void(0);"
+                  class="btn btn-sm btn-dark mb-0 w-100"
+                  >Select Room</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <nav class="d-flex justify-content-center" aria-label="navigation">
+    <ngb-pagination
+      class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0"
+      [page]="2"
+      [collectionSize]="60"
+      [maxSize]="2"
+    >
+      <ng-template ngbPaginationPrevious
+        ><i class="fa-solid fa-angle-left"></i
+      ></ng-template>
+      <ng-template ngbPaginationNext
+        ><i class="fa-solid fa-angle-right"></i
+      ></ng-template>
+    </ngb-pagination>
+  </nav>
+</div>

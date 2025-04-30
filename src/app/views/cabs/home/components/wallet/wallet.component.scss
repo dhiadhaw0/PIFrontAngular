@@ -1,0 +1,161 @@
+.wallet-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.balance-section {
+  margin-bottom: 2rem;
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.balance-card {
+  background: linear-gradient(135deg, #6b5ce7, #a991f7);
+  padding: 2rem;
+  border-radius: 16px;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.balance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+.balance-amount {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.balance-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+  span {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+  }
+
+  strong {
+    display: block;
+    margin-top: 0.25rem;
+  }
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.action-btn {
+  background: #f8f9fa;
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #f1f3f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  i {
+    font-size: 1.5rem;
+    color: #6b5ce7;
+  }
+
+  span {
+    color: #495057;
+    font-size: 0.9rem;
+  }
+}
+
+.transactions-list {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 1.5rem;
+
+  h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  gap: 1rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.tx-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f1f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 1.2rem;
+    color: #6b5ce7;
+  }
+}
+
+.tx-details {
+  flex: 1;
+}
+
+.tx-description {
+  font-weight: 500;
+  color: #333;
+}
+
+.tx-date {
+  font-size: 0.85rem;
+  color: #868e96;
+}
+
+.tx-amount {
+  font-weight: bold;
+  color: #e74c3c;
+
+  &.credit {
+    color: #2ecc71;
+  }
+} 

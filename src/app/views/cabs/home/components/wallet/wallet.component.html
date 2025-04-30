@@ -1,0 +1,63 @@
+<!-- Modern Wallet UI -->
+<div class="wallet-container">
+  <!-- Balance Section -->
+  <div class="balance-section">
+    <h2>My Wallet</h2>
+    <div class="balance-card">
+      <div class="balance-header">
+        <h3>Total Balance</h3>
+        <span class="currency">{{ currency }}</span>
+      </div>
+      <div class="balance-amount">
+        {{ balance | currency:currency }}
+      </div>
+      <div class="balance-details">
+        <div>
+          <span>Available</span>
+          <strong>{{ availableBalance | currency:currency }}</strong>
+        </div>
+        <div>
+          <span>Pending</span>
+          <strong>{{ pendingBalance | currency:currency }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <button class="action-btn" (click)="addFunds()">
+      <i class="bi bi-plus-circle"></i>
+      <span>Add Funds</span>
+    </button>
+    <button class="action-btn" (click)="withdraw()">
+      <i class="bi bi-arrow-down-circle"></i>
+      <span>Withdraw</span>
+    </button>
+    <button class="action-btn" (click)="openQrModal()">
+      <i class="bi bi-qr-code"></i>
+      <span>QR Code</span>
+    </button>
+    <button class="action-btn" (click)="openPinModal()">
+      <i class="bi bi-shield-lock"></i>
+      <span>PIN Code</span>
+    </button>
+  </div>
+
+  <!-- Recent Transactions -->
+  <div class="transactions-list">
+    <h3>Recent Transactions</h3>
+    <div class="transaction-item" *ngFor="let tx of transactions; trackBy: trackById">
+      <div class="tx-icon">
+        <i [class]="'bi ' + (tx.amount > 0 ? 'bi-arrow-down-circle' : 'bi-arrow-up-circle')"></i>
+      </div>
+      <div class="tx-details">
+        <div class="tx-description">{{ tx.description }}</div>
+        <div class="tx-date">{{ tx.date | date:'mediumDate' }}</div>
+      </div>
+      <div class="tx-amount" [class.credit]="tx.amount > 0">
+        {{ tx.amount | currency:currency }}
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,77 @@
+<div class="card shadow mb-4">
+  <div class="card-header border-bottom p-3">
+    <h5 class="card-header-title mb-0">Dark - Light Mode Settings</h5>
+  </div>
+
+  <div class="card-body">
+    <div class="hstack gap-2 flex-wrap">
+      <div
+        class="form-check form-check-inline align-items-center theme-icon-active"
+      >
+        <input
+          (change)="changeTheme('light')"
+          class="form-check-input mode-switch"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio1"
+          value="option1"
+          data-bs-theme-value="light"
+          checked
+        />
+        <label class="form-check-label" for="inlineRadio1">
+          <img
+            src="assets/images/element/d-light.svg"
+            class="rounded shadow w-80px"
+            alt=""
+          />
+        </label>
+        <div class="text-center mt-1 small">Light</div>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input
+          (change)="changeTheme('dark')"
+          class="form-check-input mode-switch"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio2"
+          value="option2"
+          data-bs-theme-value="dark"
+        />
+        <label class="form-check-label" for="inlineRadio2">
+          <img
+            src="assets/images/element/d-dark.svg"
+            class="rounded shadow w-80px"
+            alt=""
+          />
+        </label>
+        <div class="text-center mt-1 small">Dark</div>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input
+          (change)="changeTheme('auto')"
+          class="form-check-input mode-switch"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio3"
+          value="option3"
+          data-bs-theme-value="auto"
+        />
+        <label class="form-check-label" for="inlineRadio3">
+          <img
+            src="assets/images/element/d-default.svg"
+            class="rounded shadow w-80px"
+            alt=""
+          />
+        </label>
+        <div class="text-center mt-1 small">System Setting</div>
+      </div>
+    </div>
+
+    <p class="mb-0 mt-3 small">
+      <b>Note:</b> This is just UI of Theme mode setting. This is not working
+      functionality.
+    </p>
+  </div>
+</div>

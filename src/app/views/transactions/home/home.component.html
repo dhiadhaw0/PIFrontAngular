@@ -1,0 +1,263 @@
+<!-- Navigation Menu -->
+<nav class="main-nav">
+  <div class="nav-logo">
+    <img src="assets/images/logo.png" alt="Logo">
+  </div>
+  <ul class="nav-links">
+    <li><a routerLink="/listings" routerLinkActive="active">Listings</a></li>
+    <li><a routerLink="/pages" routerLinkActive="active">Pages</a></li>
+    <li><a routerLink="/accounts" routerLinkActive="active">Accounts</a></li>
+    <li><a routerLink="/hotel" routerLinkActive="active">Hotel</a></li>
+    <li><a routerLink="/courses" routerLinkActive="active">Courses</a></li>
+    <li><a routerLink="/reclamation" routerLinkActive="active">Reclamation</a></li>
+    <li><a routerLink="/transactions" routerLinkActive="active">Transactions</a></li>
+    <li><a routerLink="/credit" routerLinkActive="active">Credit</a></li>
+  </ul>
+</nav>
+
+<div class="digital-banking">
+  <!-- Welcome Header -->
+  <div class="welcome-section">
+    <h1>Welcome to Digital Banking</h1>
+    <p class="subtitle">Manage your transactions securely and efficiently</p>
+    
+    <!-- Balance Display -->
+    <div class="balance-display">
+      <h2>${{ balance }}</h2>
+      <p class="balance-label">Available Balance</p>
+    </div>
+  </div>
+
+  <!-- Main Actions -->
+  <div class="main-actions">
+    <div class="action-row">
+      <button class="action-btn" (click)="openActionModal('send')">
+        <i class="bi bi-send"></i>
+        <span>Send Money</span>
+      </button>
+
+      <button class="action-btn" (click)="openActionModal('receive')">
+        <i class="bi bi-download"></i>
+        <span>Receive Money</span>
+      </button>
+
+      <button class="action-btn" (click)="openActionModal('transfer')">
+        <i class="bi bi-arrow-left-right"></i>
+        <span>Bank Transfer</span>
+      </button>
+
+      <button class="action-btn" (click)="openActionModal('payment')">
+        <i class="bi bi-credit-card"></i>
+        <span>Make Payment</span>
+      </button>
+    </div>
+
+    <div class="action-row secondary-actions">
+      <button class="action-btn" (click)="openActionModal('bills')">
+        <i class="bi bi-receipt"></i>
+        <span>Pay Bills</span>
+      </button>
+
+      <button class="action-btn" (click)="openActionModal('savings')">
+        <i class="bi bi-piggy-bank"></i>
+        <span>Savings Goals</span>
+      </button>
+
+      <button class="action-btn" routerLink="/credit">
+        <i class="bi bi-wallet2"></i>
+        <span>Manage Cards</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Transaction Filters -->
+  <div class="transaction-filters">
+    <button 
+      *ngFor="let filter of transactionFilters" 
+      [class.active]="currentFilter === filter.type"
+      (click)="filterTransactions(filter.type)"
+      class="filter-btn">
+      <i [class]="filter.icon"></i>
+      {{ filter.label }}
+    </button>
+  </div>
+
+  <!-- Recent Transactions -->
+  <div class="transactions-section">
+    <h3>Recent Transactions</h3>
+    <div class="transaction-list">
+      <div class="transaction-item" *ngFor="let transaction of filteredTransactions">
+        <div class="transaction-icon">
+          <i [class]="getTransactionIcon(transaction.type)"></i>
+        </div>
+        <div class="transaction-details">
+          <span class="transaction-title">{{ transaction.description }}</span>
+          <span class="transaction-date">{{ transaction.date | date:'shortDate' }}</span>
+        </div>
+        <div class="transaction-amount" [class.credit]="transaction.type === 'deposit' || transaction.type === 'receive'"
+             [class.debit]="transaction.type !== 'deposit' && transaction.type !== 'receive'">
+          {{ transaction.type === 'deposit' || transaction.type === 'receive' ? '+' : '-' }}{{ transaction.amount | currency:'USD' }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Modals -->
+  <div class="modal-overlay" *ngIf="activeModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <i [class]="getModalIcon()"></i>
+        </div>
+        <h3>{{ getModalTitle() }}</h3>
+        <button class="close-btn" (click)="closeModal()">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+
+      <form [formGroup]="actionForm" (ngSubmit)="submitAction()" class="action-form">
+        <!-- Dynamic Form Content based on Modal Type -->
+        <ng-container [ngSwitch]="activeModal">
+          
+          <!-- Send Money Form -->
+          <ng-container *ngSwitchCase="'send'">
+            <div class="form-group">
+              <label>Recipient</label>
+              <input type="text" formControlName="recipient" placeholder="Enter recipient's name or account">
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <div class="amount-input">
+                <span class="currency">USD</span>
+                <input type="number" formControlName="amount" placeholder="Enter amount">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <input type="text" formControlName="description" placeholder="What's this for?">
+            </div>
+          </ng-container>
+
+          <!-- Receive Money Form -->
+          <ng-container *ngSwitchCase="'receive'">
+            <div class="qr-section">
+              <div class="qr-code">
+                <!-- Add QR Code Component Here -->
+                <img src="assets/images/qr-placeholder.png" alt="QR Code">
+              </div>
+              <p class="qr-info">Scan this QR code to receive money</p>
+            </div>
+            <div class="form-group">
+              <label>Expected Amount (Optional)</label>
+              <div class="amount-input">
+                <span class="currency">USD</span>
+                <input type="number" formControlName="amount" placeholder="Enter amount">
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Bank Transfer Form -->
+          <ng-container *ngSwitchCase="'transfer'">
+            <div class="form-group">
+              <label>Bank Account</label>
+              <select formControlName="bankAccount">
+                <option value="">Select Bank Account</option>
+                <option value="savings">Savings Account</option>
+                <option value="checking">Checking Account</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <div class="amount-input">
+                <span class="currency">USD</span>
+                <input type="number" formControlName="amount" placeholder="Enter amount">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <input type="text" formControlName="description" placeholder="What's this for?">
+            </div>
+          </ng-container>
+
+          <!-- Payment Form -->
+          <ng-container *ngSwitchCase="'payment'">
+            <div class="form-group">
+              <label>Payment For</label>
+              <input type="text" formControlName="paymentFor" placeholder="Enter merchant or service">
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <div class="amount-input">
+                <span class="currency">USD</span>
+                <input type="number" formControlName="amount" placeholder="Enter amount">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Payment Method</label>
+              <div class="payment-methods">
+                <label class="method-option">
+                  <input type="radio" formControlName="paymentMethod" value="wallet">
+                  <i class="bi bi-wallet2"></i>
+                  <span>Wallet</span>
+                </label>
+                <label class="method-option">
+                  <input type="radio" formControlName="paymentMethod" value="card">
+                  <i class="bi bi-credit-card"></i>
+                  <span>Card</span>
+                </label>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Bills Form -->
+          <ng-container *ngSwitchCase="'bills'">
+            <div class="form-group">
+              <label>Bill Type</label>
+              <select formControlName="billType">
+                <option value="">Select Bill Type</option>
+                <option value="utility">Utility Bill</option>
+                <option value="internet">Internet</option>
+                <option value="phone">Phone</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <div class="amount-input">
+                <span class="currency">USD</span>
+                <input type="number" formControlName="amount" placeholder="Enter amount">
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Savings Form -->
+          <ng-container *ngSwitchCase="'savings'">
+            <div class="form-group">
+              <label>Goal Name</label>
+              <input type="text" formControlName="goalName" placeholder="Enter your savings goal">
+            </div>
+            <div class="form-group">
+              <label>Target Amount</label>
+              <div class="amount-input">
+                <span class="currency">USD</span>
+                <input type="number" formControlName="targetAmount" placeholder="Enter target amount">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Monthly Contribution</label>
+              <div class="amount-input">
+                <span class="currency">USD</span>
+                <input type="number" formControlName="monthlyContribution" placeholder="Enter monthly amount">
+              </div>
+            </div>
+          </ng-container>
+
+        </ng-container>
+
+        <button type="submit" class="submit-btn" [disabled]="!actionForm.valid">
+          Confirm {{ getModalTitle() }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div> 

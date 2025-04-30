@@ -1,0 +1,36 @@
+<div class="transactions-container">
+  <div class="transactions-header">
+    <h4>Recent Transactions</h4>
+    <span class="transaction-count">{{ transactions.length }} transactions</span>
+  </div>
+  <div class="card">
+    <div class="list-group list-group-flush">
+      <div 
+        class="transaction-item" 
+        *ngFor="let transaction of transactions; trackBy: trackById"
+        [class.credit]="transaction.type === 'credit'"
+        [class.debit]="transaction.type === 'debit'"
+      >
+        <div class="transaction-content">
+          <div class="transaction-info">
+            <h6>{{ transaction.description }}</h6>
+            <small>{{ transaction.date }}</small>
+          </div>
+          <div class="transaction-amount">
+            <h6>
+              <span class="amount-prefix">{{ transaction.type === 'credit' ? '+' : '-' }}</span>
+              <span class="amount">${{ transaction.amount }}</span>
+            </h6>
+            <span 
+              class="status-badge"
+              [class.completed]="transaction.status === 'completed'"
+              [class.pending]="transaction.status === 'pending'"
+            >
+              {{ transaction.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

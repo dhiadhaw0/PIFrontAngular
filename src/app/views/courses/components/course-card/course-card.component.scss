@@ -1,0 +1,28 @@
+.card {
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.badge {
+  font-size: 0.75rem;
+}
+
+.rating {
+  i {
+    color: #ffc107;
+  }
+}
+
+.btn-primary-soft {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d6efd;
+  border: none;
+  
+  &:hover {
+    background-color: #0d6efd;
+    color: white;
+  }
+}

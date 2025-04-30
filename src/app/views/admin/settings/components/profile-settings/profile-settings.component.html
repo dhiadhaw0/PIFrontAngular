@@ -1,0 +1,106 @@
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="card shadow">
+      <div class="card-header border-bottom">
+        <h5 class="card-header-title">Profile Settings</h5>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            value="Jacqueline Miller"
+            placeholder="Name"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Profile picture</label>
+
+          <div class="d-flex align-items-center">
+            <label
+              class="position-relative me-4"
+              for="uploadfile-1"
+              title="Replace this pic"
+            >
+              <span class="avatar avatar-xl">
+                <img
+                  id="uploadfile-1-preview"
+                  class="avatar-img rounded-circle border border-white border-3 shadow"
+                  src="assets/images/logo-icon.svg"
+                  alt=""
+                />
+              </span>
+            </label>
+
+            <label class="btn btn-sm btn-primary-soft mb-0" for="uploadfile-1"
+              >Change</label
+            >
+            <input id="uploadfile-1" class="form-control d-none" type="file" />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email id</label>
+          <input
+            type="email"
+            class="form-control"
+            value="hello@gmail.com"
+            placeholder="Enter your email id"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Mobile number</label>
+          <input
+            type="text"
+            class="form-control"
+            value="222 555 666"
+            placeholder="Enter your mobile number"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Location</label>
+          <input class="form-control" type="text" value="New Hampshire" />
+        </div>
+
+        <div>
+          <label class="form-label">Birthday</label>
+          <input
+            type="text"
+            class="form-control flatpickr flatpickr-input"
+            value="29 Aug 1994"
+            placeholder="Enter your birth-date"
+            data-date-format="d M Y"
+            readonly="readonly"
+          />
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+          <a href="javascript:void(0);" class="btn text-secondary border-0 me-2"
+            >Discard</a
+          >
+          <a href="javascript:void(0);" class="btn btn-primary">Save change</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <settings-email-setting />
+    <settings-general-permission />
+  </div>
+
+  <div class="col-lg-6">
+    <settings-mode-setting />
+
+    <settings-website-setting />
+  </div>
+
+  <div class="col-lg-6">
+    <settings-account-setting />
+    <settings-active-log />
+  </div>
+</div>

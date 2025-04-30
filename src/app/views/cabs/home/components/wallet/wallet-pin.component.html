@@ -1,0 +1,12 @@
+<div class="wallet-pin-container card p-4 text-center">
+  <h3 class="mb-3">Wallet PIN Code</h3>
+  <form (ngSubmit)="submitPin()" autocomplete="off">
+    <div class="mb-3">
+      <input type="password" [(ngModel)]="pin" name="pin" maxlength="6" class="form-control form-control-lg text-center" placeholder="Enter PIN" required />
+    </div>
+    <button class="btn btn-primary" type="submit">Verify PIN</button>
+  </form>
+  <div class="mt-3" *ngIf="message">
+    <span [ngClass]="{'text-success': message === 'PIN verified!', 'text-danger': message !== 'PIN verified!'}">{{ message }}</span>
+  </div>
+</div> 

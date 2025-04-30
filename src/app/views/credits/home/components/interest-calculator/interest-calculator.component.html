@@ -1,0 +1,79 @@
+<div class="card shadow-lg">
+  <div class="card-body p-4">
+    <h3 class="mb-4">Interest Rate Calculator</h3>
+    <form [formGroup]="calculatorForm" (ngSubmit)="calculateInterest()">
+      <div class="row g-3">
+        <!-- Age -->
+        <div class="col-md-6">
+          <label class="form-label">Age</label>
+          <input type="number" class="form-control" formControlName="age" placeholder="Enter your age">
+        </div>
+
+        <!-- Monthly Income -->
+        <div class="col-md-6">
+          <label class="form-label">Monthly Income</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" formControlName="income" placeholder="Enter monthly income">
+          </div>
+        </div>
+
+        <!-- Loan Amount -->
+        <div class="col-md-6">
+          <label class="form-label">Loan Amount</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" formControlName="loanAmount" placeholder="Enter loan amount">
+          </div>
+        </div>
+
+        <!-- Loan Term -->
+        <div class="col-md-6">
+          <label class="form-label">Loan Term</label>
+          <select class="form-select" formControlName="loanTerm">
+            <option value="">Select term</option>
+            <option [value]="6">6 months</option>
+            <option [value]="12">12 months</option>
+            <option [value]="24">24 months</option>
+            <option [value]="36">36 months</option>
+          </select>
+        </div>
+
+        <!-- Calculate Button -->
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary w-100" [disabled]="!calculatorForm.valid">
+            Calculate Interest Rate
+          </button>
+        </div>
+
+        <!-- Results -->
+        <div class="col-12" *ngIf="interestRate">
+          <div class="alert alert-info mt-3">
+            <h5 class="mb-2">Calculated Interest Rate: {{ interestRate | percent:'1.2-2' }}</h5>
+            <div class="mt-2">
+              <h6>Factors Affecting Your Rate:</h6>
+              <ul class="list-unstyled">
+                <li *ngIf="ageFactor !== 1">
+                  <i class="bi" [ngClass]="ageFactor > 1 ? 'bi-arrow-up-circle-fill text-danger' : 'bi-arrow-down-circle-fill text-success'"></i>
+                  Age Factor: {{ ageFactor | percent:'1.2-2' }}
+                </li>
+                <li *ngIf="incomeFactor !== 1">
+                  <i class="bi" [ngClass]="incomeFactor > 1 ? 'bi-arrow-up-circle-fill text-danger' : 'bi-arrow-down-circle-fill text-success'"></i>
+                  Income Factor: {{ incomeFactor | percent:'1.2-2' }}
+                </li>
+                <li *ngIf="loanTermFactor !== 1">
+                  <i class="bi" [ngClass]="loanTermFactor > 1 ? 'bi-arrow-up-circle-fill text-danger' : 'bi-arrow-down-circle-fill text-success'"></i>
+                  Term Factor: {{ loanTermFactor | percent:'1.2-2' }}
+                </li>
+                <li *ngIf="loanAmountFactor !== 1">
+                  <i class="bi" [ngClass]="loanAmountFactor > 1 ? 'bi-arrow-up-circle-fill text-danger' : 'bi-arrow-down-circle-fill text-success'"></i>
+                  Amount Factor: {{ loanAmountFactor | percent:'1.2-2' }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> 

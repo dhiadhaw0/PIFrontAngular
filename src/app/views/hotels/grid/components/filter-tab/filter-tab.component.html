@@ -1,0 +1,436 @@
+<section class="pt-0 pb-4">
+  <div class="container position-relative">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-between">
+          <input type="checkbox" class="btn-check" id="btn-check-soft" />
+          <label
+            class="btn btn-primary-soft btn-primary-check mb-0"
+            for="btn-check-soft"
+            (click)="collapse.toggle()"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseFilter"
+            aria-controls="collapseFilter"
+          >
+            <i class="bi fa-fe bi-sliders me-2"></i>Show Filters
+          </label>
+
+          <ul
+            class="nav nav-pills nav-pills-dark"
+            id="tour-pills-tab"
+            role="tablist"
+          >
+            <li class="nav-item">
+              <a
+                class="nav-link rounded-start rounded-0 mb-0"
+                routerLink="/hotels/list"
+                ><i class="bi fa-fw bi-list-ul"></i
+              ></a>
+            </li>
+
+            <li class="nav-item">
+              <a
+                class="nav-link rounded-end rounded-0 mb-0 active"
+                routerLink="/hotels/grid"
+                ><i class="bi fa-fw bi-grid-fill"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div
+      #collapse="ngbCollapse"
+      [(ngbCollapse)]="isCollapsed"
+      class="collapse"
+      id="collapseFilter"
+    >
+      <div class="card card-body bg-light p-4 mt-4 z-index-9">
+        <form class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="form-control-borderless">
+              <label class="form-label">Enter Hotel Name</label>
+              <input type="text" class="form-control form-control-lg" />
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="form-control-borderless">
+              <label class="form-label">Price Range</label>
+              <div class="position-relative">
+                <div class="noui-wrapper">
+                  <div class="d-flex justify-content-between">
+                    <input
+                      type="text"
+                      [value]="value.toFixed(2)"
+                      class="text-body input-with-range-min"
+                    />
+                    <input
+                      type="text"
+                      [value]="highValue.toFixed(2)"
+                      class="text-body input-with-range-max"
+                    />
+                  </div>
+                  <ngx-slider
+                    [(value)]="value"
+                    [options]="options"
+                    [(highValue)]="highValue"
+                    class="range-slider-ui"
+                  ></ngx-slider>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="form-size-lg form-control-borderless">
+              <label class="form-label">Popular Filters</label>
+              <select
+                selectFormInput
+                [options]="{ searchEnabled: false }"
+                class="form-select js-choice border-0"
+              >
+                <option value="">Select Option</option>
+                <option>Recently search</option>
+                <option>Most popular</option>
+                <option>Top rated</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="form-control-borderless">
+              <label class="form-label">Customer Rating</label>
+              <ul class="list-inline mb-0 g-3">
+                <li class="list-inline-item">
+                  <input type="checkbox" class="btn-check" id="btn-check-1" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-1"
+                    >3+</label
+                  >
+                </li>
+
+                <li class="list-inline-item ms-1">
+                  <input type="checkbox" class="btn-check" id="btn-check-2" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-2"
+                    >3.5+</label
+                  >
+                </li>
+
+                <li class="list-inline-item ms-1">
+                  <input type="checkbox" class="btn-check" id="btn-check-3" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-3"
+                    >4+</label
+                  >
+                </li>
+
+                <li class="list-inline-item ms-1">
+                  <input type="checkbox" class="btn-check" id="btn-check-4" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-4"
+                    >4.5+</label
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="form-control-borderless">
+              <label class="form-label">Star Rating</label>
+              <ul class="list-inline mb-0 g-3">
+                <li class="list-inline-item">
+                  <input type="checkbox" class="btn-check" id="btn-check-9" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-9"
+                    >1<i class="bi bi-star-fill"></i
+                  ></label>
+                </li>
+
+                <li class="list-inline-item ms-1">
+                  <input type="checkbox" class="btn-check" id="btn-check-10" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-10"
+                    >2<i class="bi bi-star-fill"></i
+                  ></label>
+                </li>
+
+                <li class="list-inline-item ms-1">
+                  <input type="checkbox" class="btn-check" id="btn-check-11" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-11"
+                    >3<i class="bi bi-star-fill"></i
+                  ></label>
+                </li>
+
+                <li class="list-inline-item ms-1">
+                  <input type="checkbox" class="btn-check" id="btn-check-12" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-12"
+                    >4<i class="bi bi-star-fill"></i
+                  ></label>
+                </li>
+
+                <li class="list-inline-item ms-1">
+                  <input type="checkbox" class="btn-check" id="btn-check-13" />
+                  <label
+                    class="btn btn-white btn-primary-soft-check"
+                    for="btn-check-13"
+                    >5<i class="bi bi-star-fill"></i
+                  ></label>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="form-size-lg form-control-borderless">
+              <label class="form-label">Hotel Type</label>
+              <select
+                selectFormInput
+                [options]="{ searchEnabled: false }"
+                class="form-select js-choice border-0"
+              >
+                <option value="">Select Option</option>
+                <option>Free Cancellation Available</option>
+                <option>Pay At Hotel Available</option>
+                <option>Free Breakfast Included</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-control-borderless">
+              <label class="form-label">Amenities</label>
+              <div class="row g-3">
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault"
+                    >
+                      Air Conditioning
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault2"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault2"
+                    >
+                      Room Services
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault3"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault3"
+                    >
+                      Dining
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault4"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault4"
+                    >
+                      Caretaker
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault5"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault5"
+                    >
+                      Free Internet
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault6"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault6"
+                    >
+                      Business Service
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault7"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault7"
+                    >
+                      Bonfire
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault8"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault8"
+                    >
+                      Mask
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault9"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault9"
+                    >
+                      Spa
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault10"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault10"
+                    >
+                      Swimming pool
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault11"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault11"
+                    >
+                      Fitness Centre
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault12"
+                    />
+                    <label
+                      class="form-check-label h6 fw-light mb-0"
+                      for="flexCheckDefault12"
+                    >
+                      Bar
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-end align-items-center">
+            <button class="btn btn-link p-0 mb-0" (click)="isCollapsed = true">
+              Clear all
+            </button>
+            <button class="btn btn-dark mb-0 ms-3" (click)="isCollapsed = true">
+              Apply filter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

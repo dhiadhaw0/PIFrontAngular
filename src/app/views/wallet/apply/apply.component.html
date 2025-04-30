@@ -1,0 +1,181 @@
+<div class="apply-container">
+  <div class="apply-header">
+    <h1>Create Your Wallet</h1>
+    <p>Join millions of users who trust our secure digital wallet</p>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" [style.width.%]="getProgress()"></div>
+    <div class="steps">
+      <div class="step" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+        <div class="step-number">1</div>
+        <div class="step-label">Personal</div>
+      </div>
+      <div class="step" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">
+        <div class="step-number">2</div>
+        <div class="step-label">Financial</div>
+      </div>
+      <div class="step" [class.active]="currentStep >= 3" [class.completed]="currentStep > 3">
+        <div class="step-number">3</div>
+        <div class="step-label">Security</div>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="applyForm" (ngSubmit)="onSubmit()" class="apply-form">
+    <!-- Step 1: Personal Information -->
+    <div class="form-step" *ngIf="currentStep === 1">
+      <h2>Personal Information</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" formControlName="firstName" placeholder="Enter your first name">
+          <div class="error-message" *ngIf="applyForm.get('firstName')?.invalid && applyForm.get('firstName')?.touched">
+            Please enter a valid first name
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" formControlName="lastName" placeholder="Enter your last name">
+          <div class="error-message" *ngIf="applyForm.get('lastName')?.invalid && applyForm.get('lastName')?.touched">
+            Please enter a valid last name
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" formControlName="email" placeholder="Enter your email">
+          <div class="error-message" *ngIf="applyForm.get('email')?.invalid && applyForm.get('email')?.touched">
+            Please enter a valid email address
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" formControlName="phone" placeholder="Enter your phone number">
+          <div class="error-message" *ngIf="applyForm.get('phone')?.invalid && applyForm.get('phone')?.touched">
+            Please enter a valid phone number
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dateOfBirth">Date of Birth</label>
+          <input type="date" id="dateOfBirth" formControlName="dateOfBirth">
+          <div class="error-message" *ngIf="applyForm.get('dateOfBirth')?.invalid && applyForm.get('dateOfBirth')?.touched">
+            Please enter your date of birth
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Financial Information -->
+    <div class="form-step" *ngIf="currentStep === 2">
+      <h2>Financial Details</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="employmentStatus">Employment Status</label>
+          <select id="employmentStatus" formControlName="employmentStatus">
+            <option value="">Select your employment status</option>
+            <option value="employed">Employed</option>
+            <option value="self-employed">Self-employed</option>
+            <option value="student">Student</option>
+            <option value="retired">Retired</option>
+            <option value="unemployed">Unemployed</option>
+          </select>
+          <div class="error-message" *ngIf="applyForm.get('employmentStatus')?.invalid && applyForm.get('employmentStatus')?.touched">
+            Please select your employment status
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="annualIncome">Annual Income</label>
+          <input type="number" id="annualIncome" formControlName="annualIncome" placeholder="Enter your annual income">
+          <div class="error-message" *ngIf="applyForm.get('annualIncome')?.invalid && applyForm.get('annualIncome')?.touched">
+            Please enter a valid annual income
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="sourceOfFunds">Source of Funds</label>
+          <select id="sourceOfFunds" formControlName="sourceOfFunds">
+            <option value="">Select source of funds</option>
+            <option value="salary">Salary</option>
+            <option value="business">Business</option>
+            <option value="investments">Investments</option>
+            <option value="inheritance">Inheritance</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="error-message" *ngIf="applyForm.get('sourceOfFunds')?.invalid && applyForm.get('sourceOfFunds')?.touched">
+            Please select your source of funds
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="preferredCurrency">Preferred Currency</label>
+          <select id="preferredCurrency" formControlName="preferredCurrency">
+            <option value="USD">USD - US Dollar</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="GBP">GBP - British Pound</option>
+            <option value="JPY">JPY - Japanese Yen</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Security Information -->
+    <div class="form-step" *ngIf="currentStep === 3">
+      <h2>Security Setup</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="password">Create Password</label>
+          <input type="password" id="password" formControlName="password" placeholder="Create a strong password">
+          <div class="error-message" *ngIf="applyForm.get('password')?.invalid && applyForm.get('password')?.touched">
+            Password must be at least 8 characters long
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm your password">
+          <div class="error-message" *ngIf="applyForm.get('confirmPassword')?.invalid && applyForm.get('confirmPassword')?.touched">
+            Passwords do not match
+          </div>
+        </div>
+
+        <div class="form-group terms">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="termsAccepted">
+            <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+          </label>
+          <div class="error-message" *ngIf="applyForm.get('termsAccepted')?.invalid && applyForm.get('termsAccepted')?.touched">
+            You must accept the terms and conditions
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" 
+              class="btn-secondary" 
+              (click)="previousStep()" 
+              *ngIf="currentStep > 1">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+      <button type="button" 
+              class="btn-primary" 
+              (click)="nextStep()" 
+              *ngIf="currentStep < totalSteps"
+              [disabled]="!isStepValid()">
+        Next <i class="bi bi-arrow-right"></i>
+      </button>
+      <button type="submit" 
+              class="btn-primary" 
+              *ngIf="currentStep === totalSteps"
+              [disabled]="!applyForm.valid || isLoading">
+        <span *ngIf="!isLoading">Create Wallet</span>
+        <span *ngIf="isLoading" class="loading-spinner"></span>
+      </button>
+    </div>
+  </form>
+</div> 
