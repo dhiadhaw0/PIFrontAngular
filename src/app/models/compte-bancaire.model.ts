@@ -1,9 +1,17 @@
+export enum TypeCompteBancaire {
+  COURANT = 'COURANT',
+  EPARGNE = 'EPARGNE',
+  PROFESSIONNEL = 'PROFESSIONNEL'
+}
+
 export interface CompteBancaire {
-  id?: number;
-  codeBanque?: string;
+  idCompte?: number;
+  IBAN: string;
   rib: string;
+  codeBanque: string;
   solde: number;
-  dateCreation?: Date;
+  devise: string;
+  typeCompteBancaire: TypeCompteBancaire;
   userId?: number;
 }
 

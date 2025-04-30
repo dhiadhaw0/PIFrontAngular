@@ -1,141 +1,178 @@
-<div class="card border bg-transparent">
-  <div class="card-header bg-transparent border-bottom">
-    <h4 class="card-header-title">My Wishlist</h4>
-  </div>
-
-  <div class="card-body vstack gap-4">
-    <form class="d-flex justify-content-between">
-      <div class="col-6 col-xl-3">
-        <select
-          selectFormInput
-          [options]="{ searchEnabled: false }"
-          class="form-select form-select-sm js-choice border-0"
-        >
-          <option value="">Sort by</option>
-          <option>Recently search</option>
-          <option>Most popular</option>
-          <option>Top rated</option>
-        </select>
-      </div>
-
-      <button class="btn btn-danger-soft mb-0">
-        <i class="fas fa-trash me-2"></i>Remove all
+<div class="container-fluid">
+  <!-- My Portfolios Section -->
+  <div class="card border mb-4">
+    <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+      <h4 class="card-header-title mb-0">My Portfolios</h4>
+      <button class="btn btn-sm btn-primary-soft" (click)="openModal(newPortfolioModal)">
+        <i class="bi bi-plus-lg me-2"></i>Create New Portfolio
       </button>
-    </form>
-    @for (item of wishListCards; track $index) {
-      <div class="card shadow p-2">
-        <div class="row g-0">
-          <div class="col-md-3">
-            <img
-              [src]="item.image"
-              class="card-img rounded-2"
-              alt="Card image"
-            />
-          </div>
+    </div>
 
-          <div class="col-md-9">
-            <div class="card-body py-md-2 d-flex flex-column h-100">
+    <div class="card-body">
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4" *ngFor="let portfolio of myPortfolios">
+          <div class="card h-100">
+            <div class="card-header border-bottom">
               <div class="d-flex justify-content-between align-items-center">
-                <ul class="list-inline small mb-0">
-                  <li class="list-inline-item me-1">
-                    <i class="fa-solid fa-star text-warning"></i>
-                  </li>
-                  <li class="list-inline-item me-1">
-                    <i class="fa-solid fa-star text-warning"></i>
-                  </li>
-                  <li class="list-inline-item me-1">
-                    <i class="fa-solid fa-star text-warning"></i>
-                  </li>
-                  <li class="list-inline-item me-1">
-                    <i class="fa-solid fa-star text-warning"></i>
-                  </li>
-                  <li class="list-inline-item">
-                    <i class="fa-solid fa-star-half-alt text-warning"></i>
-                  </li>
-                </ul>
+                <h5 class="mb-0">{{ portfolio.titreProjet }}</h5>
+                <span class="badge rounded-pill" [class]="getStatusClass(portfolio.statutProjet)">
+                  {{ getStatusLabel(portfolio.statutProjet) }}
+                </span>
+              </div>
+            </div>
 
-                <ul class="list-inline mb-0">
-                  <li class="list-inline-item">
-                    <a
-                      href="javascript:void(0);"
-                      class="btn btn-sm btn-round btn-danger mb-0 me-1"
-                      ><i class="fa-solid fa-fw fa-heart"></i
-                    ></a>
-                  </li>
-
-                  <li class="list-inline-item dropdown" ngbDropdown>
-                    <a
-                      href="javascript:void(0);"
-                      ngbDropdownToggle
-                      class="btn btn-sm btn-round btn-light mb-0 arrow-none"
-                      role=" button"
-                      id="dropdownShare2"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i class="fa-solid fa-fw fa-share-alt"></i>
-                    </a>
-
-                    <ul
-                      ngbDropdownMenu
-                      class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded"
-                      aria-labelledby="dropdownShare2"
-                    >
-                      <li>
-                        <a class="dropdown-item" href="javascript:void(0);"
-                          ><i class="fab fa-twitter-square me-2"></i>Twitter</a
-                        >
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="javascript:void(0);"
-                          ><i class="fab fa-facebook-square me-2"></i
-                          >Facebook</a
-                        >
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="javascript:void(0);"
-                          ><i class="fab fa-linkedin me-2"></i>LinkedIn</a
-                        >
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="javascript:void(0);"
-                          ><i class="fa-solid fa-copy me-2"></i>Copy link</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+            <div class="card-body">
+              <p class="mb-3">{{ portfolio.descriptionProjet }}</p>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span>Progress</span>
+                  <span>{{ calculateProgress(portfolio.montantCollecte, portfolio.montantRecherche) | number:'1.0-0' }}%</span>
+                </div>
+                <div class="progress" style="height: 6px;">
+                  <div class="progress-bar bg-success" 
+                       [style.width.%]="calculateProgress(portfolio.montantCollecte, portfolio.montantRecherche)">
+                  </div>
+                </div>
               </div>
 
-              <h5 class="card-title mb-1">
-                <a routerLink="{{ item.link?.name }}">{{ item.name }}</a>
-              </h5>
-              <small
-                ><i class="bi bi-geo-alt me-2"></i>{{ item.address }}</small
-              >
-
-              <div
-                class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto"
-              >
-                <div class="d-flex align-items-center">
-                  <h5 class="fw-bold mb-0 me-1">
-                    {{ currencyType }}{{ item.price }}
-                  </h5>
-                  <span class="mb-0 me-2">/day</span>
+              <div class="row g-3">
+                <div class="col-6">
+                  <h6 class="mb-0">Target Amount</h6>
+                  <h5 class="mb-0">{{ portfolio.montantRecherche | currency:'EUR' }}</h5>
                 </div>
-
-                <div class="mt-3 mt-sm-0">
-                  <a
-                    [routerLink]="item.link?.name"
-                    class="btn btn-sm btn-dark w-100 mb-0"
-                    >View hotel</a
-                  >
+                <div class="col-6">
+                  <h6 class="mb-0">Collected</h6>
+                  <h5 class="mb-0">{{ portfolio.montantCollecte | currency:'EUR' }}</h5>
                 </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Expected Return</h6>
+                  <h5 class="mb-0">{{ portfolio.rendementPrevisionnel }}%</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Created On</h6>
+                  <h5 class="mb-0">{{ portfolio.dateCreation | date:'mediumDate' }}</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer border-top">
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-sm btn-light-primary">
+                  <i class="bi bi-pencil-square me-2"></i>Edit
+                </button>
+                <button class="btn btn-sm btn-light">
+                  <i class="bi bi-people me-2"></i>View Investors
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    }
+    </div>
+  </div>
+
+  <!-- Invested Portfolios Section -->
+  <div class="card border">
+    <div class="card-header border-bottom">
+      <h4 class="card-header-title mb-0">My Investments</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4" *ngFor="let portfolio of investedPortfolios">
+          <div class="card h-100">
+            <div class="card-header border-bottom">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ portfolio.titreProjet }}</h5>
+                <span class="badge rounded-pill" [class]="getStatusClass(portfolio.statutProjet)">
+                  {{ getStatusLabel(portfolio.statutProjet) }}
+                </span>
+              </div>
+              <small class="text-muted">by {{ portfolio.user.prenom }} {{ portfolio.user.nom }}</small>
+            </div>
+
+            <div class="card-body">
+              <p class="mb-3">{{ portfolio.descriptionProjet }}</p>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span>Progress</span>
+                  <span>{{ calculateProgress(portfolio.montantCollecte, portfolio.montantRecherche) | number:'1.0-0' }}%</span>
+                </div>
+                <div class="progress" style="height: 6px;">
+                  <div class="progress-bar bg-success" 
+                       [style.width.%]="calculateProgress(portfolio.montantCollecte, portfolio.montantRecherche)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-6">
+                  <h6 class="mb-0">Target Amount</h6>
+                  <h5 class="mb-0">{{ portfolio.montantRecherche | currency:'EUR' }}</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Collected</h6>
+                  <h5 class="mb-0">{{ portfolio.montantCollecte | currency:'EUR' }}</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Expected Return</h6>
+                  <h5 class="mb-0">{{ portfolio.rendementPrevisionnel }}%</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Created On</h6>
+                  <h5 class="mb-0">{{ portfolio.dateCreation | date:'mediumDate' }}</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer border-top">
+              <button class="btn btn-sm btn-primary w-100">
+                <i class="bi bi-graph-up-arrow me-2"></i>View Investment Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- New Portfolio Modal -->
+<ng-template #newPortfolioModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Create New Portfolio</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()" aria-label="Close"></button>
+  </div>
+  
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label class="form-label">Project Title</label>
+        <input type="text" class="form-control" placeholder="Enter project title">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Project Description</label>
+        <textarea class="form-control" rows="3" placeholder="Describe your project"></textarea>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Target Amount</label>
+          <input type="number" class="form-control" placeholder="Enter amount">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Expected Return (%)</label>
+          <input type="number" class="form-control" placeholder="Enter expected return">
+        </div>
+      </div>
+
+      <div class="text-end">
+        <button type="button" class="btn btn-light me-2" (click)="modal.dismiss()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Create Portfolio</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

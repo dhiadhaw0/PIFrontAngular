@@ -1,0 +1,73 @@
+<div class="formations-container">
+  <div class="formations-header">
+    <h1>Formations</h1>
+    <p>Discover our wide range of professional training courses</p>
+  </div>
+
+  <div class="formations-filters">
+    <div class="search-box">
+      <input type="text" 
+             placeholder="Search formations..." 
+             (input)="searchFormations($event.target.value)"
+             [value]="searchTerm">
+    </div>
+    
+    <div class="type-filters">
+      <button [class.active]="selectedType === 'ALL'"
+              (click)="filterByType('ALL')">
+        All
+      </button>
+      <button *ngFor="let type of ['ONLINE', 'OFFLINE', 'HYBRID']"
+              [class.active]="selectedType === type"
+              (click)="filterByType(type)">
+        {{ type }}
+      </button>
+    </div>
+  </div>
+
+  <div class="formations-grid">
+    <div class="formation-card" *ngFor="let formation of filteredFormations">
+      <div class="formation-header">
+        <span class="formation-type" [class]="formation.typeFormation.toLowerCase()">
+          {{ formation.typeFormation }}
+        </span>
+        <span class="formation-duration">
+          <i class="fas fa-clock"></i> {{ formation.duree }}h
+        </span>
+      </div>
+
+      <div class="formation-content">
+        <h3>{{ formation.titre }}</h3>
+        <p>{{ formation.description }}</p>
+      </div>
+
+      <div class="formation-footer">
+        <div class="formation-rating">
+          <div class="stars">
+            <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]"
+               [class.filled]="star <= formation.noteMoyenne">
+            </i>
+          </div>
+          <span class="rating-value">{{ formation.noteMoyenne.toFixed(1) }}</span>
+          <span class="rating-count">({{ formation.notesUsers.length }})</span>
+        </div>
+
+        <div class="formation-price">
+          <span class="price-value">{{ formation.prix | currency }}</span>
+          <span class="certificate" *ngIf="formation.certificat">
+            <i class="fas fa-certificate"></i> Certified
+          </span>
+        </div>
+      </div>
+
+      <button class="enroll-button">
+        Enroll Now
+      </button>
+    </div>
+  </div>
+
+  <div class="no-results" *ngIf="filteredFormations.length === 0">
+    <i class="fas fa-search"></i>
+    <p>No formations found matching your criteria</p>
+  </div>
+</div> 

@@ -1,187 +1,130 @@
 <div class="card border">
   <div class="card-header border-bottom">
-    <h4 class="card-header-title">Travelers Detail</h4>
+    <h4 class="card-header-title">Bank Accounts</h4>
   </div>
 
   <div class="card-body vstack gap-4">
-    <div class="card">
-      <div
-        class="card-header d-flex justify-content-between align-items-center p-0"
-      >
+    <div class="card" *ngFor="let compte of comptesBancaires">
+      <div class="card-header d-flex justify-content-between align-items-center p-3">
         <div class="d-flex align-items-center">
-          <div class="avatar avatar-sm">
-            <img
-              class="avatar-img rounded-circle"
-              src="assets/images/avatar/09.jpg"
-              alt="avatar"
-            />
+          <div class="icon-lg bg-light rounded-circle">
+            <i class="bi" [class]="getAccountIcon(compte.typeCompteBancaire)"></i>
           </div>
 
-          <div class="ms-2">
-            <h6 class="mb-0">Lori Stevens</h6>
+          <div class="ms-3">
+            <h5 class="mb-0">{{ getAccountTypeLabel(compte.typeCompteBancaire) }}</h5>
+            <p class="mb-0 small text-muted">{{ compte.codeBanque }}</p>
           </div>
         </div>
 
-        <a href="javascript:void(0);" class="btn btn-sm btn-link p-0 mb-0"
-          >Remove</a
-        >
+        <div class="text-end">
+          <h4 class="mb-0">{{ compte.solde | number:'1.2-2' }} {{ compte.devise }}</h4>
+        </div>
       </div>
 
-      <form class="card-body p-0 pt-3">
-        <div class="mb-3">
-          <label class="form-label">Full name</label>
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              value="Lori"
-              placeholder="First name"
-            />
-            <input
-              type="text"
-              class="form-control"
-              value="Stevens"
-              placeholder="Last name"
-            />
+      <div class="card-body">
+        <div class="row g-4">
+          <div class="col-12">
+            <label class="form-label">IBAN</label>
+            <div class="input-group">
+              <input type="text" class="form-control" [value]="formatIBAN(compte.IBAN)" readonly />
+              <button class="btn btn-light" type="button">
+                <i class="bi bi-clipboard"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">RIB</label>
+            <div class="input-group">
+              <input type="text" class="form-control" [value]="formatRIB(compte.rib)" readonly />
+              <button class="btn btn-light" type="button">
+                <i class="bi bi-clipboard"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Bank Code</label>
+            <input type="text" class="form-control" [value]="compte.codeBanque" readonly />
           </div>
         </div>
 
-        <div>
-          <label class="form-label">Date of Birth</label>
-          <input
-            type="text"
-            class="form-control flatpickr"
-            mwlFlatpickr
-            value="29 Aug 1996"
-            placeholder="Enter date of birth"
-            data-date-format="d M Y"
-          />
-        </div>
-      </form>
-    </div>
-
-    <hr />
-
-    <div class="card">
-      <div
-        class="card-header d-flex justify-content-between align-items-center p-0"
-      >
-        <div class="d-flex align-items-center">
-          <div class="avatar avatar-sm">
-            <img
-              class="avatar-img rounded-circle"
-              src="assets/images/avatar/01.jpg"
-              alt="avatar"
-            />
-          </div>
-
-          <div class="ms-2">
-            <h6 class="mb-0">Jacqueline Miller</h6>
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-sm btn-light">
+                <i class="bi bi-download me-2"></i>Account Statement
+              </button>
+              <button class="btn btn-sm btn-primary">
+                <i class="bi bi-arrow-right me-2"></i>Make a Transfer
+              </button>
+            </div>
           </div>
         </div>
-
-        <a href="javascript:void(0);" class="btn btn-sm btn-link p-0 mb-0"
-          >Remove</a
-        >
       </div>
-
-      <form class="card-body p-0 pt-3">
-        <div class="mb-3">
-          <label class="form-label">Full name</label>
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              value="Jacqueline"
-              placeholder="First name"
-            />
-            <input
-              type="text"
-              class="form-control"
-              value="Miller"
-              placeholder="Last name"
-            />
-          </div>
-        </div>
-
-        <div class="">
-          <label class="form-label">Date of Birth</label>
-          <input
-            type="text"
-            class="form-control flatpickr"
-            mwlFlatpickr
-            value="15 May 1994"
-            placeholder="Enter date of birth"
-            data-date-format="d M Y"
-          />
-        </div>
-      </form>
     </div>
 
     <div class="text-end">
-      <button
-        class="btn btn-primary mb-0"
-        (click)="openModal(content)"
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#inquiryForm"
-      >
-        <i class="bi bi-plus-lg"></i> Add New Traveler
+      <button class="btn btn-primary mb-0" (click)="openModal(content)" type="button">
+        <i class="bi bi-plus-lg"></i> Add New Account
       </button>
     </div>
   </div>
 </div>
 
-<ng-template
-  #content
-  let-modal
-  class="modal fade"
-  id="inquiryForm"
-  aria-hidden="true"
->
+<ng-template #content let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="inquiryFormlabel">Add New Traveler</h5>
-    <button
-      type="button"
-      class="btn-close"
-      (click)="modal.dismiss('Cross click')"
-      data-bs-dismiss="modal"
-      aria-label="Close"
-    ></button>
+    <h5 class="modal-title">Add New Bank Account</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close"></button>
   </div>
 
-  <div class="modal-body p-3">
+  <div class="modal-body p-4">
     <form>
-      <div class="mb-3">
-        <label class="form-label">Full Name</label>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="First name" />
-          <input type="text" class="form-control" placeholder="Last name" />
+      <div class="row g-4">
+        <div class="col-12">
+          <label class="form-label">Account Type</label>
+          <select class="form-select">
+            <option value="">Select account type</option>
+            <option [value]="type.value" *ngFor="let type of TypeCompteBancaire | keyvalue">
+              {{ getAccountTypeLabel(type.value) }}
+            </option>
+          </select>
         </div>
-        <small
-          >Enter this person's name exactly as it's written on their official
-          travel document</small
-        >
+
+        <div class="col-12">
+          <label class="form-label">IBAN</label>
+          <input type="text" class="form-control" placeholder="Enter IBAN" />
+          <small class="text-muted">Enter the IBAN exactly as provided by your bank</small>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">RIB</label>
+          <input type="text" class="form-control" placeholder="Enter RIB" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Bank Code</label>
+          <input type="text" class="form-control" placeholder="Enter bank code" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Initial Balance</label>
+          <input type="number" class="form-control" placeholder="0.00" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Currency</label>
+          <select class="form-select">
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+            <option value="GBP">GBP</option>
+          </select>
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Date of Birth</label>
-        <input
-          type="text"
-          class="form-control flatpickr"
-          mwlFlatpickr
-          data-date-format="d M y"
-        />
-        <small
-          >It's important to enter a correct date of birth because these details
-          can be used for booking or ticketing purposes</small
-        >
-      </div>
-
-      <div class="text-end">
-        <button class="btn btn-sm btn-dark mb-0" type="button">
-          Add Traveler
-        </button>
+      <div class="text-end mt-4">
+        <button class="btn btn-primary" type="submit">Add Account</button>
       </div>
     </form>
   </div>
