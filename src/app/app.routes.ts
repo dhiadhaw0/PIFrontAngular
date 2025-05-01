@@ -158,7 +158,7 @@ export const routes: Routes = [
       },
       {
         path: 'apply',
-        loadComponent: () => import('./views/wallet/apply/apply.component').then(m => m.ApplyComponent)
+        loadComponent: () => import('src/app/views/wallet/add/add.component').then(m => m.AddWalletComponent)
       }
     ]
   }

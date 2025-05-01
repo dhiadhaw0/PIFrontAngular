@@ -1,0 +1,65 @@
+<form [formGroup]="walletForm" (ngSubmit)="onSubmit()" class="wallet-form">
+  <h2>Wallet Information</h2>
+  
+  <!-- Page 1: Basic Information -->
+  <div *ngIf="currentPage === 1">
+    <div class="form-section">
+      <label>User ID:</label>
+      <input formControlName="userId" type="text" placeholder="Enter user ID" />
+      
+      <label>Total Value:</label>
+      <input formControlName="totalValue" type="number" placeholder="0.00" />
+      
+      <label>Savings Amount:</label>
+      <input formControlName="savingsAmount" type="number" placeholder="0.00" />
+    </div>
+
+    <div class="form-section">
+      <label>Invested Amount:</label>
+      <input formControlName="investedAmount" type="number" placeholder="0.00" />
+      
+      <label>Available Balance:</label>
+      <input formControlName="availableBalance" type="number" placeholder="0.00" />
+      
+      <label>Credit Amount:</label>
+      <input formControlName="creditAmount" type="number" placeholder="0.00" />
+    </div>
+  </div>
+
+  <!-- Page 2: Additional Information -->
+  <div *ngIf="currentPage === 2">
+    <div class="form-section">
+      <label>Expected Yield:</label>
+      <input formControlName="expectedYield" type="number" placeholder="0.00" />
+      
+      <label>Creation Date:</label>
+      <input formControlName="creationDate" type="date" />
+      
+      <label>Financial Score:</label>
+      <input formControlName="financialScore" type="number" placeholder="0-100" />
+    </div>
+
+    <div class="form-section">
+      <label>PIN Code:</label>
+      <input formControlName="pinCode" type="password" placeholder="4-digit PIN" />
+      
+      <label>QR Code:</label>
+      <input formControlName="qrCode" type="text" placeholder="Optional QR code" />
+      
+      <label>Status:</label>
+      <select formControlName="walletStatus">
+        <option value="">-- Select Status --</option>
+        <option value="actif">Actif</option>
+        <option value="inactif">Suspendu</option>
+        <option value="inactif">Cloturé</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Navigation and Submit Buttons -->
+  <div class="form-actions">
+    <button type="button" *ngIf="currentPage > 1" (click)="previousPage()" class="nav-btn">Previous</button>
+    <button type="button" *ngIf="currentPage < totalPages" (click)="nextPage()" class="nav-btn">Next</button>
+    <button type="submit" *ngIf="currentPage === totalPages" class="submit-btn">Create Wallet</button>
+  </div>
+</form>

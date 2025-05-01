@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'
 import { TransactionService } from '../../../services/transaction.service'
-import { Transaction } from '../../../models/transaction.model'
+import { Transaction } from 'src/app/models/wallet/transaction.model'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 
