@@ -1,0 +1,118 @@
+<div class="portfolio-page">
+  <!-- Hero Section with Parallax Effect -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Investment Portfolios</h1>
+      <p class="hero-description">Discover and invest in groundbreaking projects that shape the future</p>
+      <div class="hero-actions">
+        <button class="create-portfolio-btn" (click)="openCreatePortfolioModal()">
+          <i class="fas fa-plus"></i>
+          <span>Create New Portfolio</span>
+        </button>
+        <button class="explore-btn">
+          <i class="fas fa-compass"></i>
+          <span>Explore More</span>
+        </button>
+      </div>
+    </div>
+    <div class="hero-particles"></div>
+  </div>
+
+  <!-- Search Section with Advanced Filters -->
+  <div class="search-section">
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" 
+               [(ngModel)]="searchTerm" 
+               placeholder="Search portfolios by title or description..."
+               class="search-input">
+        <div class="search-filters">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Active</button>
+          <button class="filter-btn">Completed</button>
+          <button class="filter-btn">Pending</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolios Grid with Modern Cards -->
+  <div class="portfolios-section">
+    <div class="portfolio-grid">
+      <div class="portfolio-card" *ngFor="let portfolio of filteredPortfolios">
+        <div class="card-header">
+          <div class="status-badge" [ngClass]="portfolio.statutProjet">
+            {{ portfolio.statutProjet | titlecase }}
+          </div>
+          <div class="card-actions">
+            <button class="action-btn favorite">
+              <i class="fas fa-heart"></i>
+            </button>
+            <button class="action-btn share">
+              <i class="fas fa-share-alt"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <h3 class="portfolio-title">{{ portfolio.titreProjet }}</h3>
+          <p class="portfolio-description">{{ portfolio.descriptionProjet }}</p>
+          
+          <div class="progress-section">
+            <div class="progress-info">
+              <span class="collected">{{ portfolio.montantCollecte | currency:'USD':'symbol':'1.0-0' }}</span>
+              <span class="target">of {{ portfolio.montantRecherche | currency:'USD':'symbol':'1.0-0' }}</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" 
+                   [style.width.%]="calculateProgress(portfolio)"
+                   role="progressbar"
+                   [attr.aria-valuenow]="calculateProgress(portfolio)"
+                   aria-valuemin="0"
+                   aria-valuemax="100">
+                <div class="progress-wave"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-stats">
+            <div class="stat-item">
+              <i class="fas fa-chart-line"></i>
+              <div class="stat-content">
+                <span class="stat-label">Expected Return</span>
+                <span class="stat-value">{{ portfolio.rendementPrevisionnel | number:'1.1-1' }}%</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-calendar"></i>
+              <div class="stat-content">
+                <span class="stat-label">Created</span>
+                <span class="stat-value">{{ portfolio.dateCreation | date:'mediumDate' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a [routerLink]="['/pages/our-team/invest', portfolio.idPortfolio]" class="invest-btn">
+            <i class="fas fa-chart-line"></i>
+            <span>Invest Now</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <button class="fab-btn" (click)="openCreatePortfolioModal()">
+    <i class="fas fa-plus"></i>
+  </button>
+
+  <!-- Create Portfolio Modal -->
+  <app-create-portfolio-modal
+    *ngIf="showModal"
+    (closeModal)="closeCreatePortfolioModal()"
+    (portfolioCreated)="handlePortfolioCreated($event)">
+  </app-create-portfolio-modal>
+</div> 

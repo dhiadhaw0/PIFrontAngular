@@ -7,6 +7,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component'
 import { AboutComponent } from './views/about-us/about/about.component'
 import { AuthGuard } from './core/guards'
+import { InvestmentComponent } from './views/other-pages/our-team/investment/investment.component'
 
 export const routes: Routes = [
   {
@@ -122,18 +123,34 @@ export const routes: Routes = [
   {
     path: 'pages',
     component: DefaultLayoutComponent,
-    loadChildren: () =>
-      import('./views/about-us/about-us.route').then(
-        (mod) => mod.ABOUT_US_ROUTES
-      ),
-  },
-  {
-    path: 'pages',
-    component: DefaultLayoutComponent,
-    loadChildren: () =>
-      import('./views/contact-us/contact-us.route').then(
-        (mod) => mod.CONTACT_US_ROUTES
-      ),
+    children: [
+      {
+        path: 'about-us',
+        loadChildren: () =>
+          import('./views/about-us/about-us.route').then(
+            (mod) => mod.ABOUT_US_ROUTES
+          ),
+      },
+      {
+        path: 'contact-us',
+        loadChildren: () =>
+          import('./views/contact-us/contact-us.route').then(
+            (mod) => mod.CONTACT_US_ROUTES
+          ),
+      },
+      {
+        path: 'our-team',
+        loadComponent: () => import('./views/other-pages/our-team/our-team.component').then(m => m.OurTeamComponent)
+      },
+      {
+        path: 'our-team/invest/:id',
+        loadComponent: () => import('./views/other-pages/our-team/investment/investment.component').then(m => m.InvestmentComponent)
+      },
+      {
+        path: 'our-team/investment-confirmation/:id',
+        loadComponent: () => import('./views/other-pages/our-team/investment-confirmation/investment-confirmation.component').then(m => m.InvestmentConfirmationComponent)
+      }
+    ]
   },
   {
     path: 'blogs',
@@ -149,6 +166,9 @@ export const routes: Routes = [
         (mod) => mod.OTHER_PAGES_ROUTES
       ),
   },
+  {
+    path: 'portfolio',
+    loadComponent: () => import('./views/other-pages/portfolio/portfolio.component').then(m => m.PortfolioComponent)  },
   {
     path: 'wallet',
     children: [

@@ -3,6 +3,7 @@ import { PricingComponent } from './pricing/pricing.component'
 import { FaqsComponent } from './faqs/faqs.component'
 import { NotFoundComponent } from './not-found/not-found.component'
 import { ComingSoonComponent } from './coming-soon/coming-soon.component'
+import { OurTeamComponent } from './our-team/our-team.component'
 
 export const OTHER_PAGES_ROUTES: Route[] = [
   { path: 'pricing', component: PricingComponent, data: { title: 'Pricing' } },
@@ -17,4 +18,9 @@ export const OTHER_PAGES_ROUTES: Route[] = [
     component: ComingSoonComponent,
     data: { title: 'Coming Soon' },
   },
+  {
+    path: 'our-team',
+    component: OurTeamComponent,
+    data: { title: 'Portfolios' }
+  }
 ]

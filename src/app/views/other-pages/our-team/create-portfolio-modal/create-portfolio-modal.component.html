@@ -1,0 +1,77 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Create New Portfolio</h2>
+      <button class="close-btn" (click)="onClose()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="portfolioForm" (ngSubmit)="onSubmit()" class="portfolio-form">
+      <div class="form-group">
+        <label for="titreProjet">Project Title</label>
+        <input type="text" 
+               id="titreProjet" 
+               formControlName="titreProjet"
+               placeholder="Enter project title"
+               [ngClass]="{'is-invalid': portfolioForm.get('titreProjet')?.invalid && portfolioForm.get('titreProjet')?.touched}">
+        <div class="error-message" *ngIf="portfolioForm.get('titreProjet')?.invalid && portfolioForm.get('titreProjet')?.touched">
+          Project title is required and must be at least 5 characters long
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="descriptionProjet">Project Description</label>
+        <textarea id="descriptionProjet" 
+                  formControlName="descriptionProjet"
+                  placeholder="Describe your project in detail"
+                  [ngClass]="{'is-invalid': portfolioForm.get('descriptionProjet')?.invalid && portfolioForm.get('descriptionProjet')?.touched}"></textarea>
+        <div class="error-message" *ngIf="portfolioForm.get('descriptionProjet')?.invalid && portfolioForm.get('descriptionProjet')?.touched">
+          Project description is required and must be at least 20 characters long
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="montantRecherche">Target Amount ($)</label>
+          <input type="number" 
+                 id="montantRecherche" 
+                 formControlName="montantRecherche"
+                 placeholder="Enter target amount"
+                 [ngClass]="{'is-invalid': portfolioForm.get('montantRecherche')?.invalid && portfolioForm.get('montantRecherche')?.touched}">
+          <div class="error-message" *ngIf="portfolioForm.get('montantRecherche')?.invalid && portfolioForm.get('montantRecherche')?.touched">
+            Target amount is required and must be at least $1,000
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="rendementPrevisionnel">Expected Return (%)</label>
+          <input type="number" 
+                 id="rendementPrevisionnel" 
+                 formControlName="rendementPrevisionnel"
+                 placeholder="Enter expected return"
+                 [ngClass]="{'is-invalid': portfolioForm.get('rendementPrevisionnel')?.invalid && portfolioForm.get('rendementPrevisionnel')?.touched}">
+          <div class="error-message" *ngIf="portfolioForm.get('rendementPrevisionnel')?.invalid && portfolioForm.get('rendementPrevisionnel')?.touched">
+            Expected return must be between 1% and 30%
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="statutProjet">Project Status</label>
+        <select id="statutProjet" 
+                formControlName="statutProjet"
+                [ngClass]="{'is-invalid': portfolioForm.get('statutProjet')?.invalid && portfolioForm.get('statutProjet')?.touched}">
+          <option value="active">Active</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" (click)="onClose()">Cancel</button>
+        <button type="submit" class="submit-btn" [disabled]="portfolioForm.invalid">Create Portfolio</button>
+      </div>
+    </form>
+  </div>
+</div> 

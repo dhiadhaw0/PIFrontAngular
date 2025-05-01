@@ -1,0 +1,82 @@
+<div class="portfolio-page">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="page-title">Investment Portfolios</h1>
+          <p class="page-description">Discover our curated selection of investment opportunities.</p>
+        </div>
+        <div class="col-lg-6 text-end">
+          <button class="btn btn-primary create-portfolio-btn">
+            <i class="fas fa-plus"></i> Create New Portfolio
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="container">
+      <div class="search-box">
+        <input type="text" 
+               [(ngModel)]="searchTerm" 
+               placeholder="Search portfolios by title or description..."
+               class="form-control">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolios Grid -->
+  <div class="portfolios-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6" *ngFor="let portfolio of filteredPortfolios">
+          <div class="portfolio-card">
+            <div class="portfolio-header">
+              <h3 class="portfolio-title">{{ portfolio.titreProjet }}</h3>
+              <span class="portfolio-status" [ngClass]="portfolio.statutProjet">
+                {{ portfolio.statutProjet | titlecase }}
+              </span>
+            </div>
+            
+            <div class="portfolio-body">
+              <p class="portfolio-description">{{ portfolio.descriptionProjet }}</p>
+              
+              <div class="portfolio-progress">
+                <div class="progress">
+                  <div class="progress-bar" 
+                       [style.width.%]="calculateProgress(portfolio)"
+                       role="progressbar">
+                    {{ calculateProgress(portfolio) | number:'1.0-0' }}%
+                  </div>
+                </div>
+                <div class="progress-info">
+                  <span class="collected">Collected: {{ portfolio.montantCollecte | currency:'USD':'symbol':'1.0-0' }}</span>
+                  <span class="target">Target: {{ portfolio.montantRecherche | currency:'USD':'symbol':'1.0-0' }}</span>
+                </div>
+              </div>
+
+              <div class="portfolio-details">
+                <div class="detail-item">
+                  <i class="fas fa-chart-line"></i>
+                  <span>Expected Return: {{ portfolio.rendementPrevisionnel }}%</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>Created: {{ portfolio.dateCreation | date:'mediumDate' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="portfolio-footer">
+              <button class="btn btn-primary invest-btn">Invest Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

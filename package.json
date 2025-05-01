@@ -40,6 +40,7 @@
     "bs-stepper": "^1.7.0",
     "choices.js": "^11.0.6",
     "flatpickr": "^4.6.13",
+    "g": "^2.0.1",
     "glightbox": "^3.3.1",
     "jarallax": "^2.2.0",
     "ng-apexcharts": "^1.15.0",
@@ -63,7 +64,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.7",
-    "@angular/cli": "^19.0.7",
+    "@angular/cli": "^19.2.10",
     "@angular/compiler-cli": "^19.0.0",
     "@angular/localize": "^19.0.0",
     "@types/bootstrap": "^5.2.10",

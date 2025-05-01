@@ -1,0 +1,138 @@
+<div class="investment-page">
+  <!-- Hero Section -->
+  <div class="hero-section" *ngIf="portfolio">
+    <div class="hero-content">
+      <h1 class="hero-title">Invest in {{ portfolio.titreProjet }}</h1>
+      <p class="hero-description">{{ portfolio.descriptionProjet }}</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <i class="fas fa-chart-line"></i>
+        <div class="stat-content">
+          <span class="stat-label">Expected Return</span>
+          <span class="stat-value">{{ portfolio.rendementPrevisionnel | number:'1.1-1' }}%</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-bullseye"></i>
+        <div class="stat-content">
+          <span class="stat-label">Target Amount</span>
+          <span class="stat-value">{{ portfolio.montantRecherche | currency:'USD':'symbol':'1.0-0' }}</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-hand-holding-usd"></i>
+        <div class="stat-content">
+          <span class="stat-label">Amount Raised</span>
+          <span class="stat-value">{{ portfolio.montantCollecte | currency:'USD':'symbol':'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Investment Form Section -->
+  <div class="investment-form-section">
+    <form [formGroup]="investmentForm" (ngSubmit)="onSubmit()" class="investment-form">
+      <div class="form-header">
+        <h2>Make Your Investment</h2>
+        <p>Fill in the details below to invest in this project</p>
+      </div>
+
+      <div class="form-group">
+        <label for="montantInvestissement">Investment Amount ($)</label>
+        <div class="input-group">
+          <span class="input-icon"><i class="fas fa-dollar-sign"></i></span>
+          <input type="number" 
+                 id="montantInvestissement" 
+                 formControlName="montantInvestissement"
+                 placeholder="Enter amount"
+                 [ngClass]="{'is-invalid': investmentForm.get('montantInvestissement')?.invalid && investmentForm.get('montantInvestissement')?.touched}">
+        </div>
+        <div class="error-message" *ngIf="investmentForm.get('montantInvestissement')?.invalid && investmentForm.get('montantInvestissement')?.touched">
+          Minimum investment amount is $100
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dureeEngagement">Investment Duration (months)</label>
+        <div class="input-group">
+          <span class="input-icon"><i class="fas fa-clock"></i></span>
+          <input type="number" 
+                 id="dureeEngagement" 
+                 formControlName="dureeEngagement"
+                 placeholder="Enter duration"
+                 [ngClass]="{'is-invalid': investmentForm.get('dureeEngagement')?.invalid && investmentForm.get('dureeEngagement')?.touched}">
+        </div>
+        <div class="error-message" *ngIf="investmentForm.get('dureeEngagement')?.invalid && investmentForm.get('dureeEngagement')?.touched">
+          Duration must be between 1 and 60 months
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Payment Method</label>
+        <div class="payment-methods">
+          <div class="payment-method" 
+               *ngFor="let method of paymentMethods"
+               [ngClass]="{'selected': investmentForm.get('modePaiement')?.value === method.value}"
+               (click)="investmentForm.patchValue({ modePaiement: method.value })">
+            <i class="fas {{ method.icon }}"></i>
+            <span>{{ method.label }}</span>
+          </div>
+        </div>
+        <div class="error-message" *ngIf="investmentForm.get('modePaiement')?.invalid && investmentForm.get('modePaiement')?.touched">
+          Please select a payment method
+        </div>
+      </div>
+
+      <div class="investment-summary">
+        <div class="summary-item">
+          <span class="summary-label">Your Investment</span>
+          <span class="summary-value">{{ investmentForm.get('montantInvestissement')?.value | currency:'USD':'symbol':'1.0-0' }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Participation</span>
+          <span class="summary-value">{{ pourcentageParticipation | number:'1.2-2' }}%</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Estimated Return</span>
+          <span class="summary-value">{{ rendementEstime | currency:'USD':'symbol':'1.0-0' }}</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" (click)="onCancel()" [disabled]="isLoading">Cancel</button>
+        <button type="submit" class="submit-btn" [disabled]="investmentForm.invalid || isLoading">
+          <i class="fas" [ngClass]="{'fa-spinner fa-spin': isLoading, 'fa-check': !isLoading}"></i>
+          <span>{{ isLoading ? 'Processing...' : 'Confirm Investment' }}</span>
+        </button>
+      </div>
+
+      <div class="error-message" *ngIf="error" style="margin-top: 1rem; text-align: center;">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ error }}
+      </div>
+    </form>
+  </div>
+
+  <!-- Investment Tips Section -->
+  <div class="tips-section">
+    <h3>Investment Tips</h3>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <i class="fas fa-shield-alt"></i>
+        <h4>Secure Investment</h4>
+        <p>Your investment is protected by our secure payment system and investment protocols.</p>
+      </div>
+      <div class="tip-card">
+        <i class="fas fa-chart-pie"></i>
+        <h4>Diversify Your Portfolio</h4>
+        <p>Consider investing in multiple projects to spread your risk and maximize returns.</p>
+      </div>
+      <div class="tip-card">
+        <i class="fas fa-clock"></i>
+        <h4>Long-term Growth</h4>
+        <p>Investments in sustainable projects typically show better long-term growth potential.</p>
+      </div>
+    </div>
+  </div>
+</div> 

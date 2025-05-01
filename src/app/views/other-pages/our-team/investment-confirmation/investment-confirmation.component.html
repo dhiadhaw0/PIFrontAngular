@@ -1,0 +1,129 @@
+<div class="confirmation-page" *ngIf="investment && portfolio">
+  <!-- Celebration Animation -->
+  <div class="celebration">
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="confirmation-content">
+    <!-- Success Icon -->
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+
+    <!-- Thank You Message -->
+    <div class="thank-you-message">
+      <h1>Investment Confirmed!</h1>
+      <p class="quote">{{ selectedQuote }}</p>
+    </div>
+
+    <!-- Project Details Card -->
+    <div class="details-card project-details">
+      <div class="card-header">
+        <h2>Project Details</h2>
+        <div class="status-badge" [ngClass]="portfolio.statutProjet">
+          {{ portfolio.statutProjet | titlecase }}
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>{{ portfolio.titreProjet }}</h3>
+        <p>{{ portfolio.descriptionProjet }}</p>
+        <div class="project-stats">
+          <div class="stat-item">
+            <i class="fas fa-bullseye"></i>
+            <div class="stat-content">
+              <span class="stat-label">Target Amount</span>
+              <span class="stat-value">{{ portfolio.montantRecherche | currency:'USD':'symbol':'1.0-0' }}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-chart-line"></i>
+            <div class="stat-content">
+              <span class="stat-label">Expected Return</span>
+              <span class="stat-value">{{ portfolio.rendementPrevisionnel | number:'1.1-1' }}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investment Details Card -->
+    <div class="details-card investment-details">
+      <div class="card-header">
+        <h2>Your Investment</h2>
+        <div class="investment-date">
+          <i class="fas fa-calendar"></i>
+          {{ investment.dateInvestissement | date:'mediumDate' }}
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="investment-stats">
+          <div class="stat-item">
+            <i class="fas fa-dollar-sign"></i>
+            <div class="stat-content">
+              <span class="stat-label">Amount Invested</span>
+              <span class="stat-value">{{ investment.montantInvestissement | currency:'USD':'symbol':'1.0-0' }}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-percentage"></i>
+            <div class="stat-content">
+              <span class="stat-label">Participation</span>
+              <span class="stat-value">{{ investment.pourcentageParticipation | number:'1.2-2' }}%</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-chart-line"></i>
+            <div class="stat-content">
+              <span class="stat-label">Estimated Return</span>
+              <span class="stat-value">{{ investment.rendementEstime | currency:'USD':'symbol':'1.0-0' }}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-clock"></i>
+            <div class="stat-content">
+              <span class="stat-label">Duration</span>
+              <span class="stat-value">{{ investment.dureeEngagement }} months</span>
+            </div>
+          </div>
+        </div>
+        <div class="payment-method">
+          <i class="fas {{ getPaymentMethodIcon(investment.modePaiement) }}"></i>
+          <span>{{ investment.modePaiement | titlecase }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="next-steps">
+      <h3>What's Next?</h3>
+      <div class="steps-grid">
+        <div class="step-card">
+          <i class="fas fa-envelope"></i>
+          <h4>Confirmation Email</h4>
+          <p>You'll receive a detailed confirmation email shortly</p>
+        </div>
+        <div class="step-card">
+          <i class="fas fa-chart-bar"></i>
+          <h4>Track Progress</h4>
+          <p>Monitor your investment performance in your dashboard</p>
+        </div>
+        <div class="step-card">
+          <i class="fas fa-file-alt"></i>
+          <h4>Documentation</h4>
+          <p>Access your investment documents in your account</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <button class="home-btn" (click)="goToHome()">
+      <i class="fas fa-home"></i>
+      <span>Go to Home</span>
+    </button>
+  </div>
+</div> 
