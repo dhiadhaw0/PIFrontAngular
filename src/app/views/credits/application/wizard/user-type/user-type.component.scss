@@ -1,0 +1,58 @@
+@import '../shared/styles.scss';
+
+// Component specific styles
+.user-type-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.user-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.user-type-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &.selected {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+  }
+}
+
+.user-type-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #007bff;
+}
+
+.user-type-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.user-type-description {
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+}
+
+.btn {
+  min-width: 120px;
+} 

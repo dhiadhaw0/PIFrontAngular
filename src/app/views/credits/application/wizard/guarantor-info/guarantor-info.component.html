@@ -1,0 +1,109 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Guarantor Information</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="guarantorForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="typeGarant" class="form-label">Guarantor Type</label>
+              <select class="form-select" id="typeGarant" formControlName="typeGarant">
+                <option value="">Select guarantor type</option>
+                <option value="Parent">Parent</option>
+                <option value="Conjoint">Spouse</option>
+                <option value="Amie">Friend</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="text-danger" *ngIf="guarantorForm.get('typeGarant')?.invalid && 
+                guarantorForm.get('typeGarant')?.touched">
+                <small>Please select a guarantor type</small>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="nom" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="nom" formControlName="nom"
+                  placeholder="Enter last name">
+                <div class="text-danger" *ngIf="guarantorForm.get('nom')?.invalid && 
+                  guarantorForm.get('nom')?.touched">
+                  <small>Last name is required</small>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="prenom" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="prenom" formControlName="prenom"
+                  placeholder="Enter first name">
+                <div class="text-danger" *ngIf="guarantorForm.get('prenom')?.invalid && 
+                  guarantorForm.get('prenom')?.touched">
+                  <small>First name is required</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email"
+                placeholder="Enter email">
+              <div class="text-danger" *ngIf="guarantorForm.get('email')?.invalid && 
+                guarantorForm.get('email')?.touched">
+                <small>Please enter a valid email address</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="telephone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="telephone" formControlName="telephone"
+                placeholder="Enter phone number">
+              <div class="text-danger" *ngIf="guarantorForm.get('telephone')?.invalid && 
+                guarantorForm.get('telephone')?.touched">
+                <small>Please enter a valid 10-digit phone number</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="salaire" class="form-label">Monthly Income</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="salaire" formControlName="salaire"
+                  placeholder="Enter monthly income">
+              </div>
+              <div class="text-danger" *ngIf="guarantorForm.get('salaire')?.invalid && 
+                guarantorForm.get('salaire')?.touched">
+                <small>Monthly income is required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="profession" class="form-label">Profession</label>
+              <input type="text" class="form-control" id="profession" formControlName="profession"
+                placeholder="Enter profession">
+              <div class="text-danger" *ngIf="guarantorForm.get('profession')?.invalid && 
+                guarantorForm.get('profession')?.touched">
+                <small>Profession is required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="relation" class="form-label">Relationship</label>
+              <input type="text" class="form-control" id="relation" formControlName="relation"
+                placeholder="Enter relationship with guarantor">
+              <div class="text-danger" *ngIf="guarantorForm.get('relation')?.invalid && 
+                guarantorForm.get('relation')?.touched">
+                <small>Relationship is required</small>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="guarantorForm.invalid">
+                Next Step
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

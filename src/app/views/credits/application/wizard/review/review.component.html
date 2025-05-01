@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Review Your Application</h3>
+        </div>
+        <div class="card-body">
+          <div class="mb-4">
+            <h4>Basic Information</h4>
+            <div class="card mb-3">
+              <div class="card-body">
+                <p><strong>Loan Amount:</strong> ${{ applicationData?.basicInfo?.montantDemande }}</p>
+                <p><strong>Loan Duration:</strong> {{ applicationData?.basicInfo?.creditDuration }} months</p>
+                <p><strong>Purpose:</strong> {{ applicationData?.basicInfo?.description }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h4>Financial Information</h4>
+            <div class="card mb-3">
+              <div class="card-body">
+                <p><strong>Monthly Income:</strong> ${{ applicationData?.financialInfo?.salaire }}</p>
+                <p><strong>Profession:</strong> {{ applicationData?.financialInfo?.profession }}</p>
+                <p><strong>Years of Employment:</strong> {{ applicationData?.financialInfo?.employmentYears }}</p>
+                <p><strong>Bank Accounts:</strong> {{ applicationData?.financialInfo?.bankAccounts }}</p>
+                <p><strong>Monthly Expenses:</strong> ${{ applicationData?.financialInfo?.monthlyExpenses }}</p>
+                <p><strong>Other Loans:</strong> ${{ applicationData?.financialInfo?.otherLoans }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h4>Guarantor Information</h4>
+            <div class="card mb-3">
+              <div class="card-body">
+                <p><strong>Type:</strong> {{ applicationData?.guarantorInfo?.typeGarant }}</p>
+                <p><strong>Name:</strong> {{ applicationData?.guarantorInfo?.nom }} {{ applicationData?.guarantorInfo?.prenom }}</p>
+                <p><strong>Email:</strong> {{ applicationData?.guarantorInfo?.email }}</p>
+                <p><strong>Phone:</strong> {{ applicationData?.guarantorInfo?.telephone }}</p>
+                <p><strong>Monthly Income:</strong> ${{ applicationData?.guarantorInfo?.salaire }}</p>
+                <p><strong>Profession:</strong> {{ applicationData?.guarantorInfo?.profession }}</p>
+                <p><strong>Relationship:</strong> {{ applicationData?.guarantorInfo?.relation }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-4" *ngIf="applicationData?.userType === 'ENTREPRENEUR'">
+            <h4>Business Pack Information</h4>
+            <div class="card mb-3">
+              <div class="card-body">
+                <p><strong>Pack Name:</strong> {{ applicationData?.packInfo?.name }}</p>
+                <p><strong>Description:</strong> {{ applicationData?.packInfo?.description }}</p>
+                <p><strong>Interest Rate:</strong> {{ applicationData?.packInfo?.interestRate }}%</p>
+                <p><strong>Duration:</strong> {{ applicationData?.packInfo?.duration }} months</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              Back
+            </button>
+            <button type="button" class="btn btn-primary" (click)="submitApplication()">
+              Submit Application
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

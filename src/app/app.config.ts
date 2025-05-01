@@ -10,6 +10,7 @@ import {
   type InMemoryScrollingOptions,
 } from '@angular/router'
 import { IMAGE_CONFIG } from '@angular/common'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { routes } from './app.routes'
 import { provideStore } from '@ngrx/store'
@@ -46,6 +47,8 @@ export const appConfig: ApplicationConfig = {
     provideStore(rootReducer),
     provideEffects(AuthenticationEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    FormsModule,
+    ReactiveFormsModule,
     FakeBackendProvider,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

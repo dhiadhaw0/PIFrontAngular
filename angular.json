@@ -48,6 +48,9 @@
               "quill-delta"
             ],
             "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/views/credits/application/wizard/shared"
+              ],
               "sass": {
                 "silenceDeprecations": [
                   "color-functions",
@@ -126,7 +129,12 @@
               "src/assets/fonts/font-awesome/css/all.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/views/credits/application/wizard/shared"
+              ]
+            }
           }
         }
       }

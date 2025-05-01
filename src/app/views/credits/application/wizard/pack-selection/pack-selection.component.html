@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Select Your Business Pack</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="packForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-4 mb-3" *ngFor="let pack of packs">
+                <div class="card h-100" [class.selected]="selectedPack?.id === pack.id"
+                  (click)="onPackSelect(pack)">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ pack.name }}</h5>
+                    <p class="card-text">{{ pack.description }}</p>
+                    <ul class="list-unstyled">
+                      <li><strong>Amount Range:</strong> ${{ pack.minAmount }} - ${{ pack.maxAmount }}</li>
+                      <li><strong>Interest Rate:</strong> {{ pack.interestRate }}%</li>
+                      <li><strong>Duration:</strong> {{ pack.duration }} months</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" formControlName="packId">
+
+            <div class="text-danger mb-3" *ngIf="packForm.get('packId')?.invalid && 
+              packForm.get('packId')?.touched">
+              <small>Please select a business pack</small>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="packForm.invalid">
+                Next Step
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
