@@ -1,0 +1,217 @@
+<div class="profile-container">
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="profile-cover">
+      <button class="settings-btn" (click)="onOpenSettings()">
+        <i class="fas fa-cog"></i>
+      </button>
+    </div>
+    <div class="profile-info">
+      <div class="profile-photo">
+        <img [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName">
+        <button class="edit-photo-btn" (click)="onEditPhoto()">
+          <i class="fas fa-camera"></i>
+        </button>
+      </div>
+      <div class="profile-details">
+        <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+        <p class="profession">{{ user.role }}</p>
+      
+      </div>
+      <button class="edit-profile-btn" (click)="onEditProfileModal(editProfileModal)">
+        <i class="fas fa-edit"></i> Edit Profile
+      </button>
+      
+    </div>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="profile-content">
+    <!-- Financial Overview -->
+    <section class="profile-section financial-overview">
+      <h2>Financial Overview</h2>
+      <div class="financial-grid">
+        <div class="financial-card">
+          <span class="label">Portfolio Value</span>
+          <span class="value">{{ formatCurrency(user.portfolioValue) }}</span>
+        </div>
+        <div class="financial-card">
+          <span class="label">Available Balance</span>
+          <span class="value">{{ formatCurrency(user.availableBalance) }}</span>
+        </div>
+        <div class="financial-card">
+          <span class="label">Savings</span>
+          <span class="value">{{ formatCurrency(user.savings) }}</span>
+        </div>
+        <div class="financial-card">
+          <span class="label">Investments</span>
+          <span class="value">{{ formatCurrency(user.investments) }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bank Accounts
+    <section class="profile-section bank-accounts">
+      <h2>Bank Accounts</h2>
+      <div class="accounts-grid">
+        <div class="account-card" *ngFor="let account of user.bankAccounts">
+          <div class="account-type">{{ account.type }}</div>
+          <div class="account-details">
+            <div class="detail">
+              <span class="label">IBAN</span>
+              <span class="value">{{ account.iban }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">Balance</span>
+              <span class="value">{{ formatCurrency(account.balance) }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">Bank Code</span>
+              <span class="value">{{ account.bankCode }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">RIB</span>
+              <span class="value">{{ account.rib }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- Personal Information -->
+    <section class="profile-section personal-info">
+      <h2>Personal Information</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Email</span>
+          <span class="value">{{ user.email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Phone</span>
+          <span class="value">{{ user.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Address</span>
+          <span class="value">{{ user.address }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Salare</span>
+          <span class="value">{{ user.salary }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">  profession</span>
+          <span class="value">{{ user.profession }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Date of Birth</span>
+          <span class="value">{{ formatDate(user.dateOfBirth) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">CIN</span>
+          <span class="value">{{ user.cin }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Tax ID</span>
+          <span class="value">{{ user.taxId }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Financial Score -->
+    <section class="profile-section financial-score">
+      <h2>Financial Score</h2>
+      <div class="score-container">
+        <div class="score-circle" [style.background-color]="getFinancialScoreColor(user.financialScore)">
+          <span class="score-value">{{ user.financialScore }}</span>
+          <span class="score-label">Score</span>
+        </div>
+        <div class="score-details">
+          <div class="score-range">
+            <span>Poor</span>
+            <span>Fair</span>
+            <span>Good</span>
+            <span>Excellent</span>
+          </div>
+          <div class="score-bar">
+            <div class="score-progress" [style.width]="(user.financialScore / 1000 * 100) + '%'"
+                 [style.background-color]="getFinancialScoreColor(user.financialScore)"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<!-- Modal pour éditer le profil -->
+<ng-template #editProfileModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+    <button type="button" class="close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form (ngSubmit)="onSaveProfile()">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input id="firstName" [(ngModel)]="user.firstName" name="firstName" type="text" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" [(ngModel)]="user.lastName" name="lastName" type="text" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" [(ngModel)]="user.email" name="email" type="email" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input id="phone" [(ngModel)]="user.phone" name="phone" type="tel" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input id="address" [(ngModel)]="user.address" name="address" type="text" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="salary">Salary</label>
+        <input id="salary" [(ngModel)]="user.salary" name="salary" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="profession">Profession</label>
+        <input id="profession" [(ngModel)]="user.profession" name="profession" type="text" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input id="dateOfBirth" [(ngModel)]="user.dateOfBirth" name="dateOfBirth" type="date" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="cin">CIN</label>
+        <input id="cin" [(ngModel)]="user.cin" name="cin" type="text" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="taxId">Tax ID</label>
+        <input id="taxId" [(ngModel)]="user.taxId" name="taxId" type="text" class="form-control" />
+      </div>
+
+      <!-- Profile Image -->
+      <div class="form-group">
+        <label for="photo">Profile Photo</label>
+        <input id="photo" type="file" (change)="onFileChange($event)" class="form-control" />
+        <div *ngIf="user.photoUrl">
+          <img [src]="user.photoUrl" alt="Profile Image" width="100" />
+        </div>
+      </div>
+
+      <!-- Password Change -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" [(ngModel)]="user.password" name="password" type="password" class="form-control" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+  </form>
+</ng-template>
+
+

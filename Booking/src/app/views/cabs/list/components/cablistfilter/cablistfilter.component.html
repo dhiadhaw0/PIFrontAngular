@@ -1,0 +1,140 @@
+<div class="offcanvas-body flex-column p-3 p-xl-0">
+  <form class="rounded-3 shadow">
+    <div class="card card-body rounded-0 rounded-top p-4">
+      <h6 class="mb-2">Passenger capacity</h6>
+
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="popolarType1" />
+        <label class="form-check-label" for="popolarType1"
+          >4 passenger seats</label
+        >
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="popolarType2" />
+        <label class="form-check-label" for="popolarType2"
+          >6 passenger seats</label
+        >
+      </div>
+    </div>
+
+    <hr class="my-0" />
+
+    <div class="card card-body rounded-0 p-4">
+      <h6 class="mb-2">Price</h6>
+
+      <div class="position-relative">
+        <div class="noui-wrapper mb-0">
+          <div class="d-flex justify-content-between">
+            <input
+              type="text"
+              class="text-body input-with-range-min"
+              [value]="value.toFixed(2)"
+            />
+            <input
+              type="text"
+              class="text-body input-with-range-max"
+              [value]="highValue.toFixed(2)"
+            />
+          </div>
+          <ngx-slider
+            [(value)]="value"
+            [options]="options"
+            [(highValue)]="highValue"
+            class="range-slider-ui"
+          ></ngx-slider>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-0" />
+
+    <div class="card card-body rounded-0 rounded-bottom p-4">
+      <h6 class="mb-2">Car model</h6>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="lauoverType1"
+        />
+        <label class="form-check-label" for="lauoverType1"
+          >WagonR or similar</label
+        >
+      </div>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="lauoverType2"
+        />
+        <label class="form-check-label" for="lauoverType2"
+          >Indica or similar</label
+        >
+      </div>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="lauoverType3"
+        />
+        <label class="form-check-label" for="lauoverType3"
+          >Dzire or similar</label
+        >
+      </div>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="lauoverType4"
+        />
+        <label class="form-check-label" for="lauoverType4"
+          >Etios or similar</label
+        >
+      </div>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="lauoverType7"
+        />
+        <label class="form-check-label" for="lauoverType7"
+          >Xcent or similar</label
+        >
+      </div>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="lauoverType8"
+        />
+        <label class="form-check-label" for="lauoverType8"
+          >Innova or similar</label
+        >
+      </div>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="lauoverType9"
+        />
+        <label class="form-check-label" for="lauoverType9"
+          >Innova Crysta or similar</label
+        >
+      </div>
+    </div>
+  </form>
+</div>

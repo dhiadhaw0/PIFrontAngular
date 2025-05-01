@@ -1,0 +1,129 @@
+<!-- =======================
+Services START -->
+<section class="pt-0 pt-lg-5">
+  <div class="container">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <h2>We Provide Our Best Facilities For You</h2>
+        <p>
+          Book your hotel with us and don't forget to grab an awesome hotel deal
+          to save massive on your stay.
+        </p>
+
+        <a href="javascript:void(0);" class="btn btn-dark mb-4">Contact Us</a>
+
+        <div class="row g-sm-4">
+          <div class="col-sm-6">
+            <ul class="list-group list-group-borderless mt-2 mb-0">
+              <li class="list-group-item">
+                <h6 class="fw-normal mb-0">
+                  <i class="fa-solid fa-wifi fa-fw text-primary me-2"></i>Free
+                  Wifi
+                </h6>
+              </li>
+
+              <li class="list-group-item">
+                <h6 class="fw-normal mb-0">
+                  <i
+                    class="fa-solid fa-person-swimming fa-fw text-primary me-2"
+                  ></i
+                  >Swimming Pool
+                </h6>
+              </li>
+
+              <li class="list-group-item">
+                <h6 class="fw-normal mb-0">
+                  <i
+                    class="fa-solid fa-person-shelter fa-fw text-primary me-2"
+                  ></i
+                  >Private Workshop
+                </h6>
+              </li>
+
+              <li class="list-group-item">
+                <h6 class="fw-normal mb-0">
+                  <i class="fa-solid fa-utensils fa-fw text-primary me-2"></i
+                  >Breakfast
+                </h6>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-sm-6">
+            <ul class="list-group list-group-borderless">
+              <li class="list-group-item">
+                <h6 class="fw-normal mb-0">
+                  <i class="fa-solid fa-bolt fa-fw text-primary me-2"></i>Free
+                  Electricity
+                </h6>
+              </li>
+
+              <li class="list-group-item">
+                <h6 class="fw-normal mb-0">
+                  <i class="fa-solid fa-dumbbell fa-fw text-primary me-2"></i
+                  >Gym Space
+                </h6>
+              </li>
+
+              <li class="list-group-item">
+                <h6 class="fw-normal mb-0">
+                  <i class="fa-solid fa-spa fa-fw text-primary me-2"></i>Spa
+                </h6>
+              </li>
+
+              <li class="list-group-item">
+                <h6 class="fw-normal mb-0">
+                  <a href="javascript:void(0);"
+                    ><i class="fa-solid fa-ellipsis fa-fw text-primary me-2"></i
+                    >Other Services</a
+                  >
+                </h6>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="bg-light rounded-3 h-100 p-4">
+          <div class="tiny-slider arrow-round arrow-blur">
+            <div class="tiny-slider-inner">
+              <ng-tiny-slider [config]="serviceSliderSettings" #serviceSlider>
+                @for (data of serviceList; track $index) {
+                  <div class="card bg-transparent">
+                    <div class="row g-4 align-items-center">
+                      <div class="col-sm-6">
+                        <img
+                          [src]="data.image"
+                          class="img-fluid card-img"
+                          alt="..."
+                        />
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="card-body p-0">
+                          <h6 class="fw-normal mb-3">{{ data.category }}</h6>
+                          <h4 class="card-title mb-3">
+                            <a
+                              href="javascript:void(0);"
+                              class="stretched-link"
+                              >{{ data.title }}</a
+                            >
+                          </h4>
+                          <a href="javascript:void(0);" class="btn btn-link p-0"
+                            >Explore Now <i class="bi bi-arrow-right"></i
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </ng-tiny-slider>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- =======================
+Services END -->

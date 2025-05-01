@@ -1,0 +1,51 @@
+<!-- =======================
+Gallery START -->
+<section>
+  <div class="container-fluid">
+    <div class="row mb-md-4">
+      <div class="col-12 mx-auto text-center mb-4">
+        <h2 class="mb-0">Our Hotel Precious Moments</h2>
+      </div>
+    </div>
+
+    <div
+      class="tiny-slider arrow-round arrow-blur arrow-hover rounded-3 overflow-hidden"
+    >
+      <div class="tiny-slider-inner">
+        <div>
+          <ng-tiny-slider
+            [config]="gallerySliderSettings"
+            #gallerySlider
+            class="precious-slider"
+          >
+            @for (data of imagesList; track $index) {
+              <a class="" [href]="data.lightboxsrc">
+                <div
+                  class="card card-element-hover card-overlay-hover overflow-hidden"
+                >
+                  <img [src]="data.image" class="rounded-3" alt="" />
+
+                  <div class="hover-element w-100 h-100">
+                    @if (data.video) {
+                      <span
+                        class="btn text-danger btn-round btn-white position-absolute top-50 start-50 translate-middle mb-0"
+                      >
+                        <i class="fas fa-play"></i>
+                      </span>
+                    } @else {
+                      <i
+                        class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                      ></i>
+                    }
+                  </div>
+                </div>
+              </a>
+            }
+          </ng-tiny-slider>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- =======================
+Gallery END -->

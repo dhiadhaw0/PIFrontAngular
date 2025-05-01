@@ -1,0 +1,84 @@
+<section class="pt-0">
+  <div class="container" data-sticky-container>
+    <div class="row g-4">
+      <div class="col-xl-8">
+        <div class="vstack gap-5">
+          <div class="card border p-4">
+            <div class="card-body p-0">
+              <div class="row g-4 align-items-center">
+                <div class="col-md-4">
+                  <div class="bg-light rounded-3 px-4 py-5">
+                    <img [src]="cabData.image" alt="" />
+                  </div>
+                </div>
+
+                <div class="col-md-8">
+                  <div class="d-sm-flex justify-content-sm-between">
+                    <div>
+                      <h4 class="card-title mb-2">{{ cabData.name }}</h4>
+                      <ul class="nav nav-divider h6 fw-normal mb-2">
+                        @for (key of cabData.keyFeatures; track $index) {
+                          <li class="nav-item">{{ key }}</li>
+                        }
+                      </ul>
+                    </div>
+
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item me-1">
+                        <i class="fa-solid fa-star text-warning"></i>
+                      </li>
+                      <li class="list-inline-item me-1">
+                        <i class="fa-solid fa-star text-warning"></i>
+                      </li>
+                      <li class="list-inline-item me-1">
+                        <i class="fa-solid fa-star text-warning"></i>
+                      </li>
+                      <li class="list-inline-item me-1">
+                        <i class="fa-solid fa-star text-warning"></i>
+                      </li>
+                      <li class="list-inline-item">
+                        <i class="fa-solid fa-star-half-alt text-warning"></i>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <ul class="list-group list-group-borderless mt-2 mb-0">
+                    @for (feature of cabData.features; track feature) {
+                      <li class="list-group-item d-flex pb-0 mb-0">
+                        <span class="h6 fw-normal mb-0"
+                          ><i class="bi bi-check-circle me-2"></i
+                          >{{ feature }}</span
+                        >
+                      </li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer p-0 pt-4">
+              <div class="hstack gap-3 flex-wrap">
+                @for (note of cabData.notes; track note) {
+                  <h6
+                    class="bg-success bg-opacity-10 text-success fw-light rounded-2 d-inline-block mb-0 py-2 px-4"
+                  >
+                    {{ note }}
+                  </h6>
+                }
+              </div>
+            </div>
+          </div>
+
+          <detail-trip-detail />
+
+          <detail-cab-driver />
+          <detail-inclusion />
+          <detail-safety />
+        </div>
+      </div>
+      <aside class="col-xl-4">
+        <detail-sidebar />
+      </aside>
+    </div>
+  </div>
+</section>

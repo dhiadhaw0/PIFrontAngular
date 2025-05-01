@@ -1,0 +1,167 @@
+<div class="d-flex align-items-center mb-4">
+  <h1 class="display-4 mb-0"><i class="fa-solid fa-plane rtl-flip"></i></h1>
+
+  <div class="ms-3">
+    <ul class="list-inline mb-2">
+      <li class="list-inline-item me-2">
+        <h3 class="mb-0">Mumbai(BOM)</h3>
+      </li>
+      <li class="list-inline-item me-2 ms-1">
+        <h3 class="mb-0"><i class="bi bi-arrow-right"></i></h3>
+      </li>
+      <li class="list-inline-item me-0 ms-1">
+        <h3 class="mb-0">New York(JFK)</h3>
+      </li>
+    </ul>
+
+    <ul class="nav nav-divider h6 fw-normal text-body mb-0">
+      <li class="nav-item">25 Jan</li>
+      <li class="nav-item">1 Stop</li>
+      <li class="nav-item">05h 25m</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card border">
+  <div class="card-header d-flex justify-content-between pb-0">
+    <h6 class="fw-normal mb-0">
+      <span class="text-body">Travel Class:</span> Economy
+    </h6>
+    <a
+      href="javascript:void(0);"
+      (click)="openModal(content)"
+      class="btn btn-link text-decoration-underline p-0 mb-0"
+      data-bs-toggle="modal"
+      data-bs-target="#baggageFare"
+    >
+      <i class="bi bi-eye-fill me-1"></i>Baggage & Fare Rules
+    </a>
+  </div>
+
+  <div class="card-body p-4">
+    @for (item of flightRoutesInfo; track $index) {
+      <div class="row g-4">
+        <div class="col-md-3">
+          <img src="assets/images/element/09.svg" class="w-80px mb-3" alt="" />
+
+          <h6 class="fw-normal mb-0">{{ item.airline }}</h6>
+          <h6 class="fw-normal mb-0">{{ item.flight_number }}</h6>
+        </div>
+
+        <div class="col-sm-4 col-md-3">
+          <h4>{{ item.departure_airport.code }}</h4>
+          <h6>{{ item.departure_airport.time }}</h6>
+
+          <p class="mb-2">{{ item.departure_airport.date }}</p>
+          <p class="mb-2">{{ item.departure_airport.name }}</p>
+          <p class="mb-0">
+            {{ item.departure_airport.terminal }},
+            {{ item.departure_airport.gate }}
+          </p>
+        </div>
+
+        <div class="col-sm-4 col-md-3 text-center my-sm-auto">
+          <h5>{{ item.duration }}</h5>
+
+          <div class="position-relative my-4">
+            <hr class="bg-primary opacity-5 position-relative" />
+
+            <div
+              class="icon-md bg-primary text-white rounded-circle position-absolute top-50 start-50 translate-middle"
+            >
+              <i class="fa-solid fa-fw fa-plane rtl-flip"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4 col-md-3">
+          <h4>{{ item.arrival_airport.code }}</h4>
+          <h6>{{ item.arrival_airport.time }}</h6>
+
+          <p class="mb-2">{{ item.arrival_airport.date }}</p>
+          <p class="mb-2">{{ item.arrival_airport.name }}</p>
+          <p class="mb-0">
+            {{ item.arrival_airport.terminal }}, {{ item.arrival_airport.gate }}
+          </p>
+        </div>
+      </div>
+
+      @if (item.changePlan) {
+        <div class="bg-light rounded-2 text-center text-danger p-2 my-4">
+          Change of planes: 3h 15m Layover in France
+        </div>
+      }
+    }
+  </div>
+</div>
+
+<ng-template #content let-modal class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="baggageFarelabel">Baggage & Fare Rules</h5>
+    <button
+      type="button"
+      (click)="modal.close()"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="modal-body p-3">
+    <div class="card border">
+      <div class="card-header border-bottom">
+        <h5 class="card-title mb-0">
+          <img src="assets/images/element/09.svg" class="h-80px" alt="" />
+          BOM - CDG
+        </h5>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive-lg">
+          <table
+            class="table table-bordered rounded caption-bottom overflow-hidden mb-0"
+          >
+            <thead class="table-dark border-light">
+              <tr>
+                <th scope="col">Baggage Type</th>
+                <th scope="col">Check In</th>
+                <th scope="col">Cabin</th>
+              </tr>
+            </thead>
+
+            <tbody class="border-top-0">
+              <tr>
+                <td>Adult</td>
+                <td>2 PC</td>
+                <td>7 Kg</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div
+        class="card-footer d-flex justify-content-between align-items-center pt-0 px-sm-4"
+      >
+        <span>*1PC = 23KG</span>
+        <a href="javascript:void(0);" class="btn btn-sm btn-primary-soft mb-0"
+          >Add luggage</a
+        >
+      </div>
+    </div>
+
+    <div class="mt-4 px-2">
+      <span class="badge bg-light text-success mb-2"
+        ><i class="bi bi-star-fill me-2"></i>Travel Hack</span
+      >
+      <h5 class="mb-2">This itinerary includes a self-transfer</h5>
+      <p class="mb-0">
+        Please note, that it is the sole responsibility of the passenger to
+        ensure his or her eligibility to enter the destination or transit
+        countries (as applicable). We accept no liability in this regard. Please
+        check the travel rules of all regulatory websites before to booking as
+        well as commencing.
+      </p>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,160 @@
+<div class="card shadow mt-5">
+  <div class="card-header border-bottom">
+    <h5 class="card-header-title">Bookings</h5>
+  </div>
+
+  <div class="card-body">
+    <div class="row g-3 align-items-center justify-content-between mb-3">
+      <div class="col-md-8">
+        <form class="rounded position-relative">
+          <input
+            class="form-control pe-5"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button
+            class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y"
+            type="submit"
+          >
+            <i class="fas fa-search fs-6"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="col-md-3">
+        <form>
+          <select
+            selectFormInput
+            [options]="{ searchEnabled: false }"
+            class="form-select js-choice"
+            aria-label=".form-select-sm"
+          >
+            <option value="">Sort by</option>
+            <option>Free</option>
+            <option>Newest</option>
+            <option>Oldest</option>
+          </select>
+        </form>
+      </div>
+    </div>
+
+    <div class="bg-light rounded p-3 d-none d-lg-block">
+      <div class="row row-cols-7 g-4">
+        <div class="col">
+          <h6 class="mb-0">Booked by</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Check-in</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Check-out</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Guest</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Amount</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Payment</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Action</h6>
+        </div>
+      </div>
+    </div>
+    @for (item of bookingDetailList; track $index) {
+      <div
+        class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4"
+      >
+        <div class="col">
+          <small class="d-block d-lg-none">Booked by:</small>
+          <div class="d-flex align-items-center">
+            <div class="avatar avatar-xs flex-shrink-0">
+              <img
+                class="avatar-img rounded-circle"
+                [src]="item.image"
+                alt="avatar"
+              />
+            </div>
+
+            <div class="ms-2">
+              <h6 class="mb-0 fw-light">{{ item.name }}</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <small class="d-block d-lg-none">Check-in:</small>
+          <h6 class="mb-0 fw-normal">{{ item.checkIn }}</h6>
+        </div>
+
+        <div class="col">
+          <small class="d-block d-lg-none">Check-out:</small>
+          <h6 class="mb-0 fw-normal">{{ item.checkOut }}</h6>
+        </div>
+
+        <div class="col">
+          <small class="d-block d-lg-none">Guests:</small>
+          <h6 class="mb-0 fw-normal">0{{ item.guest }}</h6>
+        </div>
+
+        <div class="col">
+          <small class="d-block d-lg-none">Amount:</small>
+          <h6 class="text-success mb-0">{{ currencyType }}{{ item.amount }}</h6>
+        </div>
+
+        <div class="col">
+          <small class="d-block d-lg-none">Payment:</small>
+          <div
+            class="badge bg-opacity-10"
+            [ngClass]="{
+              'text-info bg-info': item.payment === 'Half payment',
+              'text-orange bg-orange': item.payment === 'On Property',
+              'text-success bg-success': item.payment === 'Full payment'
+            }"
+          >
+            {{ item.payment }}
+          </div>
+        </div>
+
+        <div class="col">
+          <a href="javascript:void(0);" class="btn btn-sm btn-light mb-0"
+            >View</a
+          >
+        </div>
+      </div>
+      @if ($index == 1) {
+        <div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4">
+          <div class="bg-light px-2 py-4 text-center">
+            <h6 class="mb-0">Booking Available (27 Dec to 1 Jan)</h6>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="card-footer pt-0">
+    <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+      <p class="mb-sm-0 text-center text-sm-start">
+        Showing 1 to 8 of 20 entries
+      </p>
+
+      <nav
+        class="mb-sm-0 d-flex justify-content-center"
+        aria-label="navigation"
+      >
+        <ngb-pagination
+          [collectionSize]="150"
+          [size]="'sm'"
+          [maxSize]="2"
+          class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0"
+        >
+          <ng-template ngbPaginationPrevious>Prev </ng-template>
+          <ng-template ngbPaginationNext>Next </ng-template>
+        </ngb-pagination>
+      </nav>
+    </div>
+  </div>
+</div>

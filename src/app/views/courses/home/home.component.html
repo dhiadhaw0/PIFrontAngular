@@ -1,0 +1,27 @@
+<div class="container">
+  <!-- Title -->
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+      <h1 class="display-5">Featured Courses</h1>
+      <p class="lead text-muted">Expand your knowledge with our expertly crafted courses</p>
+    </div>
+  </div>
+
+  <!-- Course grid -->
+  <div class="row g-4">
+    <div class="col-sm-6 col-lg-4" *ngFor="let course of courses">
+      <app-course-card [course]="course"></app-course-card>
+    </div>
+  </div>
+
+  <!-- Price Summary -->
+  <div class="row mt-5">
+    <div class="col-lg-4 offset-lg-8">
+      <app-price-summary
+        [coursePrice]="99"
+        [discountPercentage]="20"
+        [taxesAndFees]="5">
+      </app-price-summary>
+    </div>
+  </div>
+</div>

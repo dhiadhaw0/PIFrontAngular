@@ -1,0 +1,84 @@
+<div class="portfolio-container">
+  <div class="portfolio-header">
+    <h1>Investment Portfolio</h1>
+    <p>Discover innovative projects and investment opportunities</p>
+  </div>
+
+  <div class="portfolio-filters">
+    <div class="search-box">
+      <input type="text" 
+             placeholder="Search projects..." 
+             (input)="searchPortfolios($event.target.value)"
+             [value]="searchTerm">
+    </div>
+    
+    <div class="status-filters">
+      <button [class.active]="selectedStatus === 'ALL'"
+              (click)="filterByStatus('ALL')">
+        All
+      </button>
+      <button *ngFor="let status of ['EN_COURS', 'TERMINE', 'ANNULE']"
+              [class.active]="selectedStatus === status"
+              (click)="filterByStatus(status)">
+        {{ status === 'EN_COURS' ? 'In Progress' : 
+           status === 'TERMINE' ? 'Completed' : 
+           'Cancelled' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="portfolio-grid">
+    <div class="portfolio-card" *ngFor="let portfolio of filteredPortfolios">
+      <div class="portfolio-header">
+        <span class="portfolio-status" [class]="portfolio.statutProjet.toLowerCase()">
+          {{ portfolio.statutProjet === 'EN_COURS' ? 'In Progress' : 
+             portfolio.statutProjet === 'TERMINE' ? 'Completed' : 
+             'Cancelled' }}
+        </span>
+        <span class="portfolio-date">
+          <i class="fas fa-calendar"></i> {{ portfolio.dateCreation | date }}
+        </span>
+      </div>
+
+      <div class="portfolio-content">
+        <h3>{{ portfolio.titreProjet }}</h3>
+        <p>{{ portfolio.descriptionProjet }}</p>
+
+        <div class="funding-progress">
+          <div class="progress-bar">
+            <div class="progress" [style.width.%]="getProgressPercentage(portfolio)"></div>
+          </div>
+          <div class="progress-stats">
+            <span class="collected">{{ portfolio.montantCollecte | currency }}</span>
+            <span class="target">{{ portfolio.montantRecherche | currency }}</span>
+          </div>
+          <div class="progress-percentage">
+            {{ getProgressPercentage(portfolio).toFixed(1) }}% Funded
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-footer">
+        <div class="portfolio-stats">
+          <div class="stat">
+            <span class="label">Expected Return</span>
+            <span class="value">{{ portfolio.rendementPrevisionnel }}%</span>
+          </div>
+          <div class="stat">
+            <span class="label">Time Left</span>
+            <span class="value">30 days</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="invest-button" [disabled]="portfolio.statutProjet !== 'EN_COURS'">
+        Invest Now
+      </button>
+    </div>
+  </div>
+
+  <div class="no-results" *ngIf="filteredPortfolios.length === 0">
+    <i class="fas fa-search"></i>
+    <p>No projects found matching your criteria</p>
+  </div>
+</div> 

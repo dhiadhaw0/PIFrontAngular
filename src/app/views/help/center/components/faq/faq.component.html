@@ -1,0 +1,57 @@
+<section class="pt-0 pt-lg-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2 class="mb-0">Frequently Asked Questions</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <div
+          ngbAccordion
+          [closeOthers]="true"
+          class="accordion accordion-icon accordion-bg-light"
+          id="accordionExample2"
+        >
+          @for (item of faqList; track $index; let first = $first) {
+            <div
+              ngbAccordionItem
+              [collapsed]="first ? false : true"
+              class="accordion-item mb-3"
+            >
+              <h6
+                ngbAccordionHeader
+                class="accordion-header font-base"
+                id="heading-1"
+              >
+                <button
+                  ngbAccordionButton
+                  class="accordion-button fw-bold rounded d-inline-block collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse-1"
+                  aria-expanded="true"
+                  aria-controls="collapse-1"
+                >
+                  {{ item.title }}
+                </button>
+              </h6>
+              <div
+                ngbAccordionCollapse
+                id="collapse-1"
+                class="accordion-collapse collapse show"
+                aria-labelledby="heading-1"
+                data-bs-parent="#accordionExample2"
+              >
+                <div ngbAccordionBody class="accordion-body mt-3">
+                  {{ item.description }}
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

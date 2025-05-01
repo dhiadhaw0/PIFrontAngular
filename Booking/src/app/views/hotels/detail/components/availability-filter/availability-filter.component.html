@@ -1,0 +1,152 @@
+<div class="offcanvas-body p-2">
+  <div class="bg-light p-4 rounded w-100">
+    <form class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="form-size-lg form-fs-md">
+          <label class="form-label">Location</label>
+          <select
+            selectFormInput
+            class="form-select js-choice"
+            data-search-enabled="true"
+          >
+            <option value="">Select location</option>
+            <option selected>San Jacinto, USA</option>
+            <option>North Dakota, Canada</option>
+            <option>West Virginia, Paris</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="form-fs-md">
+          <label class="form-label">Check in - out</label>
+          <input
+            type="text"
+            mwlFlatpickr
+            [flatpickrOptions]="{ mode: 'range', dateFormat: 'd M' }"
+            class="form-control form-control-lg flatpickr"
+            data-mode="range"
+            placeholder="Select date"
+            value="19 Sep to 28 Sep"
+          />
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="form-fs-md">
+          <div class="w-100">
+            <label class="form-label">Guests & rooms</label>
+            <div ngbDropdown class="dropdown guest-selector me-2">
+              <input
+                ngbDropdownToggle
+                type="text"
+                class="form-guest-selector form-control form-control-lg selection-result"
+                [value]="getGuestsValue()"
+                id="dropdownguest"
+                data-bs-auto-close="outside"
+                data-bs-toggle="dropdown"
+              />
+
+              <ul
+                ngbDropdownMenu
+                class="dropdown-menu guest-selector-dropdown"
+                aria-labelledby="dropdownguest"
+              >
+                <li class="d-flex justify-content-between">
+                  <div>
+                    <h6 class="mb-0">Adults</h6>
+                    <small>Ages 13 or above</small>
+                  </div>
+
+                  <div class="hstack gap-1 align-items-center">
+                    <button
+                      type="button"
+                      class="btn btn-link adult-remove p-0 mb-0"
+                      (click)="updateGuests('adults', false)"
+                    >
+                      <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                    </button>
+                    <h6 class="guest-selector-count mb-0 adults">
+                      {{ formValue.guests.adults }}
+                    </h6>
+                    <button
+                      type="button"
+                      class="btn btn-link adult-add p-0 mb-0"
+                      (click)="updateGuests('adults')"
+                    >
+                      <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                    </button>
+                  </div>
+                </li>
+
+                <li class="dropdown-divider"></li>
+
+                <li class="d-flex justify-content-between">
+                  <div>
+                    <h6 class="mb-0">Child</h6>
+                    <small>Ages 13 below</small>
+                  </div>
+
+                  <div class="hstack gap-1 align-items-center">
+                    <button
+                      type="button"
+                      class="btn btn-link child-remove p-0 mb-0"
+                      (click)="updateGuests('children', false)"
+                    >
+                      <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                    </button>
+                    <h6 class="guest-selector-count mb-0 child">
+                      {{ formValue.guests.children }}
+                    </h6>
+                    <button
+                      type="button"
+                      class="btn btn-link child-add p-0 mb-0"
+                      (click)="updateGuests('children')"
+                    >
+                      <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                    </button>
+                  </div>
+                </li>
+
+                <li class="dropdown-divider"></li>
+
+                <li class="d-flex justify-content-between">
+                  <div>
+                    <h6 class="mb-0">Rooms</h6>
+                    <small>Max room 8</small>
+                  </div>
+
+                  <div class="hstack gap-1 align-items-center">
+                    <button
+                      type="button"
+                      class="btn btn-link room-remove p-0 mb-0"
+                      (click)="updateGuests('rooms', false)"
+                    >
+                      <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                    </button>
+                    <h6 class="guest-selector-count mb-0 rooms">
+                      {{ formValue.guests.rooms }}
+                    </h6>
+                    <button
+                      type="button"
+                      class="btn btn-link room-add p-0 mb-0"
+                      (click)="updateGuests('rooms')"
+                    >
+                      <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-2 mt-md-auto">
+        <a class="btn btn-lg btn-primary w-100 mb-0" href="javascript:void(0);"
+          ><i class="bi bi-search fa-fw"></i>Search</a
+        >
+      </div>
+    </form>
+  </div>
+</div>

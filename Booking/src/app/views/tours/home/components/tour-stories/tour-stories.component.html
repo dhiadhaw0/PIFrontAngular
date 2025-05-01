@@ -1,0 +1,171 @@
+<section class="pt-0 pt-md-5">
+  <div class="container">
+    <div class="row g-4 g-lg-5 align-items-center">
+      <div class="col-lg-4">
+        <h2 class="mb-0">Discover the best places to visit🔥</h2>
+
+        <div
+          class="d-sm-flex justify-content-sm-between align-items-center mt-4"
+        >
+          <ul class="avatar-group mb-sm-0">
+            <li class="avatar">
+              <img
+                class="avatar-img rounded-circle"
+                src="assets/images/avatar/01.jpg"
+                alt="avatar"
+              />
+            </li>
+            <li class="avatar">
+              <img
+                class="avatar-img rounded-circle"
+                src="assets/images/avatar/02.jpg"
+                alt="avatar"
+              />
+            </li>
+            <li class="avatar">
+              <img
+                class="avatar-img rounded-circle"
+                src="assets/images/avatar/03.jpg"
+                alt="avatar"
+              />
+            </li>
+            <li class="avatar">
+              <img
+                class="avatar-img rounded-circle"
+                src="assets/images/avatar/04.jpg"
+                alt="avatar"
+              />
+            </li>
+            <li class="avatar">
+              <div class="avatar-img rounded-circle bg-dark">
+                <span
+                  class="text-white position-absolute top-50 start-50 translate-middle small"
+                  >16+</span
+                >
+              </div>
+            </li>
+          </ul>
+
+          <h5 class="m-0">
+            <i class="fa-solid fa-star text-warning me-2"></i>4.5
+          </h5>
+        </div>
+
+        <a
+          href="javascript:void(0);"
+          class="btn btn-lg btn-primary-soft mb-0 mt-4"
+          >Explore places <i class="bi fa-fw bi-arrow-right ms-2"></i
+        ></a>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-md-6">
+            <div
+              class="card card-element-hover card-overlay-hover overflow-hidden"
+            >
+              <img
+                src="assets/images/category/tour/06.jpg"
+                class="rounded-3"
+                alt=""
+              />
+
+              <a
+                class="hover-element position-absolute w-100 h-100"
+                data-glightbox
+                data-gallery="gallery"
+                href="assets/images/gallery/01.jpg"
+              >
+                <i
+                  class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                ></i>
+              </a>
+            </div>
+
+            <div
+              class="tiny-slider arrow-round arrow-blur arrow-hover arrow-xs my-4 mb-md-0"
+            >
+              <div
+                class="tiny-slider-inner pb-1"
+                data-autoplay="true"
+                data-arrow="true"
+                data-dots="false"
+                data-items="1"
+              >
+                <ng-tiny-slider
+                  [config]="testimonialSliderSettings"
+                  #offerSlider
+                >
+                  @for (item of testimonialSlides; track $index) {
+                    <div class="card bg-transparent">
+                      <div class="row align-items-center">
+                        <div class="col-4">
+                          <img [src]="item.image" class="card-img" alt="" />
+                        </div>
+
+                        <div class="col-8">
+                          <div class="card-body p-0">
+                            <p class="mb-0">{{ item.description }}</p>
+                            <h6 class="card-title mb-0 mt-2">
+                              {{ item.name }}
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </ng-tiny-slider>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div
+              class="card card-element-hover card-overlay-hover overflow-hidden mb-4"
+            >
+              <img
+                src="assets/images/gallery/02.jpg"
+                class="rounded-3"
+                alt=""
+              />
+
+              <a
+                class="hover-element position-absolute w-100 h-100"
+                data-glightbox
+                data-gallery="gallery"
+                href="https://www.youtube.com/embed/tXHviS-4ygo"
+              >
+                <span
+                  class="btn text-danger btn-round btn-white position-absolute top-50 start-50 translate-middle mb-0"
+                >
+                  <i class="fas fa-play"></i>
+                </span>
+              </a>
+            </div>
+
+            <div
+              class="card card-element-hover card-overlay-hover overflow-hidden"
+            >
+              <img
+                src="assets/images/gallery/03.jpg"
+                class="rounded-3"
+                alt=""
+              />
+
+              <a
+                class="hover-element position-absolute w-100 h-100"
+                data-glightbox
+                data-gallery="gallery"
+                href="assets/images/gallery/03.jpg"
+              >
+                <i
+                  class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                ></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

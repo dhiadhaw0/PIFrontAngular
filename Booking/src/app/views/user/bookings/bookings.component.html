@@ -1,0 +1,161 @@
+<div class="card border bg-transparent">
+  <div class="card-header bg-transparent border-bottom">
+    <h4 class="card-header-title">My Bookings</h4>
+  </div>
+
+  <div class="card-body p-0">
+    <ul
+      ngbNav
+      #nav="ngbNav"
+      class="nav nav-tabs nav-bottom-line nav-responsive nav-justified"
+    >
+      <li class="nav-item" ngbNavItem>
+        <a class="nav-link mb-0" ngbNavLink data-bs-toggle="tab" href="#tab-1"
+          ><i class="bi bi-briefcase-fill fa-fw me-1"></i>Upcoming Booking</a
+        >
+        <ng-template ngbNavContent>
+          <div class="tab-pane fade show active" id="tab-1">
+            <h6>Completed booking (2)</h6>
+
+            @for (item of upcomingBookingData; track $index) {
+              <div class="card border mb-4">
+                <div
+                  class="card-header border-bottom d-md-flex justify-content-md-between align-items-center"
+                >
+                  <div class="d-flex align-items-center">
+                    <div class="icon-lg bg-light rounded-circle flex-shrink-0">
+                      <i class="fa-solid {{ item.icon }}"></i>
+                    </div>
+
+                    <div class="ms-2">
+                      <h6 class="card-title mb-0">{{ item.travelRoute }}</h6>
+                      <ul class="nav nav-divider small">
+                        <li class="nav-item">Booking ID: {{ item.id }}</li>
+                        <li class="nav-item">{{ item.flightType }}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="mt-2 mt-md-0">
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-primary-soft mb-0"
+                      >Manage Booking</a
+                    >
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="row g-3">
+                    @for (data of item.timing; track $index) {
+                      <div class="col-sm-6 col-md-4">
+                        <span>{{ data.label }}</span>
+                        <h6 class="mb-0">{{ data.name }}</h6>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </ng-template>
+      </li>
+      <li class="nav-item" ngbNavItem>
+        <a class="nav-link mb-0" ngbNavLink data-bs-toggle="tab" href="#tab-2"
+          ><i class="bi bi-x-octagon fa-fw me-1"></i>Canceled Booking</a
+        >
+        <ng-template ngbNavContent>
+          <div class="tab-pane fade show active" id="tab-2">
+            <h6>Cancelled booking (1)</h6>
+
+            <div class="card border">
+              <div
+                class="card-header border-bottom d-md-flex justify-content-md-between align-items-center"
+              >
+                <div class="d-flex align-items-center">
+                  <div class="icon-lg bg-light rounded-circle flex-shrink-0">
+                    <i class="fa-solid fa-hotel"></i>
+                  </div>
+
+                  <div class="ms-2">
+                    <h6 class="card-title mb-0">
+                      Courtyard by Marriott New York
+                    </h6>
+                    <ul class="nav nav-divider small">
+                      <li class="nav-item">Booking ID: CGDSUAHA12548</li>
+                      <li class="nav-item">AC</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="mt-2 mt-md-0">
+                  <a
+                    href="javascript:void(0);"
+                    class="btn btn-primary-soft mb-0"
+                    >Manage Booking</a
+                  >
+                  <p class="text-danger text-md-end mb-0">Booking cancelled</p>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-sm-6 col-md-4">
+                    <span>Check in time</span>
+                    <h6 class="mb-0">Tue 05 Aug 12:00 AM</h6>
+                  </div>
+
+                  <div class="col-sm-6 col-md-4">
+                    <span>Check out time</span>
+                    <h6 class="mb-0">Tue 12 Aug 4:00 PM</h6>
+                  </div>
+
+                  <div class="col-md-4">
+                    <span>Booked by</span>
+                    <h6 class="mb-0">Frances Guerrero</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li class="nav-item" ngbNavItem>
+        <a class="nav-link mb-0" ngbNavLink data-bs-toggle="tab" href="#tab-3"
+          ><i class="bi bi-patch-check fa-fw me-1"></i>Completed Booking</a
+        >
+        <ng-template ngbNavContent>
+          <div class="tab-pane fade show active" id="tab-3">
+            <div class="bg-mode shadow p-4 rounded overflow-hidden">
+              <div class="row g-4 align-items-center">
+                <div class="col-md-9">
+                  <h6>Looks like you have never booked with BOOKING</h6>
+                  <h4 class="mb-2">
+                    When you book your trip will be shown here.
+                  </h4>
+                  <a routerLink="/hotels/list" class="btn btn-primary-soft mb-0"
+                    >Start booking now</a
+                  >
+                </div>
+
+                <div class="col-md-3 text-end">
+                  <img
+                    src="assets/images/element/17.svg"
+                    class="mb-n5"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div
+      class="tab-content p-2 p-sm-4"
+      [ngbNavOutlet]="nav"
+      id="nav-tabContent"
+    ></div>
+  </div>
+</div>

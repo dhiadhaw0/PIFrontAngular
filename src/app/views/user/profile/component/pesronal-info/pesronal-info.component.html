@@ -1,0 +1,143 @@
+<!-- src/app/views/user/profile/component/pesronal-info/pesronal-info.component.html -->
+<div class="card border">
+  <div class="card-header border-bottom">
+    <h4 class="card-header-title">Personal Information</h4>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="form" class="row g-3" (ngSubmit)="saveChanges()">
+
+      <!-- Photo upload / preview -->
+      <div class="col-12">
+        <label class="form-label">Profile photo</label>
+        <div class="d-flex align-items-center">
+          <label for="uploadfile-1" class="position-relative me-4" title="Replace this pic">
+            <span class="avatar avatar-xl">
+              <img
+                id="uploadfile-1-preview"
+                class="avatar-img rounded-circle border border-white border-3 shadow"
+                [src]="form.value.photo || 'assets/images/avatar/01.jpg'"
+                alt="Profile photo"
+              />
+            </span>
+          </label>
+          <label class="btn btn-sm btn-primary-soft mb-0" for="uploadfile-1">Change</label>
+          <input
+            id="uploadfile-1"
+            type="file"
+            class="form-control d-none"
+            (change)="onFileSelected($event)"
+          />
+        </div>
+      </div>
+
+      <!-- Full Name -->
+      <div class="col-md-6">
+        <label class="form-label">Full Name<span class="text-danger">*</span></label>
+        <input
+          type="text"
+          formControlName="nom"
+          class="form-control"
+          placeholder="Enter your full name"
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="col-md-6">
+        <label class="form-label">Email address<span class="text-danger">*</span></label>
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          placeholder="Enter your email"
+        />
+      </div>
+
+      <!-- Mobile number -->
+      <div class="col-md-6">
+        <label class="form-label">Role<span class="text-danger">*</span></label>
+        <input
+          type="text"
+          formControlName="role"
+          class="form-control"
+          placeholder="Enter your role"
+        />
+      </div>
+
+      <!-- CIN -->
+      <div class="col-md-6">
+        <label class="form-label">CIN<span class="text-danger">*</span></label>
+        <input
+          type="number"
+          formControlName="cin"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Adresse -->
+      <div class="col-12">
+        <label class="form-label">Address</label>
+        <textarea
+          formControlName="adresse"
+          class="form-control"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="col-md-6">
+        <label class="form-label">Date of Birth<span class="text-danger">*</span></label>
+        <input
+          type="date"
+          formControlName="dateNaissance"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Profession -->
+      <div class="col-md-6">
+        <label class="form-label">Profession<span class="text-danger">*</span></label>
+        <input
+          type="text"
+          formControlName="profession"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Salaire -->
+      <div class="col-md-6">
+        <label class="form-label">Salaire<span class="text-danger">*</span></label>
+        <input
+          type="number"
+          formControlName="salaire"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Numéro de téléphone -->
+      <div class="col-md-6">
+        <label class="form-label">Numéro de téléphone<span class="text-danger">*</span></label>
+        <input
+          type="text"
+          formControlName="numTel"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Matricule fiscale -->
+      <div class="col-md-6">
+        <label class="form-label">Matricule fiscale<span class="text-danger">*</span></label>
+        <input
+          type="text"
+          formControlName="matriculeFiscale"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Save Changes -->
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>

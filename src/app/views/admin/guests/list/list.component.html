@@ -1,0 +1,52 @@
+<div class="table-responsive">
+  <table class="table table-hover table-striped align-middle text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>CIN</th>
+        <th>Adresse</th>
+        <th>Profession</th>
+        <th>Salaire</th>
+        <th>Num Tél</th>
+        <th>Matricule Fiscale</th>
+        <th>Date Naissance</th>
+        <th>Rôle</th>
+        <th>Photo</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.idUser}}</td>
+        <td>{{ user.nom }}</td>
+        <td>{{ user.prenom }}</td>
+        <td>{{ user.email }}</td>
+        <td>****</td>
+        <td>{{ user.cin }}</td>
+        <td>{{ user.adresse }}</td>
+        <td>{{ user.profession }}</td>
+        <td>{{ user.salaire | currency:'TND':'symbol':'1.0-0' }}</td>
+        <td>{{ user.numTel }}</td>
+        <td>{{ user.matriculeFiscale }}</td>
+        <td>{{ user.dateNaissance | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <span class="badge bg-primary">{{ user.role }}</span>
+        </td>
+        <td>
+          <img [src]="user.photo" alt="photo" width="50" height="50"
+               class="rounded-circle border border-2"
+               *ngIf="user.photo" />
+        </td>
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="deleteUser(user.idUser)">
+            <i class="bi bi-trash"></i> Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

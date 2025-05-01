@@ -1,0 +1,26 @@
+<div class="row g-4 mb-5">
+  @for (item of statisticData; track $index) {
+    <div class="col-md-6 col-xxl-3">
+      <div
+        class="card card-body bg-{{
+          item.variant
+        }} bg-opacity-10 border border-{{
+          item.variant
+        }} border-opacity-25 p-4 h-100"
+      >
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h4 class="mb-0">{{ item.state }}</h4>
+            <span class="h6 fw-light mb-0">{{ item.title }}</span>
+          </div>
+          <div
+            class="icon-lg rounded-circle 
+        bg-{{ item.variant }} text-white mb-0"
+          >
+            <i class="fa-solid {{ item.icon }} fa-fw"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
