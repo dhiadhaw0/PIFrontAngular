@@ -10,7 +10,7 @@ import { AuthGuard } from './core/guards'
 
 export const routes: Routes = [
   {
-    path: ''',
+    path: '',
     redirectTo: '/hotels/home',
     pathMatch: 'full',
   },
