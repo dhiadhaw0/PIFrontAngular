@@ -1,0 +1,20 @@
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiService {
+  private baseUrl = 'http://localhost:8080/api'; // Spring Boot URL
+
+  constructor(private http: HttpClient) { }
+
+  getUsers() {
+    return this.http.get(`${this.baseUrl}/users`);
+  }
+
+  createUser(user: any) {
+    return this.http.post(`${this.baseUrl}/users`, user);
+  }
+}

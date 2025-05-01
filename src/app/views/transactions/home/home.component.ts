@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'
-import { TransactionService } from '../../../services/transaction.service'
-import { Transaction } from '../../../models/transaction.model'
-import { CommonModule } from '@angular/common'
-import { RouterModule } from '@angular/router'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { TransactionService } from '../../../services/transaction.service';
+import { Transaction } from '../../../models/transaction.model';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-type ActionType = 'send' | 'receive' | 'transfer' | 'payment' | 'bills' | 'savings'
-type TransactionType = Transaction['type'] // Use the type from Transaction interface
+type ActionType = 'send' | 'receive' | 'transfer' | 'payment' | 'bills' | 'savings';
+type TransactionType = Transaction['typeTransaction'];
 
 interface TransactionFilter {
-  type: string
-  label: string
-  icon: string
+  type: string;
+  label: string;
+  icon: string;
 }
 
 @Component({
@@ -26,37 +26,49 @@ interface TransactionFilter {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  isDarkTheme = false
-  isAuthenticated = true
-  balance = 25000
-  activeModal: ActionType | null = null
-  actionForm: FormGroup = this.initializeForm()
-  recentTransactions: Transaction[] = []
-  filteredTransactions: Transaction[] = []
-  currentFilter = 'all'
+  @Input() transaction: Transaction | null = null;
+  @Output() transactionSaved = new EventEmitter<Transaction>();
+  @Output() cancelled = new EventEmitter<void>();
 
+  // UI State
+  isDarkTheme = false;
+  isAuthenticated = true;
+  balance = 25000;
+  activeModal: ActionType | null = null;
+  showTransactionForm = false;
+  selectedTransaction: Transaction | null = null;
+  currentFilter = 'all';
+  isSubmitting = false;
+
+  // Data
+  recentTransactions: Transaction[] = [];
+  filteredTransactions: Transaction[] = [];
+
+  // Forms
+  actionForm: FormGroup;
+  
   transactionFilters: TransactionFilter[] = [
     { type: 'all', label: 'All Transactions', icon: 'bi bi-grid' },
-    { type: 'send', label: 'Sent', icon: 'bi bi-send' },
-    { type: 'receive', label: 'Received', icon: 'bi bi-download' },
-    { type: 'transfer', label: 'Transfers', icon: 'bi bi-arrow-left-right' },
-    { type: 'payment', label: 'Payments', icon: 'bi bi-credit-card' },
-    { type: 'bills', label: 'Bills', icon: 'bi bi-receipt' },
-    { type: 'savings', label: 'Savings', icon: 'bi bi-piggy-bank' }
-  ]
+    { type: 'DEPOT', label: 'Deposits', icon: 'bi bi-arrow-down-circle' },
+    { type: 'RETRAIT', label: 'Withdrawals', icon: 'bi bi-arrow-up-circle' },
+    { type: 'VIREMENT', label: 'Transfers', icon: 'bi bi-arrow-left-right' },
+    { type: 'PAIEMENT', label: 'Payments', icon: 'bi bi-credit-card' }
+  ];
 
   constructor(
     private fb: FormBuilder,
     private transactionService: TransactionService
-  ) {}
+  ) {
+    this.actionForm = this.initializeForm();
+  }
 
   ngOnInit(): void {
-    this.loadTransactions()
+    this.loadTransactions();
   }
 
   private initializeForm(): FormGroup {
     return this.fb.group({
-      amount: ['', [Validators.required, Validators.min(0)]],
+      montant: ['', [Validators.required, Validators.min(0.01)]],
       description: [''],
       recipient: [''],
       paymentMethod: ['wallet'],
@@ -66,196 +78,198 @@ export class HomeComponent implements OnInit {
       goalName: [''],
       targetAmount: [''],
       monthlyContribution: ['']
-    })
+    });
   }
 
   loadTransactions(): void {
-    this.transactionService.getAllTransactions().subscribe(
-      (transactions: Transaction[]) => {
-        this.recentTransactions = transactions
-        this.filterTransactions(this.currentFilter)
+    this.transactionService.getAllTransactions().subscribe({
+      next: (transactions) => {
+        this.recentTransactions = transactions;
+        this.filterTransactions(this.currentFilter);
       },
-      (error: any) => {
-        console.error('Error loading transactions:', error)
+      error: (error) => {
+        console.error('Error loading transactions:', error);
       }
-    )
+    });
   }
 
   filterTransactions(type: string): void {
-    this.currentFilter = type
-    
-    if (type === 'all') {
-      this.filteredTransactions = [...this.recentTransactions]
-    } else {
-      this.filteredTransactions = this.recentTransactions.filter(tx => tx.type === type as TransactionType)
-    }
+    this.currentFilter = type;
+    this.filteredTransactions = type === 'all' 
+      ? [...this.recentTransactions] 
+      : this.recentTransactions.filter(tx => tx.typeTransaction === type);
   }
 
+  // Modal Handling
   openActionModal(type: ActionType): void {
-    this.activeModal = type
-    this.actionForm.reset({
-      paymentMethod: 'wallet'
-    })
+    this.activeModal = type;
+    this.actionForm.reset({ paymentMethod: 'wallet' });
+    this.setupFormValidators(type);
+  }
 
-    // Reset all validators first
+  private setupFormValidators(type: ActionType): void {
     Object.keys(this.actionForm.controls).forEach(key => {
-      this.actionForm.get(key)?.clearValidators()
-    })
+      this.actionForm.get(key)?.clearValidators();
+    });
 
-    // Set required validators based on modal type
+    // Common validators
+    this.actionForm.get('montant')?.setValidators([Validators.required, Validators.min(0.01)]);
+
+    // Type-specific validators
     switch (type) {
       case 'send':
-        this.actionForm.get('recipient')?.setValidators([Validators.required])
-        this.actionForm.get('amount')?.setValidators([Validators.required, Validators.min(0)])
-        this.actionForm.get('description')?.setValidators([Validators.required])
-        break
+        this.actionForm.get('recipient')?.setValidators([Validators.required]);
+        this.actionForm.get('description')?.setValidators([Validators.required]);
+        break;
       case 'transfer':
-        this.actionForm.get('bankAccount')?.setValidators([Validators.required])
-        this.actionForm.get('amount')?.setValidators([Validators.required, Validators.min(0)])
-        break
+        this.actionForm.get('bankAccount')?.setValidators([Validators.required]);
+        break;
       case 'payment':
-        this.actionForm.get('paymentFor')?.setValidators([Validators.required])
-        this.actionForm.get('amount')?.setValidators([Validators.required, Validators.min(0)])
-        this.actionForm.get('paymentMethod')?.setValidators([Validators.required])
-        break
+        this.actionForm.get('paymentFor')?.setValidators([Validators.required]);
+        this.actionForm.get('paymentMethod')?.setValidators([Validators.required]);
+        break;
       case 'bills':
-        this.actionForm.get('billType')?.setValidators([Validators.required])
-        this.actionForm.get('amount')?.setValidators([Validators.required, Validators.min(0)])
-        break
+        this.actionForm.get('billType')?.setValidators([Validators.required]);
+        break;
       case 'savings':
-        this.actionForm.get('goalName')?.setValidators([Validators.required])
-        this.actionForm.get('targetAmount')?.setValidators([Validators.required, Validators.min(0)])
-        this.actionForm.get('monthlyContribution')?.setValidators([Validators.required, Validators.min(0)])
-        break
+        this.actionForm.get('goalName')?.setValidators([Validators.required]);
+        this.actionForm.get('targetAmount')?.setValidators([Validators.required, Validators.min(0.01)]);
+        this.actionForm.get('monthlyContribution')?.setValidators([Validators.required, Validators.min(0.01)]);
+        break;
     }
 
-    // Update validators
     Object.keys(this.actionForm.controls).forEach(key => {
-      const control = this.actionForm.get(key)
-      control?.updateValueAndValidity()
-    })
+      this.actionForm.get(key)?.updateValueAndValidity();
+    });
   }
 
   closeModal(): void {
-    this.activeModal = null
+    this.activeModal = null;
+  }
+
+  // Transaction Form Handling
+  openTransactionForm(transaction?: Transaction): void {
+    this.selectedTransaction = transaction || null;
+    this.showTransactionForm = true;
+  }
+
+  closeTransactionForm(): void {
+    this.showTransactionForm = false;
+    this.selectedTransaction = null;
+  }
+
+  handleTransactionSaved(transaction: Transaction): void {
+    const index = this.recentTransactions.findIndex(t => t.idTransaction === transaction.idTransaction);
+    if (index >= 0) {
+      this.recentTransactions[index] = transaction;
+    } else {
+      this.recentTransactions.unshift(transaction);
+    }
+    this.filterTransactions(this.currentFilter);
+    this.updateBalance(transaction);
+    this.closeTransactionForm();
+  }
+
+  // Transaction Actions
+  submitAction(): void {
+    if (this.actionForm.invalid || !this.activeModal || this.isSubmitting) return;
+
+    this.isSubmitting = true;
+    const formData = this.actionForm.value;
+    const transaction: Partial<Transaction> = {
+      montant: formData.montant,
+      paymentReference: formData.description || this.getDefaultDescription(this.activeModal, formData),
+      typeTransaction: this.mapActionTypeToTransactionType(this.activeModal),
+      date: new Date()
+    };
+
+    if (this.activeModal === 'send' || this.activeModal === 'transfer') {
+      transaction.recipient = formData.recipient;
+    }
+
+    this.transactionService.createTransaction(transaction).subscribe({
+      next: (newTransaction) => {
+        this.recentTransactions.unshift(newTransaction);
+        this.filterTransactions(this.currentFilter);
+        this.updateBalance(newTransaction);
+        this.closeModal();
+        this.isSubmitting = false;
+      },
+      error: (error) => {
+        console.error('Error creating transaction:', error);
+        this.isSubmitting = false;
+      }
+    });
+  }
+
+  private mapActionTypeToTransactionType(actionType: ActionType): TransactionType {
+    const mapping: Record<ActionType, TransactionType> = {
+      'send': 'VIREMENT',
+      'receive': 'DEPOT',
+      'transfer': 'VIREMENT',
+      'payment': 'PAIEMENT',
+      'bills': 'PAIEMENT',
+      'savings': 'DEPOT'
+    };
+    return mapping[actionType];
+  }
+
+  // Helpers
+  private getDefaultDescription(type: ActionType, formData: any): string {
+    const descriptions: Record<ActionType, string> = {
+      'send': `Sent to ${formData.recipient}`,
+      'receive': 'Money received',
+      'transfer': `Transfer to ${formData.bankAccount}`,
+      'payment': `Payment for ${formData.paymentFor}`,
+      'bills': `${formData.billType} bill`,
+      'savings': `Savings: ${formData.goalName}`
+    };
+    return descriptions[type];
+  }
+
+  updateBalance(transaction: Transaction): void {
+    if (transaction.typeTransaction === 'DEPOT') {
+      this.balance += transaction.montant;
+    } else if (['RETRAIT', 'PAIEMENT', 'VIREMENT'].includes(transaction.typeTransaction)) {
+      this.balance -= transaction.montant;
+    }
   }
 
   getModalIcon(): string {
-    switch (this.activeModal) {
-      case 'send':
-        return 'bi bi-send'
-      case 'receive':
-        return 'bi bi-download'
-      case 'transfer':
-        return 'bi bi-arrow-left-right'
-      case 'payment':
-        return 'bi bi-credit-card'
-      case 'bills':
-        return 'bi bi-receipt'
-      case 'savings':
-        return 'bi bi-piggy-bank'
-      default:
-        return 'bi bi-question-circle'
-    }
+    const icons: Record<ActionType, string> = {
+      'send': 'bi bi-send',
+      'receive': 'bi bi-download',
+      'transfer': 'bi bi-arrow-left-right',
+      'payment': 'bi bi-credit-card',
+      'bills': 'bi bi-receipt',
+      'savings': 'bi bi-piggy-bank'
+    };
+    return this.activeModal ? icons[this.activeModal] : 'bi bi-question-circle';
   }
 
   getModalTitle(): string {
-    switch (this.activeModal) {
-      case 'send':
-        return 'Send Money'
-      case 'receive':
-        return 'Receive Money'
-      case 'transfer':
-        return 'Bank Transfer'
-      case 'payment':
-        return 'Make Payment'
-      case 'bills':
-        return 'Pay Bills'
-      case 'savings':
-        return 'Savings Goals'
-      default:
-        return ''
-    }
+    const titles: Record<ActionType, string> = {
+      'send': 'Send Money',
+      'receive': 'Receive Money',
+      'transfer': 'Bank Transfer',
+      'payment': 'Make Payment',
+      'bills': 'Pay Bills',
+      'savings': 'Savings Goals'
+    };
+    return this.activeModal ? titles[this.activeModal] : '';
   }
 
   getTransactionIcon(type: TransactionType): string {
-    switch (type) {
-      case 'deposit':
-      case 'receive':
-        return 'bi bi-arrow-down-circle-fill'
-      case 'withdraw':
-      case 'send':
-        return 'bi bi-arrow-up-circle-fill'
-      case 'transfer':
-        return 'bi bi-arrow-left-right'
-      case 'payment':
-        return 'bi bi-credit-card-fill'
-      case 'bills':
-        return 'bi bi-receipt'
-      case 'savings':
-        return 'bi bi-piggy-bank'
-      default:
-        return 'bi bi-question-circle-fill'
-    }
+    const icons: Record<TransactionType, string> = {
+      'DEPOT': 'bi bi-arrow-down-circle-fill',
+      'RETRAIT': 'bi bi-arrow-up-circle-fill',
+      'VIREMENT': 'bi bi-arrow-left-right',
+      'PAIEMENT': 'bi bi-credit-card-fill'
+    };
+    return icons[type] || 'bi bi-question-circle-fill';
   }
 
-  submitAction(): void {
-    if (this.actionForm.valid && this.activeModal) {
-      const formData = this.actionForm.value
-      const transaction: Partial<Transaction> = {
-        amount: formData.amount,
-        description: formData.description || this.getDefaultDescription(this.activeModal, formData),
-        type: this.activeModal as TransactionType,
-        date: new Date(),
-        status: 'completed'
-      }
-
-      if (this.activeModal === 'send' || this.activeModal === 'transfer') {
-        transaction.recipient = formData.recipient
-      }
-
-      if (this.activeModal === 'payment') {
-        transaction.paymentMethod = formData.paymentMethod
-      }
-
-      this.transactionService.createTransaction(transaction).subscribe(
-        (newTransaction: Transaction) => {
-          this.recentTransactions = [newTransaction, ...this.recentTransactions]
-          this.filterTransactions(this.currentFilter)
-          this.updateBalance(newTransaction)
-          this.closeModal()
-        },
-        (error: any) => {
-          console.error('Error creating transaction:', error)
-        }
-      )
-    }
+  isCreditTransaction(type: TransactionType): boolean {
+    return type === 'DEPOT';
   }
-
-  private getDefaultDescription(type: ActionType, formData: any): string {
-    switch (type) {
-      case 'send':
-        return `Money sent to ${formData.recipient}`
-      case 'receive':
-        return 'Money received'
-      case 'transfer':
-        return `Transfer to ${formData.bankAccount} account`
-      case 'payment':
-        return `Payment for ${formData.paymentFor}`
-      case 'bills':
-        return `${formData.billType} bill payment`
-      case 'savings':
-        return `Savings goal: ${formData.goalName}`
-      default:
-        return ''
-    }
-  }
-
-  private updateBalance(transaction: Transaction): void {
-    if (transaction.type === 'deposit' || transaction.type === 'receive') {
-      this.balance += transaction.amount
-    } else if (['withdraw', 'payment', 'send', 'bills', 'savings'].includes(transaction.type)) {
-      this.balance -= transaction.amount
-    }
-  }
-} 
+}
