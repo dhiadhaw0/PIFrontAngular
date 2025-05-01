@@ -1,7 +1,7 @@
 <form [formGroup]="walletForm" (ngSubmit)="onSubmit()" class="wallet-form">
   <h2>Wallet Information</h2>
   
-  <!-- Page 1: Basic Information -->
+  
   <div *ngIf="currentPage === 1">
     <div class="form-section">
       <label>User ID:</label>
@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <!-- Page 2: Additional Information -->
+  
   <div *ngIf="currentPage === 2">
     <div class="form-section">
       <label>Expected Yield:</label>
@@ -56,10 +56,10 @@
     </div>
   </div>
 
-  <!-- Navigation and Submit Buttons -->
+
   <div class="form-actions">
     <button type="button" *ngIf="currentPage > 1" (click)="previousPage()" class="nav-btn">Previous</button>
     <button type="button" *ngIf="currentPage < totalPages" (click)="nextPage()" class="nav-btn">Next</button>
     <button type="submit" *ngIf="currentPage === totalPages" class="submit-btn">Create Wallet</button>
   </div>
-</form>
+</form> 

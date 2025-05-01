@@ -10,7 +10,7 @@ export class WalletService {
 
   constructor(private http: HttpClient) {}
 
-  createWallet(walletData: any): Observable<any> {
+  createWallet(walletData: any): Observable<any> { 
     return this.http.post(this.apiUrl, walletData);
   }
 }
