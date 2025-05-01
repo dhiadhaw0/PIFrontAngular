@@ -1,0 +1,26 @@
+<section class="py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-0">Why Choose Our Credit Services?</h2>
+        <p class="mb-0">Experience the best credit solutions for your business</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      @for (benefit of benefits; track $index) {
+        <div class="col-sm-6 col-lg-3">
+          <div class="card h-100 border">
+            <div class="card-body p-4 text-center">
+              <div class="icon-xl rounded-circle bg-primary bg-opacity-10 text-primary mb-4">
+                <i [class]="benefit.icon"></i>
+              </div>
+              <h5 class="mb-3">{{ benefit.title }}</h5>
+              <p class="mb-0">{{ benefit.description }}</p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section> 

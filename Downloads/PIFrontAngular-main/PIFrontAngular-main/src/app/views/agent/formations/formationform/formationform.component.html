@@ -1,0 +1,97 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ isEditMode ? 'Modifier la formation' : 'Ajouter une nouvelle formation' }}</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="formationForm" (ngSubmit)="onSubmit()">
+        <!-- Titre -->
+        <div class="mb-3">
+          <label for="titre" class="form-label">Titre *</label>
+          <input type="text" class="form-control" id="titre" formControlName="titre">
+          <div *ngIf="formationForm.get('titre')?.invalid && formationForm.get('titre')?.touched" class="text-danger">
+            <small *ngIf="formationForm.get('titre')?.errors?.['required']">Le titre est obligatoire.</small>
+            <small *ngIf="formationForm.get('titre')?.errors?.['minlength']">Le titre doit contenir au moins 3 caractères.</small>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description *</label>
+          <textarea class="form-control" id="description" rows="4" formControlName="description"></textarea>
+          <div *ngIf="formationForm.get('description')?.invalid && formationForm.get('description')?.touched" class="text-danger">
+            <small *ngIf="formationForm.get('description')?.errors?.['required']">La description est obligatoire.</small>
+            <small *ngIf="formationForm.get('description')?.errors?.['minlength']">La description doit contenir au moins 10 caractères.</small>
+          </div>
+        </div>
+
+        <!-- Durée -->
+        <div class="mb-3">
+          <label for="duree" class="form-label">Durée (heures) *</label>
+          <input type="number" class="form-control" id="duree" formControlName="duree">
+          <div *ngIf="formationForm.get('duree')?.invalid && formationForm.get('duree')?.touched" class="text-danger">
+            <small *ngIf="formationForm.get('duree')?.errors?.['required']">La durée est obligatoire.</small>
+            <small *ngIf="formationForm.get('duree')?.errors?.['min']">La durée doit être supérieure à 0.</small>
+          </div>
+        </div>
+
+        <!-- Prix -->
+        <div class="mb-3">
+          <label for="prix" class="form-label">Prix (DT) *</label>
+          <input type="number" class="form-control" id="prix" formControlName="prix">
+          <div *ngIf="formationForm.get('prix')?.invalid && formationForm.get('prix')?.touched" class="text-danger">
+            <small *ngIf="formationForm.get('prix')?.errors?.['required']">Le prix est obligatoire.</small>
+            <small *ngIf="formationForm.get('prix')?.errors?.['min']">Le prix doit être égal ou supérieur à 0.</small>
+          </div>
+        </div>
+
+        <!-- Type de formation -->
+        <div class="mb-3">
+          <label for="typeFormation" class="form-label">Type de formation *</label>
+          <select class="form-select" id="typeFormation" formControlName="typeFormation">
+            <option *ngFor="let type of typeFormationOptions" [value]="type">{{ type }}</option>
+          </select>
+          <div *ngIf="formationForm.get('typeFormation')?.invalid && formationForm.get('typeFormation')?.touched" class="text-danger">
+            <small *ngIf="formationForm.get('typeFormation')?.errors?.['required']">Le type de formation est obligatoire.</small>
+          </div>
+        </div>
+
+        <!-- Statut de formation -->
+        <div class="mb-3">
+          <label for="statutFormation" class="form-label">Statut de formation *</label>
+          <select class="form-select" id="statutFormation" formControlName="statutFormation">
+            <option *ngFor="let statut of statutFormationOptions" [value]="statut">{{ statut }}</option>
+          </select>
+          <div *ngIf="formationForm.get('statutFormation')?.invalid && formationForm.get('statutFormation')?.touched" class="text-danger">
+            <small *ngIf="formationForm.get('statutFormation')?.errors?.['required']">Le statut de formation est obligatoire.</small>
+          </div>
+        </div>
+
+        <!-- Certificat -->
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="certificat" formControlName="certificat">
+          <label class="form-check-label" for="certificat">Formation certifiante</label>
+        </div>
+
+        <!-- Téléchargement de fichier -->
+        <div class="mb-3">
+          <label for="file" class="form-label">Fichier de formation</label>
+          <input type="file" class="form-control" id="file" (change)="onFileSelected($event)">
+          <small class="form-text text-muted">Format accepté: PDF, vidéo, etc.</small>
+          <div *ngIf="isEditMode && formationForm.get('formationFileUrl')?.value">
+            <p class="mt-2">Fichier actuel: {{ formationForm.get('formationFileUrl')?.value }}</p>
+          </div>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="d-flex gap-2 justify-content-end mt-4">
+          <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Annuler</button>
+          <button type="button" class="btn btn-outline-danger" (click)="resetForm()">Réinitialiser</button>
+          <button type="submit" class="btn btn-primary" [disabled]="formationForm.invalid">
+            {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

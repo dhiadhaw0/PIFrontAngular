@@ -1,0 +1,33 @@
+<section class="pt-0 pt-md-5">
+  <div class="container">
+    <div class="row mb-3 mb-sm-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-0">Unlock Your Next Skill 🚀</h2>
+        <p class="lead text-secondary mt-2 mb-3">Start your journey with our most popular courses, handpicked for your growth.</p>
+        <div class="mx-auto" style="max-width: 400px;">
+          <div class="progress" style="height: 18px;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 78%; font-weight: 600; font-size: 1rem;" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+              2,340 learners this month
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 g-xl-5">
+      <div *ngFor="let course of featuredCourses" class="col-sm-6 col-lg-4 col-xl-3">
+        <div class="card h-100 shadow-sm">
+          <img [src]="course.image" class="card-img-top rounded-3" alt="Course image" />
+          <div class="card-body">
+            <h5 class="card-title mb-1">{{ course.name }}</h5>
+            <div class="mb-2 text-muted small">by {{ course.instructor }}</div>
+            <div class="mb-2">
+              <span class="badge bg-warning text-dark"><i class="fa fa-star text-warning me-1"></i>{{ course.rating }}</span>
+            </div>
+            <p class="mb-0 small">{{ course.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

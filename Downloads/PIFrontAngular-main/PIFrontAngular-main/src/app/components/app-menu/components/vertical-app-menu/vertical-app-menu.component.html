@@ -1,0 +1,20 @@
+<ul class="navbar-nav flex-column">
+  @for (item of menuItems; track $index) {
+    @if (item.isSection) {
+      <li class="nav-item ms-2 my-2">{{ item.label }}</li>
+    } @else if (item.children) {
+      <vertical-menu-item-with-children
+        [item]="item"
+        [activeMenuItems]="this.activeMenuItems"
+        [itemClassName]="'nav-item'"
+        [linkClassName]="'nav-link' + getActiveClass(item)"
+      />
+    } @else {
+      <vertical-menu-item
+        [item]="item"
+        [itemClassName]="'nav-item'"
+        [linkClassName]="'nav-link' + getActiveClass(item)"
+      />
+    }
+  }
+</ul>

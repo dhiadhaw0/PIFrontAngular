@@ -1,0 +1,27 @@
+<div class="row g-4">
+  <div class="col-lg-7 col-xl-8">
+    <div class="card border h-100">
+      <div class="card-header border-bottom">
+        <h5 class="card-header-title">Booking stats</h5>
+      </div>
+      <div class="card-body">
+        <div id="apexChartTrafficStats" class="mt-2">
+          <apx-chart
+            [series]="chartOpts.series!"
+            [colors]="chartOpts.colors!"
+            [chart]="chartOpts.chart!"
+            [grid]="chartOpts.grid!"
+            [dataLabels]="chartOpts.dataLabels!"
+            [stroke]="chartOpts.stroke!"
+            [legend]="chartOpts.legend!"
+            [xaxis]="chartOpts.xaxis!"
+            [tooltip]="chartOpts.tooltip!"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <dashboard-booking-traffic />
+  </div>
+</div>

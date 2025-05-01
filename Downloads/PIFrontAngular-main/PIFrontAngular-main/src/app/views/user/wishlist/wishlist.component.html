@@ -1,0 +1,178 @@
+<div class="container-fluid">
+  <!-- My Portfolios Section -->
+  <div class="card border mb-4">
+    <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+      <h4 class="card-header-title mb-0">My Portfolios</h4>
+      <button class="btn btn-sm btn-primary-soft" (click)="openModal(newPortfolioModal)">
+        <i class="bi bi-plus-lg me-2"></i>Create New Portfolio
+      </button>
+    </div>
+
+    <div class="card-body">
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4" *ngFor="let portfolio of myPortfolios">
+          <div class="card h-100">
+            <div class="card-header border-bottom">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ portfolio.titreProjet }}</h5>
+                <span class="badge rounded-pill" [class]="getStatusClass(portfolio.statutProjet)">
+                  {{ getStatusLabel(portfolio.statutProjet) }}
+                </span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <p class="mb-3">{{ portfolio.descriptionProjet }}</p>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span>Progress</span>
+                  <span>{{ calculateProgress(portfolio.montantCollecte, portfolio.montantRecherche) | number:'1.0-0' }}%</span>
+                </div>
+                <div class="progress" style="height: 6px;">
+                  <div class="progress-bar bg-success" 
+                       [style.width.%]="calculateProgress(portfolio.montantCollecte, portfolio.montantRecherche)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-6">
+                  <h6 class="mb-0">Target Amount</h6>
+                  <h5 class="mb-0">{{ portfolio.montantRecherche | currency:'EUR' }}</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Collected</h6>
+                  <h5 class="mb-0">{{ portfolio.montantCollecte | currency:'EUR' }}</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Expected Return</h6>
+                  <h5 class="mb-0">{{ portfolio.rendementPrevisionnel }}%</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Created On</h6>
+                  <h5 class="mb-0">{{ portfolio.dateCreation | date:'mediumDate' }}</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer border-top">
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-sm btn-light-primary">
+                  <i class="bi bi-pencil-square me-2"></i>Edit
+                </button>
+                <button class="btn btn-sm btn-light">
+                  <i class="bi bi-people me-2"></i>View Investors
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invested Portfolios Section -->
+  <div class="card border">
+    <div class="card-header border-bottom">
+      <h4 class="card-header-title mb-0">My Investments</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4" *ngFor="let portfolio of investedPortfolios">
+          <div class="card h-100">
+            <div class="card-header border-bottom">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ portfolio.titreProjet }}</h5>
+                <span class="badge rounded-pill" [class]="getStatusClass(portfolio.statutProjet)">
+                  {{ getStatusLabel(portfolio.statutProjet) }}
+                </span>
+              </div>
+              <small class="text-muted">by {{ portfolio.user.prenom }} {{ portfolio.user.nom }}</small>
+            </div>
+
+            <div class="card-body">
+              <p class="mb-3">{{ portfolio.descriptionProjet }}</p>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span>Progress</span>
+                  <span>{{ calculateProgress(portfolio.montantCollecte, portfolio.montantRecherche) | number:'1.0-0' }}%</span>
+                </div>
+                <div class="progress" style="height: 6px;">
+                  <div class="progress-bar bg-success" 
+                       [style.width.%]="calculateProgress(portfolio.montantCollecte, portfolio.montantRecherche)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-6">
+                  <h6 class="mb-0">Target Amount</h6>
+                  <h5 class="mb-0">{{ portfolio.montantRecherche | currency:'EUR' }}</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Collected</h6>
+                  <h5 class="mb-0">{{ portfolio.montantCollecte | currency:'EUR' }}</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Expected Return</h6>
+                  <h5 class="mb-0">{{ portfolio.rendementPrevisionnel }}%</h5>
+                </div>
+                <div class="col-6">
+                  <h6 class="mb-0">Created On</h6>
+                  <h5 class="mb-0">{{ portfolio.dateCreation | date:'mediumDate' }}</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer border-top">
+              <button class="btn btn-sm btn-primary w-100">
+                <i class="bi bi-graph-up-arrow me-2"></i>View Investment Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New Portfolio Modal -->
+<ng-template #newPortfolioModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Create New Portfolio</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()" aria-label="Close"></button>
+  </div>
+  
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label class="form-label">Project Title</label>
+        <input type="text" class="form-control" placeholder="Enter project title">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Project Description</label>
+        <textarea class="form-control" rows="3" placeholder="Describe your project"></textarea>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Target Amount</label>
+          <input type="number" class="form-control" placeholder="Enter amount">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Expected Return (%)</label>
+          <input type="number" class="form-control" placeholder="Enter expected return">
+        </div>
+      </div>
+
+      <div class="text-end">
+        <button type="button" class="btn btn-light me-2" (click)="modal.dismiss()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Create Portfolio</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -1,0 +1,34 @@
+<div class="row g-3 align-items-center justify-content-between mb-5">
+  <div class="col-md-8">
+    <form class="rounded position-relative">
+      <input
+        class="form-control pe-5"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button
+        class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y"
+        type="submit"
+      >
+        <i class="fas fa-search fs-6"></i>
+      </button>
+    </form>
+  </div>
+
+  <div class="col-md-3">
+    <form>
+      <select
+        selectFormInput
+        [options]="{ searchEnabled: false }"
+        class="form-select js-choice"
+        aria-label=".form-select-sm"
+      >
+        <option value="">Sort by</option>
+        <option>Free</option>
+        <option>Newest</option>
+        <option>Oldest</option>
+      </select>
+    </form>
+  </div>
+</div>

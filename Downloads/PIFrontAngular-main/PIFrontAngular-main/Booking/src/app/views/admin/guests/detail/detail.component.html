@@ -1,0 +1,101 @@
+<div class="card shadow">
+  <div
+    class="card-header border-bottom d-sm-flex justify-content-between align-items-center"
+  >
+    <div class="d-flex align-items-center flex-shrink-0">
+      <div class="avatar avatar-lg">
+        <img
+          class="avatar-img rounded-circle"
+          src="assets/images/avatar/09.jpg"
+          alt="avatar"
+        />
+      </div>
+
+      <div class="ms-3">
+        <h5 class="mb-0">Lori Stevens</h5>
+      </div>
+    </div>
+
+    <div class="d-block d-lg-flex gap-lg-5 flex-wrap mt-3 mt-lg-0">
+      <h6 class="mb-2 mb-lg-0">
+        <i class="bi bi-envelope-fill fa-fw me-1"></i>Email id:<a
+          href="javascript:void(0);"
+          class="fw-normal"
+        >
+          hello&#64;gmail.com</a
+        >
+      </h6>
+
+      <h6 class="mb-0">
+        <i class="bi bi-headset fa-fw me-1"></i>Contact no:<a
+          href="javascript:void(0);"
+          class="fw-normal"
+        >
+          +1(404) 586-854</a
+        >
+      </h6>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h5 class="mb-3">Booking History</h5>
+
+    <div class="bg-light rounded p-3 d-none d-lg-block">
+      <div class="row row-cols-6 justify-content-between g-4">
+        <div class="col">
+          <h6 class="mb-0">Room Name</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Bed type</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Room Floor</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Book Date</h6>
+        </div>
+        <div class="col">
+          <h6 class="mb-0">Action</h6>
+        </div>
+      </div>
+    </div>
+
+    @for (item of roomDetailList; track $index) {
+      <div
+        class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-2 g-sm-4 align-items-md-center justify-content-between border-bottom px-2 py-4"
+      >
+        <div class="col">
+          <small class="d-block d-lg-none">Room name:</small>
+          <div class="d-flex align-items-center">
+            <div class="w-80px flex-shrink-0">
+              <img [src]="item.image" class="rounded" alt="" />
+            </div>
+
+            <h6 class="mb-0 ms-2">{{ item.name }}</h6>
+          </div>
+        </div>
+
+        <div class="col">
+          <small class="d-block d-lg-none">Bed type:</small>
+          <h6 class="mb-0 fw-normal">{{ item.bedType }}</h6>
+        </div>
+
+        <div class="col">
+          <small class="d-block d-lg-none">Room Floor:</small>
+          <h6 class="mb-0 fw-normal">{{ item.roomFloor }}</h6>
+        </div>
+
+        <div class="col">
+          <small class="d-block d-lg-none">Book date:</small>
+          <h6 class="text-success mb-0">{{ item.date }}</h6>
+        </div>
+
+        <div class="col">
+          <a href="javascript:void(0);" class="btn btn-sm btn-light mb-0"
+            >View</a
+          >
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<section class="pt-0 pt-md-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-0">Our Awesome Vehicles</h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      @for (data of vehiclesList; track $index) {
+        <div class="col-sm-4 col-xl-2">
+          <div class="card shadow text-center align-items-center h-100 p-4">
+            <div class="icon-xxl bg-light rounded-circle">
+              <img [src]="data.image" class="w-90px" alt="" />
+            </div>
+
+            <div class="card-body px-0 pb-0">
+              <h5 class="card-title">
+                <a href="javascript:void(0);" class="stretched-link">{{
+                  data.name
+                }}</a>
+              </h5>
+              <span>({{ data.availableCar }} Cars)</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

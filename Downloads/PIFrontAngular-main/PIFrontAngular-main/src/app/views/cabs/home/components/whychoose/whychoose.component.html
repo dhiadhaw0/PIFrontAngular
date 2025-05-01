@@ -1,0 +1,27 @@
+<section class="pt-0 pt-xl-5">
+  <div class="container">
+    <div class="row mb-3 mb-sm-4">
+      <div class="col-12 text-center">
+        <h2>Why Choose Us</h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      @for (data of fetureList; track $index) {
+        <div class="col-sm-6 col-lg-4">
+          <div class="card card-body shadow p-4 h-100">
+            <div
+              class="icon-lg bg-opacity-10 rounded-circle mb-4 {{
+                data.variant
+              }}"
+            >
+              <i class="{{ data.icon }} fs-5"></i>
+            </div>
+            <h5>{{ data.title }}</h5>
+            <p class="mb-0">{{ data.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

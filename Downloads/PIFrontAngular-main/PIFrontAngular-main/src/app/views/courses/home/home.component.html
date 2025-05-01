@@ -1,0 +1,185 @@
+<div class="container formation-container py-5">
+  <!-- Title -->
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <h1 class="display-5 fw-bold text-primary">Nos Formations</h1>
+      <p class="lead text-muted">Développez vos compétences avec nos formations conçues par des experts</p>
+      <div class="title-decoration mx-auto mt-3"></div>
+    </div>
+  </div>
+
+  <!-- Loading state -->
+  <div class="row" *ngIf="loading">
+    <div class="col-12 text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+      <p class="mt-2 text-primary">Chargement des formations...</p>
+    </div>
+  </div>
+
+  <!-- Error state -->
+  <div class="row" *ngIf="error">
+    <div class="col-12">
+      <div class="alert alert-danger shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ error }}
+        <button type="button" class="btn btn-sm btn-outline-danger ms-3 rounded-pill" (click)="loadFormations()">
+          <i class="bi bi-arrow-clockwise me-1"></i> Réessayer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state -->
+  <div class="row" *ngIf="!loading && !error && formations.length === 0">
+    <div class="col-12 text-center">
+      <div class="alert alert-info shadow-sm border-0" role="alert">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        Aucune formation disponible pour le moment.
+      </div>
+    </div>
+  </div>
+
+  <!-- Formation grid -->
+  <div class="row g-4" *ngIf="!loading && !error && formations.length > 0">
+    <div class="col-sm-6 col-lg-4" *ngFor="let formation of formations">
+      <div class="card h-100">
+        <div class="card-body p-4">
+          <!-- Formation badge -->
+          <span class="formation-badge" [ngClass]="'badge-' + (formation?.typeFormation?.toLowerCase() || '')">
+            {{ formation.typeFormation }}
+          </span>
+          
+          <h4 class="card-title mb-3">{{ formation.titre }}</h4>
+          
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-primary fw-bold">{{ formation.prix }} DT</span>
+            <span><i class="bi bi-clock me-1"></i>{{ formation.duree }}h</span>
+          </div>
+          
+          <p class="card-text mb-3">
+            {{ formation?.description | slice:0:120 }}{{ (formation?.description?.length || 0) > 120 ? '...' : '' }}
+          </p>
+          <!-- File link if exists -->
+          <div *ngIf="formation.formationFileUrl" class="mb-3">
+            <a [href]="formation.formationFileUrl" target="_blank" class="file-link">
+              <i class="bi bi-file-earmark-text"></i> Support de cours
+            </a>
+          </div>
+          <div *ngIf="!formation.formationFileUrl" class="mb-3">
+            <span class="file-link no-file">
+              <i class="bi bi-file-earmark-x"></i> Pas de support
+            </span>
+          </div>
+          
+          <!-- Info badges -->
+          <div class="mb-3">
+            <span class="badge me-2" [ngClass]="{
+              'bg-warning': formation.statutFormation === 'En_Cours',
+              'bg-success': formation.statutFormation === 'Complète'
+            }">{{ formation.statutFormation }}</span>
+            
+            <span class="badge bg-info" *ngIf="formation.certificat">
+              <i class="bi bi-award me-1"></i> Certifiante
+            </span>
+          </div>
+          
+          <!-- Buttons -->
+          <div class="d-grid gap-2 mt-3">
+            <button class="btn btn-outline-primary" (click)="openFormationDetails(formation)">
+              <i class="bi bi-info-circle me-1"></i> Détails
+            </button>
+            <button class="btn btn-primary">
+              <i class="bi bi-book me-1"></i> S'inscrire
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Formation Details Modal -->
+<div class="modal fade" id="formationModal" tabindex="-1" aria-labelledby="formationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" *ngIf="selectedFormation">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="formationModalLabel">{{ selectedFormation.titre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-8">
+            <!-- Formation details -->
+            <div class="mb-4">
+              <h6 class="fw-bold text-primary mb-3">Description</h6>
+              <p>{{ selectedFormation.description }}</p>
+            </div>
+            
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <h6 class="fw-bold text-primary mb-3">Détails</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between px-0">
+                    <span>Type:</span>
+                    <span class="badge" [ngClass]="'badge-' + (selectedFormation?.typeFormation?.toLowerCase() || '')">
+                      {{ selectedFormation.typeFormation }}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between px-0">
+                    <span>Durée:</span>
+                    <span>{{ selectedFormation.duree }} heures</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between px-0">
+                    <span>Statut:</span>
+                    <span class="badge" [ngClass]="{
+                      'bg-warning': selectedFormation.statutFormation === 'En_Cours',
+                      'bg-success': selectedFormation.statutFormation === 'Complète'
+                    }">{{ selectedFormation.statutFormation }}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between px-0">
+                    <span>Certificat:</span>
+                    <span>{{ selectedFormation.certificat ? 'Oui' : 'Non' }}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6 class="fw-bold text-primary mb-3">Support de cours</h6>
+                <div *ngIf="selectedFormation.formationFileUrl" class="text-center">
+                  <a [href]="selectedFormation.formationFileUrl" target="_blank" class="file-link d-inline-block">
+                    <i class="bi bi-file-earmark-text"></i> Télécharger le support
+                  </a>
+                </div>
+                <div *ngIf="!selectedFormation.formationFileUrl" class="text-center">
+                  <span class="file-link no-file d-inline-block">
+                    <i class="bi bi-file-earmark-x"></i> Pas de support disponible
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <!-- Price card -->
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title text-center mb-4">Prix</h5>
+                <div class="text-center mb-4">
+                  <span class="display-6 fw-bold text-primary">{{ selectedFormation.prix }} DT</span>
+                </div>
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary btn-lg">
+                    <i class="bi bi-book me-1"></i> S'inscrire maintenant
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

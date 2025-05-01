@@ -1,0 +1,41 @@
+<div class="card h-100">
+  <!-- Image -->
+  <img [src]="course.formationFileUrl || 'assets/images/category/course/default.jpg'" class="card-img-top" alt="{{ course.titre }}">
+
+  <!-- Card body -->
+  <div class="card-body pb-0">
+    <!-- Badge and rating -->
+    <div class="d-flex justify-content-between mb-3">
+      <span class="badge bg-purple-soft">{{ course.typeFormation }}</span>
+      <div class="rating">
+        <i class="fas fa-star text-warning"></i>
+        <span class="text-muted ms-1">{{ course.noteMoyenne || 0 }}</span>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h5 class="card-title"><a href="#" class="text-decoration-none">{{ course.titre || 'Sans titre' }}</a></h5>
+
+    <!-- Info -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <i class="fas fa-user-graduate me-2"></i>
+        Formation
+      </div>
+      <div>
+        <i class="fas fa-clock me-2"></i>
+        {{ course.duree || 0 }} heures
+      </div>
+    </div>
+  </div>
+
+  <!-- Card footer -->
+  <div class="card-footer pt-0 pb-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="price-wrap">
+        <h5 class="mb-0">{{ course.prix || 0 }} TND</h5>
+      </div>
+      <a href="#" class="btn btn-sm btn-primary-soft">Détails</a>
+    </div>
+  </div>
+</div>

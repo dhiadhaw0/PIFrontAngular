@@ -1,0 +1,15 @@
+<sticky-header-component>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+      <app-logo-box />
+      <vertical-menu-button (click)="toggleMobileMenu()" />
+      <div class="collapse navbar-collapse" [class.show]="isOpen">
+        <app-menu />
+        <div class="ms-auto d-flex align-items-center">
+          <app-theme-switcher />
+          <a routerLink="/credits/application" class="btn btn-primary ms-3">Apply Now</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</sticky-header-component> 

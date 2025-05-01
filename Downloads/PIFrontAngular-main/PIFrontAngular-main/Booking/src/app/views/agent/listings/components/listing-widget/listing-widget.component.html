@@ -1,0 +1,46 @@
+<div class="row g-4">
+  @for (item of statisticsData; track $index) {
+    <div class="col-md-6 col-xl-4">
+      <div class="card card-body border p-4 h-100">
+        <h6>
+          {{ item.title }}
+          @if (item.tag) {
+            <a
+              tabindex="0"
+              class="h6 mb-0"
+              role="button"
+              data-bs-trigger="focus"
+              placement="top"
+              ngbPopover="After US royalty withholding tax"
+              data-bs-original-title=""
+              title=""
+            >
+              <i class="bi bi-info-circle-fill small"></i>
+            </a>
+          }
+        </h6>
+        <h2 class="{{ item.variant }}">{{ item.state }}</h2>
+        @if (item.tag) {
+          <p class="mb-2">
+            <span class="text-primary"
+              >{{ item.change }} <i class="bi bi-arrow-up ms-n1"></i
+            ></span>
+            {{ item.changeLabel }}
+          </p>
+        } @else {
+          <p class="mb-2">
+            <span class="text-danger me-1">{{ item.change }}</span
+            >{{ item.changeLabel }}
+          </p>
+        }
+        <div class="mt-auto text-primary-hover">
+          <a
+            href="javascript:void(0);"
+            class="text-decoration-underline p-0 mb-0"
+            >{{ item.link }}</a
+          >
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,53 @@
+<div class="row g-0 align-items-center">
+  <div class="col-lg-6 d-md-flex align-items-center order-2 order-lg-1">
+    <div class="p-3 p-lg-5">
+      <img src="assets/images/element/forgot-pass.svg" alt="" />
+    </div>
+
+    <div class="vr opacity-1 d-none d-lg-block"></div>
+  </div>
+
+  <div class="col-lg-6 order-1">
+    <div class="p-4 p-sm-7">
+      <a routerLink="/">
+        <img class="mb-4 h-50px" src="assets/images/logo-icon.svg" alt="logo" />
+      </a>
+
+      <h1 class="mb-2 h3">Two factor authentication</h1>
+      <p class="mb-sm-0">
+        We have to send a code to <b>example&#64;gmail.com</b>
+      </p>
+
+      <form class="mt-sm-4">
+        <p class="mb-1">Enter the code we have sent you:</p>
+        <ng-otp-input
+          class="autotab d-flex justify-content-between gap-1 gap-sm-3 mb-2"
+          [config]="config"
+        ></ng-otp-input>
+
+        <div class="d-sm-flex justify-content-between small mb-4">
+          <span>Don't get a code?</span>
+          <a
+            href="javascript:void(0);"
+            class="btn btn-sm btn-link p-0 text-decoration-underline mb-0"
+            >Click to resend</a
+          >
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-primary w-100 mb-0">
+            Verify and Process
+          </button>
+        </div>
+
+        <div class="text-primary-hover mt-3 text-center">
+          Copyrights ©{{ currentYear }} Booking. Build by
+          <a href="{{ creditsBy.website }}" class="text-body">{{
+            creditsBy.name
+          }}</a
+          >.
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

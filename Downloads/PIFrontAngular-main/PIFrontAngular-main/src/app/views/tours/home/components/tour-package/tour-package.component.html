@@ -1,0 +1,118 @@
+<section class="pt-0 pt-md-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-0">Available Courses</h2>
+        <p class="text-muted">Boost your skills with our innovative, expert-led courses. Enroll today!</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      @for (item of courses; track $index) {
+        <div class="col-sm-6 col-xl-3">
+          <div class="card card-img-scale overflow-hidden bg-transparent course-card position-relative">
+            <div class="card-img-scale-wrapper rounded-3">
+              <img [src]="item.image" class="card-img" alt="" />
+              <div class="card-img-overlay d-flex flex-column z-index-1 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <div class="d-flex align-items-center">
+                    <img [src]="'assets/images/team/01.jpg'" class="rounded-circle me-2" width="32" height="32" alt="Instructor">
+                    <span class="text-white fw-bold">{{ item.instructor }}</span>
+                  </div>
+                  <span class="badge bg-warning text-dark ms-2"><i class="fa-solid fa-star text-warning me-1"></i>{{ item.rating }}</span>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <span *ngIf="item.isPopular" class="badge bg-danger me-1">Best Seller</span>
+                  <span *ngIf="item.isNew" class="badge bg-success me-1">New</span>
+                  <span class="badge bg-light text-dark">{{ item.type }}</span>
+                </div>
+                <span class="badge bg-primary text-white mb-1">{{ item.duration }} • {{ item.mode }}</span>
+              </div>
+            </div>
+            <div class="card-body px-2">
+              <h5 class="card-title mb-1">
+                <a routerLink="/courses/detail" class="stretched-link">{{ item.name }}</a>
+              </h5>
+              <div class="d-flex align-items-center mb-2">
+                <span class="text-muted me-2"><i class="fa fa-users me-1"></i>1,200 students</span>
+              </div>
+              <div class="hstack gap-2 mb-2">
+                <span class="h5 mb-0 text-success">{{ currencyType }}{{ item.price }}</span>
+                <small class="text-muted">Course fee</small>
+              </div>
+              <button class="btn btn-primary w-100" (click)="openEnrollModal(item)">Enroll Now</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Enroll Modal -->
+<div *ngIf="showEnrollModal" class="modal fade show d-block" tabindex="-1" style="background:rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <div class="d-flex align-items-center">
+          <img [src]="selectedCourse?.image" class="rounded me-3" width="60" height="60" alt="Course" />
+          <div>
+            <h5 class="modal-title mb-1">{{ selectedCourse?.name }}</h5>
+            <div class="d-flex align-items-center small text-muted">
+              <img src="assets/images/team/01.jpg" class="rounded-circle me-2" width="24" height="24" alt="Instructor">
+              <span>{{ selectedCourse?.instructor }}</span>
+              <span class="mx-2">•</span>
+              <span><i class="fa fa-star text-warning me-1"></i>{{ selectedCourse?.rating }}</span>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-close ms-2" (click)="closeEnrollModal()"></button>
+      </div>
+      <div class="modal-body pt-0">
+        <form (ngSubmit)="submitEnrollForm()" #enrollFormRef="ngForm">
+          <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" required [(ngModel)]="enrollForm.name" name="name" placeholder="Your full name" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" required [(ngModel)]="enrollForm.email" name="email" placeholder="you@email.com" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Phone</label>
+            <input type="tel" class="form-control" required [(ngModel)]="enrollForm.phone" name="phone" placeholder="e.g. +123456789" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">How did you hear about us?</label>
+            <select class="form-select" [(ngModel)]="enrollForm.referral" name="referral" required>
+              <option value="" disabled selected>Select an option</option>
+              <option>Google Search</option>
+              <option>Social Media</option>
+              <option>Friend/Colleague</option>
+              <option>Advertisement</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="enrollForm.agree" name="agree" id="agree" required />
+            <label class="form-check-label small" for="agree">
+              I agree to the <a href="#" target="_blank">terms and conditions</a>.
+            </label>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="closeEnrollModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!enrollFormRef.form.valid">Submit Application</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.course-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 1.5px 4px rgba(0,0,0,0.08);
+  transform: translateY(-4px) scale(1.03);
+  transition: all 0.2s;
+}
+</style>

@@ -1,0 +1,746 @@
+<section class="py-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <ul
+          ngbNav
+          #ngbNav="ngbNav"
+          class="nav nav-pills nav-justified nav-responsive bg-primary bg-opacity-10 rounded p-2"
+          id="tour-pills-tab"
+          role="tablist"
+        >
+          <li class="nav-item" ngbNavItem role="presentation">
+            <button
+              class="nav-link mb-0"
+              ngbNavLink
+              id="tour-pills-tab-1"
+              data-bs-toggle="pill"
+              data-bs-target="#tour-pills-tab1"
+              type="button"
+              role="tab"
+              aria-controls="tour-pills-tab1"
+              aria-selected="true"
+            >
+              Overview
+            </button>
+            <ng-template ngbNavContent>
+              <div
+                class="tab-pane fade show active"
+                id="tour-pills-tab1"
+                role="tabpanel"
+                aria-labelledby="tour-pills-tab-1"
+              >
+                <div class="card bg-transparent p-0">
+                  <div
+                    class="card-header bg-transparent border-bottom p-0 pb-3"
+                  >
+                    <h3 class="mb-0">Overview</h3>
+                  </div>
+
+                  <div class="card-body p-0 pt-3">
+                    <p class="mb-4">
+                      Bali, also known as the land of gods has plenty to offer
+                      to travelers from across the globe. As it so contrasted oh
+                      estimating instrument. Size like body some one had. Are
+                      conduct viewing boy minutes warrant the expense? Tolerably
+                      behavior may admit daughters offending her ask own. Praise
+                      effect wishes change way and any wanted. Lively use looked
+                      latter regard had. Do he it part more last in. We
+                      understand that theory is important to build a solid
+                      foundation, we understand that theory alone isn’t going to
+                      get the job done so that’s why this is packed with
+                      practical hands-on examples that you can follow step by
+                      step.
+                    </p>
+
+                    <h5>Tour Info</h5>
+                    <ul class="list-group list-group-borderless mb-4">
+                      @for (item of tourInfo; track $index) {
+                        <li class="list-group-item">
+                          <span class="h6 mb-0 me-1">{{ item.title }}:</span>
+                          <span class="h6 fw-light mb-0">{{ item.info }}</span>
+                        </li>
+                      }
+                    </ul>
+
+                    <h5>Tour Highlights</h5>
+                    <ul class="list-group list-group-borderless mb-4">
+                      @for (item of highlights; track $index) {
+                        <li class="list-group-item h6 fw-light d-flex mb-0">
+                          <i class="bi bi-arrow-right me-2"></i>{{ item }}
+                        </li>
+                      }
+                    </ul>
+
+                    <h5>More About The Beautiful Bali with Malaysia Tour</h5>
+                    <ul class="list-group list-group-borderless mb-0">
+                      @for (tour of aboutTour; track $index) {
+                        <li class="list-group-item h6 fw-light d-flex mb-0">
+                          <i
+                            class="fa-solid fa-check-circle text-success me-2"
+                          ></i
+                          >{{ tour }}
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+
+          <li class="nav-item" ngbNavItem role="presentation">
+            <button
+              class="nav-link mb-0"
+              ngbNavLink
+              id="tour-pills-tab-2"
+              data-bs-toggle="pill"
+              data-bs-target="#tour-pills-tab2"
+              type="button"
+              role="tab"
+              aria-controls="tour-pills-tab2"
+              aria-selected="false"
+            >
+              Itinerary
+            </button>
+            <ng-template ngbNavContent>
+              <div
+                class="tab-pane fade show active"
+                id="tour-pills-tab2"
+                role="tabpanel"
+                aria-labelledby="tour-pills-tab-2"
+              >
+                <div class="card bg-transparent p-0">
+                  <div
+                    class="card-header bg-transparent border-bottom p-0 pb-3"
+                  >
+                    <h3 class="mb-0">Itinerary</h3>
+                  </div>
+
+                  <div class="card-body p-0 pt-3">
+                    <div
+                      ngbAccordion
+                      [closeOthers]="true"
+                      class="accordion accordion-icon accordion-bg-light"
+                      id="accordionExample2"
+                    >
+                      <div
+                        ngbAccordionItem
+                        class="accordion-item mb-3"
+                        [collapsed]="false"
+                      >
+                        <h6
+                          ngbAccordionHeader
+                          class="accordion-header font-base"
+                          id="heading-1"
+                        >
+                          <button
+                            ngbAccordionToggle
+                            class="accordion-button rounded d-inline-block collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse-1"
+                            aria-expanded="true"
+                            aria-controls="collapse-1"
+                          >
+                            <span class="lead me-1 fw-normal">Day 1:</span
+                            >Arrival in Kuta | Get ready for an ideal escape on
+                            this tropical island
+                          </button>
+                        </h6>
+
+                        <div
+                          id="collapse-1"
+                          ngbAccordionCollapse
+                          class="accordion-collapse collapse show"
+                          aria-labelledby="heading-1"
+                          data-bs-parent="#accordionExample2"
+                        >
+                          <div class="accordion-body mt-3" ngbAccordionBody>
+                            <div class="vstack gap-4">
+                              <div class="card bg-transparent p-0">
+                                <div class="card-header bg-transparent p-0">
+                                  <span class="text-body"
+                                    ><i
+                                      class="fa-solid fa-check-circle me-2"
+                                    ></i
+                                    >Flight details</span
+                                  >
+                                  <div
+                                    class="p-3 bg-light rounded-2 d-sm-flex justify-content-sm-between align-items-center mb-4 mt-2"
+                                  >
+                                    <h6 class="mb-0">New York - Malaysia</h6>
+                                    <h6 class="fw-normal mb-0">
+                                      <span class="text-body">Date:</span> 4
+                                      July 2022
+                                    </h6>
+                                  </div>
+                                </div>
+
+                                <div class="card-body p-0">
+                                  <div class="row g-4">
+                                    <div class="col-md-3">
+                                      <img
+                                        src="assets/images/element/09.svg"
+                                        class="w-80px mb-3"
+                                        alt=""
+                                      />
+
+                                      <h6 class="fw-normal small mb-0">
+                                        Phillippines Airline
+                                      </h6>
+                                    </div>
+
+                                    <div class="col-4 col-md-3">
+                                      <h5>CDG</h5>
+                                      <h6 class="mb-0">2:50 pm</h6>
+                                    </div>
+
+                                    <div class="col-4 col-md-3 text-center">
+                                      <h6>5hr 50min</h6>
+
+                                      <div class="position-relative my-4">
+                                        <hr
+                                          class="bg-primary opacity-5 position-relative"
+                                        />
+
+                                        <div
+                                          class="icon-md bg-primary text-white rounded-circle position-absolute top-50 start-50 translate-middle"
+                                        >
+                                          <i
+                                            class="fa-solid fa-fw fa-plane"
+                                          ></i>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="col-4 col-md-3 text-end">
+                                      <h5>JFK</h5>
+                                      <h6 class="mb-0">7:35 pm</h6>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <hr class="my-0" />
+
+                              <div class="card bg-transparent p-0">
+                                <div class="card-header bg-transparent p-0">
+                                  <span class="text-body"
+                                    ><i
+                                      class="fa-solid fa-check-circle me-2"
+                                    ></i
+                                    >Transfer from Airport to hotel</span
+                                  >
+                                </div>
+
+                                <div class="card-body p-0 mt-2">
+                                  <div
+                                    class="row g-2 g-sm-4 align-items-center"
+                                  >
+                                    <div class="col-sm-4 col-xl-3">
+                                      <div class="bg-light rounded-3 px-4 py-5">
+                                        <img
+                                          src="assets/images/category/cab/seadan.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div class="col-sm-8 col-xl-9">
+                                      <h5 class="card-title mb-2">
+                                        Private Transfers
+                                      </h5>
+                                      <h6 class="mb-2">Camry, Accord</h6>
+
+                                      <ul class="nav nav-divider mb-2">
+                                        <li class="nav-item">SEDAN</li>
+                                        <li class="nav-item">AC</li>
+                                        <li class="nav-item">4 Seats</li>
+                                        <li class="nav-item">2 luggage</li>
+                                        <li class="nav-item">First Aid</li>
+                                      </ul>
+
+                                      <a
+                                        href="javascript:void(0);"
+                                        class="btn btn-sm btn-primary-soft mb-0 me-1"
+                                        >Change</a
+                                      >
+                                      <a
+                                        href="javascript:void(0);"
+                                        class="btn btn-sm btn-danger-soft mb-0"
+                                        >Remove</a
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <hr class="my-0" />
+
+                              <div class="card bg-transparent p-0">
+                                <div class="card-header bg-transparent p-0">
+                                  <span class="text-body"
+                                    ><i
+                                      class="fa-solid fa-check-circle me-2"
+                                    ></i
+                                    >Check-In to hotel</span
+                                  >
+                                </div>
+
+                                <div class="card-body p-0 mt-2">
+                                  <div class="row g-2 g-sm-4">
+                                    <div class="col-sm-4">
+                                      <img
+                                        src="assets/images/category/hotel/4by3/04.jpg"
+                                        class="card-img"
+                                        alt="Card image"
+                                      />
+                                    </div>
+
+                                    <div class="col-sm-8">
+                                      <div
+                                        class="d-flex justify-content-between mb-2"
+                                      >
+                                        <div class="badge bg-dark">Hotel</div>
+                                        <a
+                                          routerLink="/hotels/list"
+                                          class="btn btn-sm btn-link p-0 mb-0 text-decoration-underline"
+                                          >Change</a
+                                        >
+                                      </div>
+
+                                      <h5 class="card-title mb-1">
+                                        <a routerLink="/hotels/detail"
+                                          >Courtyard by Marriott New York
+                                        </a>
+                                      </h5>
+                                      <span>2.9km from the airport</span>
+
+                                      <ul
+                                        class="list-group list-group-borderless mb-0 mt-2 small"
+                                      >
+                                        <li class="list-group-item d-flex p-0">
+                                          <i
+                                            class="far fa-calendar-alt me-2"
+                                          ></i
+                                          >Tue, 5 Jul 2022 - Sat 9 Jul 2022
+                                        </li>
+                                        <li
+                                          class="list-group-item d-flex text-success p-0"
+                                        >
+                                          <i
+                                            class="bi bi-patch-check-fill me-2"
+                                          ></i
+                                          >Free Breakfast
+                                        </li>
+                                      </ul>
+
+                                      <h6 class="mb-0 fw-light small mt-2">
+                                        Room type: Standard room - Holiday
+                                        selection
+                                        <a
+                                          routerLink="/hotels/detail"
+                                          class="btn btn-sm btn-link p-0 mb-0 text-decoration-underline ms-2"
+                                          >Change room</a
+                                        >
+                                      </h6>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <hr class="my-0" />
+
+                              <div class="card bg-transparent p-0">
+                                <div class="card-header bg-transparent p-0">
+                                  <span class="text-body"
+                                    ><i
+                                      class="fa-solid fa-check-circle me-2"
+                                    ></i
+                                    >Today’s Activity</span
+                                  >
+                                </div>
+
+                                <div class="card-body p-0 mt-2">
+                                  <div
+                                    class="row g-2 g-sm-4 align-items-center"
+                                  >
+                                    <div class="col-sm-4">
+                                      <img
+                                        src="assets/images/category/tour/4by3/04.jpg"
+                                        class="card-img"
+                                        alt=""
+                                      />
+                                    </div>
+
+                                    <div class="col-sm-8">
+                                      <h5 class="card-title mb-0">
+                                        Sightseeing in Bali
+                                      </h5>
+                                      <small class="mb-2"
+                                        ><i class="bi bi-geo-alt me-2"></i>Bali,
+                                        Malaysia</small
+                                      >
+
+                                      <ul
+                                        class="list-group list-group-borderless mb-0 mt-2"
+                                      >
+                                        <li class="list-group-item d-flex p-0">
+                                          <i
+                                            class="bi bi-arrow-right text-primary me-2"
+                                          ></i
+                                          >Tanah Lot Tour
+                                        </li>
+                                        <li class="list-group-item d-flex p-0">
+                                          <i
+                                            class="bi bi-arrow-right text-primary me-2"
+                                          ></i
+                                          >White water rafting
+                                        </li>
+                                      </ul>
+
+                                      <div class="hstack gap-3 flex-wrap mt-2">
+                                        <p class="mb-0">
+                                          Duration:<span
+                                            class="h6 fw-light mb-0 ms-1"
+                                            >5 hrs</span
+                                          >
+                                        </p>
+                                        <p class="mb-0">
+                                          Place Covered:<span
+                                            class="h6 fw-light mb-0 ms-1"
+                                            >2</span
+                                          >
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <a
+                                href="javascript:void(0);"
+                                class="btn btn-primary mb-0"
+                                ><i class="fa-solid fa-person-skating me-2"></i
+                                >Add Activity</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div ngbAccordionItem class="accordion-item mb-3">
+                        <h6
+                          ngbAccordionHeader
+                          class="accordion-header font-base"
+                          id="heading-2"
+                        >
+                          <button
+                            ngbAccordionToggle
+                            class="accordion-button rounded d-inline-block collapsed d-block pe-5"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse-2"
+                            aria-expanded="false"
+                            aria-controls="collapse-2"
+                          >
+                            <span class="lead me-1 fw-normal">Day 2:</span>A day
+                            filled with adventure | Indulge in Water sports at
+                            Tanjung Benoa Nusa Dua
+                          </button>
+                        </h6>
+
+                        <div
+                          ngbAccordionCollapse
+                          id="collapse-2"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="heading-2"
+                          data-bs-parent="#accordionExample2"
+                        >
+                          <div class="accordion-body mt-3">
+                            <ul>
+                              @for (item of facility; track $index) {
+                                <li class="mb-2">{{ item }}</li>
+                              }
+                            </ul>
+
+                            <div class="row g-4">
+                              @for (room of roomImages; track $index) {
+                                <div class="col-md-4">
+                                  <img [src]="room" class="rounded-3" alt="" />
+                                </div>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="accordion-item mb-3" ngbAccordionItem="">
+                        <h6
+                          class="accordion-header font-base"
+                          id="heading-3"
+                          ngbAccordionHeader
+                        >
+                          <button
+                            class="accordion-button collapsed rounded d-block pe-5"
+                            ngbAccordionToggle
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse-3"
+                            aria-expanded="false"
+                            aria-controls="collapse-3"
+                          >
+                            <span class="lead me-1 fw-normal">Day 3:</span
+                            >Indulge in Water sports at Tanjung Benoa Nusa Dua
+                          </button>
+                        </h6>
+
+                        <div
+                          id="collapse-3"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="heading-3"
+                          ngbAccordionCollapse
+                          data-bs-parent="#accordionExample2"
+                        >
+                          <div class="accordion-body mt-3" ngbAccordionBody>
+                            Post no so what deal evil rent by real in. But her
+                            ready least set lived spite solid. September how men
+                            saw tolerably two behavior arranging. She offices
+                            for highest and replied one venture pasture.
+                            Applauded no discovery in newspaper allowance am
+                            northward. Frequently partiality possession
+                            resolution at or appearance unaffected me. Engaged
+                            its was the evident pleased husband. Ye goodness
+                            felicity do disposal dwelling no. First am plate
+                            jokes to began to cause a scale. Subjects he
+                            prospect elegance followed no overcame possible it
+                            on. Improved own provided blessing may peculiar
+                            domestic. Sight house has sex never. No visited
+                            raising gravity outward subject my cottage Mr be.
+                            Hold do at tore in park feet near my case.
+                            Invitation at understood occasional sentiments
+                            insipidity inhabiting in. Off melancholy alteration
+                            principles old. Is do speedily kindness properly oh.
+                            Respect article painted cottage he is offices
+                            parlors.
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="accordion-item mb-3" ngbAccordionItem="">
+                        <h6
+                          class="accordion-header font-base"
+                          ngbAccordionHeader
+                          id="heading-4"
+                        >
+                          <button
+                            class="accordion-button collapsed rounded d-block pe-5"
+                            ngbAccordionToggle
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse-4"
+                            aria-expanded="false"
+                            aria-controls="collapse-4"
+                          >
+                            <span class="lead me-1 fw-normal">Day 4:</span
+                            >Departure, Its Time to say Goodbye
+                          </button>
+                        </h6>
+
+                        <div
+                          id="collapse-4"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="heading-4"
+                          ngbAccordionCollapse
+                          data-bs-parent="#accordionExample2"
+                        >
+                          <div class="accordion-body mt-3" ngbAccordionBody>
+                            <p>
+                              What deal evil rent by real in. But her ready
+                              least set lived spite solid. September how men saw
+                              tolerably two behavior arranging. She offices for
+                              highest and replied one venture pasture. Applauded
+                              no discovery in newspaper allowance am northward.
+                              Frequently partiality possession resolution at or
+                              appearance unaffected me. Engaged its was the
+                              evident pleased husband. Ye goodness felicity do
+                              disposal dwelling no. First am plate jokes to
+                              began to cause a scale. Subjects he prospect
+                              elegance followed no overcame possible it on.
+                              Improved own provided blessing may peculiar
+                              domestic. Sight house has sex never. No visited
+                              raising gravity outward subject my cottage Mr be.
+                            </p>
+                            <p class="mb-0">
+                              At the moment, we only accept Credit/Debit cards
+                              and Paypal payments. Paypal is the easiest way to
+                              make payments online. While checking out your
+                              order. Be sure to fill in correct details for fast
+                              & hassle-free payment processing.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+
+          <li class="nav-item" ngbNavItem role="presentation">
+            <button
+              class="nav-link mb-0"
+              ngbNavLink
+              id="tour-pills-tab-3"
+              data-bs-toggle="pill"
+              data-bs-target="#tour-pills-tab3"
+              type="button"
+              role="tab"
+              aria-controls="tour-pills-tab3"
+              aria-selected="false"
+            >
+              Inclusions & Exclusion
+            </button>
+            <ng-template ngbNavContent>
+              <div
+                class="tab-pane fade show active"
+                id="tour-pills-tab3"
+                role="tabpanel"
+                aria-labelledby="tour-pills-tab-3"
+              >
+                <div class="card bg-transparent p-0">
+                  <div
+                    class="card-header bg-transparent border-bottom p-0 pb-3"
+                  >
+                    <h3 class="mb-0">Inclusions & Exclusions</h3>
+                  </div>
+
+                  <div class="card-body p-0 pt-3">
+                    <h5>Inclusion</h5>
+                    <ul class="list-group list-group-borderless mb-3">
+                      @for (item of inclusionsList; track $index) {
+                        <li class="list-group-item d-flex mb-0">
+                          <i class="fa-solid fa-check text-success me-2"></i>
+                          <span class="h6 fw-normal">{{ item }}</span>
+                        </li>
+                      }
+                    </ul>
+
+                    <h5>Exclusion</h5>
+                    <ul class="list-group list-group-borderless mb-3">
+                      @for (exclusion of exclusionList; track $index) {
+                        <li class="list-group-item d-flex mb-0">
+                          <i class="fa-solid fa-times text-danger me-2"></i>
+                          <span class="h6 fw-normal">{{ exclusion }}</span>
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+
+          <li class="nav-item" role="presentation" ngbNavItem>
+            <button
+              class="nav-link mb-0"
+              ngbNavLink
+              id="tour-pills-tab-4"
+              data-bs-toggle="pill"
+              data-bs-target="#tour-pills-tab4"
+              type="button"
+              role="tab"
+              aria-controls="tour-pills-tab4"
+              aria-selected="false"
+            >
+              Tour Policy
+            </button>
+            <ng-template ngbNavContent>
+              <div
+                class="tab-pane fade show active"
+                id="tour-pills-tab4"
+                role="tabpanel"
+                aria-labelledby="tour-pills-tab-4"
+              >
+                <div class="card bg-transparent p-0">
+                  <div
+                    class="card-header bg-transparent border-bottom p-0 pb-3"
+                  >
+                    <h3 class="mb-0">Tour Policy</h3>
+                  </div>
+
+                  <div class="card-body p-0 pt-3">
+                    <h5>Confirmation Policy:</h5>
+                    <p class="mb-2">
+                      The customer receives a confirmation voucher via email
+                      within 24 hours of successful booking.
+                    </p>
+                    <p class="mb-2">
+                      In case the preferred slots are unavailable, an alternate
+                      schedule of the customer’s preference will be arranged and
+                      a new confirmation voucher will be sent via email.
+                    </p>
+                    <p class="mb-0">
+                      Alternatively, the customer may choose to cancel their
+                      booking before confirmation and a full refund will be
+                      processed.
+                    </p>
+
+                    <h5 class="mt-4">Cancellation Policy:</h5>
+                    <ul class="list-group list-group-borderless">
+                      @for (item of cancellationPolicy; track $index) {
+                        <li class="list-group-item">
+                          <span class="h6 fw-normal me-1 mb-0"
+                            ><i class="bi bi-dot"></i>{{ item.type }}:</span
+                          >
+                          <span>{{ item.refund }}</span>
+                        </li>
+                      }
+                    </ul>
+
+                    <p class="mt-2">
+                      All Prices are in Indian Rupees and subject to change
+                      without prior notice.<br />In the case FIT flight
+                      inclusive package, the full amount of the flight will be
+                      payable at the time of booking.
+                    </p>
+
+                    <h5 class="mt-4">Refund Policy:</h5>
+                    <p class="mb-2">
+                      The applicable refund amount will be processed within 10
+                      business days.
+                    </p>
+                    <p class="mb-0">
+                      All applicable refunds will be done in the traveler's
+                      Thrillophilia wallet as Thrillcash.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pt-4 pt-md-5">
+  <div class="container">
+    <div class="row g-4 g-md-5">
+      <div class="col-xl-8">
+        <div
+          class="tab-content mb-0"
+          [ngbNavOutlet]="ngbNav"
+          id="tour-pills-tabContent"
+        ></div>
+      </div>
+
+      <aside class="col-xl-4">
+        <detail-pricing />
+      </aside>
+    </div>
+  </div>
+</section>

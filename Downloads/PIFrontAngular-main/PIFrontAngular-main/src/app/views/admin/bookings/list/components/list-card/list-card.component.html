@@ -1,0 +1,358 @@
+<div class="row g-4 justify-content-between align-items-center">
+  <div class="col-lg-5">
+    <ul class="nav nav-pills-shadow nav-responsive">
+      <li class="nav-item">
+        <a
+          class="nav-link mb-0 me-sm-2"
+          [ngClass]="{ active: activeButton == 1 }"
+          (click)="showButton(1)"
+          data-bs-toggle="tab"
+          href="javascript:void(0);"
+          >All Status</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link mb-0 me-sm-2"
+          [ngClass]="{ active: activeButton == 2 }"
+          (click)="showButton(2)"
+          data-bs-toggle="tab"
+          href="javascript:void(0);"
+          >Available</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link mb-0"
+          [ngClass]="{ active: activeButton == 3 }"
+          (click)="showButton(3)"
+          data-bs-toggle="tab"
+          href="javascript:void(0);"
+          >Sold Out</a
+        >
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-lg-6 col-xxl-5">
+    <div class="d-sm-flex gap-4 justify-content-between justify-content-lg-end">
+      <div class="col-md-8">
+        <form class="rounded position-relative">
+          <input
+            class="form-control bg-transparent"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button
+            class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+            type="submit"
+          >
+            <i class="fas fa-search fs-6"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="d-flex justify-content-end mt-2 mt-sm-0">
+        <ul
+          ngbNav
+          #nav="ngbNav"
+          class="nav nav-pills nav-pills-dark"
+          id="room-pills-tab"
+          role="tablist"
+        >
+          <li class="nav-item" ngbNavItem>
+            <button
+              ngbNavLink
+              class="nav-link rounded-start rounded-0"
+              id="grid-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#grid-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="grid-tab-pane"
+              aria-selected="true"
+            >
+              <i class="bi fa-fw bi-grid-fill"></i>
+            </button>
+            <ng-template ngbNavContent>
+              <div class="tab-pane fade show active" id="grid-tab-pane">
+                <div
+                  class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-5 g-4"
+                >
+                  @for (item of bookingListsData; track $index) {
+                    <div class="col">
+                      <div class="card shadow h-100">
+                        <div class="position-relative">
+                          <img
+                            [src]="item.image"
+                            class="card-img-top"
+                            alt="Card image"
+                          />
+
+                          <div class="card-img-overlay d-flex flex-column p-3">
+                            <div
+                              class="d-flex justify-content-between align-items-center"
+                            >
+                              <div class="badge text-bg-dark">
+                                <i
+                                  class="bi fa-fw bi-star-fill me-2 text-warning"
+                                ></i
+                                >{{ item.rating | number: '1.1' }}
+                              </div>
+
+                              <div
+                                class="list-inline-item dropdown"
+                                ngbDropdown
+                              >
+                                <a
+                                  href="javascript:void(0);"
+                                  ngbDropdownToggle
+                                  class="btn btn-sm btn-round btn-light arrow-none"
+                                  role="button"
+                                  id="dropdownAction1"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                >
+                                  <i class="bi bi-three-dots-vertical"></i>
+                                </a>
+
+                                <ul
+                                  class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded small"
+                                  ngbDropdownMenu
+                                  aria-labelledby="dropdownAction1"
+                                >
+                                  <li>
+                                    <a
+                                      class="dropdown-item"
+                                      href="javascript:void(0);"
+                                      ><i class="bi bi-info-circle me-2"></i
+                                      >Report</a
+                                    >
+                                  </li>
+                                  <li>
+                                    <a
+                                      class="dropdown-item"
+                                      href="javascript:void(0);"
+                                      ><i class="bi bi-slash-circle me-2"></i
+                                      >Disable</a
+                                    >
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="card-body px-3">
+                          <h5 class="card-title mb-1">
+                            <a routerLink="/admin/bookings/detail">{{
+                              item.name
+                            }}</a>
+                          </h5>
+                          <ul
+                            class="list-group list-group-borderless small mt-2 mb-0"
+                          >
+                            <li class="list-group-item pb-0">
+                              <i class="fa-solid fa-building fa-fw me-2"></i
+                              >{{ item.floor }}
+                            </li>
+                            <li class="list-group-item pb-0">
+                              <i class="fa-solid fa-bed fa-fw me-2"></i
+                              >{{ item.bed }}
+                            </li>
+                          </ul>
+                        </div>
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                          <div class="hstack gap-2 mb-2">
+                            <h6 class="fw-normal mb-0">
+                              {{ currencyType }}{{ item.price }}
+                            </h6>
+                            <small>/per person</small>
+                          </div>
+                          <a
+                            routerLink="/admin/bookings/detail"
+                            class="btn btn-sm btn-primary-soft mb-0 w-100"
+                            >View detail</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+
+                <div
+                  class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4"
+                >
+                  <p class="mb-sm-0 text-center text-sm-start">
+                    Showing 1 to 8 of 20 entries
+                  </p>
+
+                  <nav
+                    class="mb-sm-0 d-flex justify-content-center"
+                    aria-label="navigation"
+                  >
+                    <ngb-pagination
+                      [collectionSize]="150"
+                      size="sm"
+                      [page]="page"
+                      [maxSize]="2"
+                      class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0"
+                    >
+                      <ng-template ngbPaginationPrevious>Prev </ng-template>
+                      <ng-template ngbPaginationNext>Next </ng-template>
+                    </ngb-pagination>
+                  </nav>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+
+          <li class="nav-item" ngbNavItem>
+            <button
+              ngbNavLink
+              class="nav-link rounded-end rounded-0"
+              id="list-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#list-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="list-tab-pane"
+              aria-selected="false"
+            >
+              <i class="bi fa-fw bi-list-ul"></i>
+            </button>
+            <ng-template ngbNavContent>
+              <div class="tab-pane fade show active" id="list-tab-pane">
+                <div class="card shadow">
+                  <div class="card-body">
+                    <div class="bg-light rounded p-3 d-none d-xxl-block">
+                      <div class="row row-cols-6 g-4">
+                        <div class="col">
+                          <h6 class="mb-0">Room Name</h6>
+                        </div>
+                        <div class="col">
+                          <h6 class="mb-0">Bed Type</h6>
+                        </div>
+                        <div class="col">
+                          <h6 class="mb-0">Room Floor</h6>
+                        </div>
+                        <div class="col">
+                          <h6 class="mb-0">Amount</h6>
+                        </div>
+                        <div class="col">
+                          <h6 class="mb-0">Rating</h6>
+                        </div>
+                        <div class="col">
+                          <h6 class="mb-0">Action</h6>
+                        </div>
+                      </div>
+                    </div>
+
+                    @for (data of bookingListsData.slice(0, 7); track $index) {
+                      <div
+                        class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-6 g-2 g-sm-4 align-items-md-center border-bottom px-2 py-4"
+                      >
+                        <div class="col">
+                          <small class="d-block d-xxl-none">Room name:</small>
+                          <div class="d-flex align-items-center">
+                            <div class="w-80px flex-shrink-0">
+                              <img [src]="data.image" class="rounded" alt="" />
+                            </div>
+
+                            <h6 class="mb-0 ms-2">{{ data.name }}</h6>
+                          </div>
+                        </div>
+
+                        <div class="col">
+                          <small class="d-block d-xxl-none">Bed Type:</small>
+                          <h6 class="mb-0 fw-normal">{{ data.bed }}</h6>
+                        </div>
+
+                        <div class="col">
+                          <small class="d-block d-xxl-none">Room Floor:</small>
+                          <h6 class="mb-0 fw-normal">{{ data.floor }}</h6>
+                        </div>
+
+                        <div class="col">
+                          <small class="d-block d-xxl-none">Amount:</small>
+                          <h6 class="text-success mb-0">
+                            {{ currencyType }}{{ data.price }}
+                          </h6>
+                        </div>
+
+                        <div class="col">
+                          <small class="d-block d-xxl-none">Payment:</small>
+                          <ng-template #t let-fill="fill">
+                            @if (fill > 0) {
+                              <i
+                                class="fas fa-star text-warning me-1"
+                                style="font-size: 14px"
+                                [style.width.%]="fill"
+                              ></i>
+                            } @else {
+                              <i
+                                class="fas fa-star-half-alt text-warning"
+                                style="font-size: 14px"
+                              >
+                              </i>
+                            }
+                          </ng-template>
+
+                          <ngb-rating
+                            [(rate)]="data.rating"
+                            [starTemplate]="t"
+                            [readonly]="true"
+                            [max]="5"
+                          />
+                        </div>
+
+                        <div class="col">
+                          <a
+                            href="javascript:void(0);"
+                            class="btn btn-sm btn-light mb-0"
+                            >View</a
+                          >
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <div class="card-footer pt-0">
+                    <div
+                      class="d-sm-flex justify-content-sm-between align-items-sm-center"
+                    >
+                      <p class="mb-sm-0 text-center text-sm-start">
+                        Showing 1 to 8 of 20 entries
+                      </p>
+
+                      <nav
+                        class="mb-sm-0 d-flex justify-content-center"
+                        aria-label="navigation"
+                      >
+                        <ngb-pagination
+                          [collectionSize]="150"
+                          size="sm"
+                          [page]="page"
+                          [maxSize]="2"
+                          class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0"
+                        >
+                          <ng-template ngbPaginationPrevious>Prev </ng-template>
+                          <ng-template ngbPaginationNext>Next </ng-template>
+                        </ngb-pagination>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content mt-5" id="myTabContent" [ngbNavOutlet]="nav"></div>
