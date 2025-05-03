@@ -1,0 +1,64 @@
+<section class="pt-5 pt-md-8 pb-0">
+  <div class="container-fluid px-lg-5">
+    <div class="row mb-4">
+      <div class="col-xxl-8 mx-auto">
+        <div class="d-sm-flex justify-content-between align-items-center">
+          <h2 class="mb-0">Our Favorite Rooms</h2>
+          <a href="javascript:void(0);" class="btn btn-dark mb-0 d-grid"
+            >See all rooms</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="tiny-slider arrow-round arrow-blur arrow-hover rounded-3 overflow-hidden"
+    >
+      <div class="tiny-slider-inner">
+        <ng-tiny-slider [config]="roomSliderSettings" #roomSlider>
+          @for (data of roomsList; track $index) {
+            <div>
+              <div
+                class="card overflow-hidden rounded-0 h-600px"
+                [style.background-image]="'url(' + data.image + ')'"
+                style="background-position: center left; background-size: cover"
+              >
+                <div class="bg-overlay bg-dark opacity-3"></div>
+
+                <div class="row mt-auto justify-content-end z-index-9">
+                  <div class="col-md-8 col-xl-6 col-xxl-4">
+                    <div
+                      class="card-body bg-mode rounded p-3 p-md-5 m-2 m-lg-6"
+                    >
+                      <h4>{{ data.name }}</h4>
+
+                      <ul class="nav h6 fw-light nav-divider mb-2 mb-sm-3">
+                        <li class="nav-item">{{ data.sqfoot }} SQ.Ft</li>
+                        <li class="nav-item">{{ data.sqm }} SQ.M</li>
+                      </ul>
+
+                      <p class="mb-3">{{ data.description }}</p>
+
+                      <ul class="list-inline hstack flex-wrap gap-2 mb-3">
+                        @for (feature of data.feature; track $index) {
+                          <li class="list-inline-item h6 fw-normal mb-0">
+                            <i class="bi bi-check-lg text-success me-1"></i
+                            >{{ feature }}
+                          </li>
+                        }
+                      </ul>
+
+                      <a href="javascript:void(0);" class="btn btn-light mb-0"
+                        >Reserve <i class="fa-solid fa-arrow-right-long"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </ng-tiny-slider>
+      </div>
+    </div>
+  </div>
+</section>

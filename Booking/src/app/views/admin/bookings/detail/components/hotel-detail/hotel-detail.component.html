@@ -1,0 +1,85 @@
+<div class="row g-4 g-xl-5">
+  <div class="col-xxl-6">
+    <div class="row g-2 g-sm-4">
+      @for (item of hotelData.images; track $index) {
+        <div class="col-6">
+          <a data-glightbox class="glightbox" data-gallery="gallery" [href]="item">
+            <div
+              class="card card-element-hover card-overlay-hover overflow-hidden"
+            >
+              <img [src]="item" class="rounded-3" alt="" />
+              <div class="hover-element w-100 h-100">
+                <i
+                  class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                ></i>
+              </div>
+            </div>
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="col-xxl-6">
+    <h4><span class="fw-light">Hotel: </span>{{ hotelData.name }}</h4>
+    <p class="fw-bold">
+      <i class="bi bi-geo-alt me-2"></i>{{ hotelData.address }}
+    </p>
+
+    <p class="mb-4">{{ hotelData.description }}</p>
+
+    <div class="row g-4">
+      @for (data of hotelData.features; track $index) {
+        <div class="col-sm-6 col-md-4">
+          <div class="d-flex align-items-center">
+            <div
+              class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"
+            >
+              <i
+                class="{{ data.icon }}"
+                [ngClass]="data.icon === 'fa-clone' ? 'fa-regular' : 'fa-solid'"
+              ></i>
+            </div>
+            <div class="ms-2">
+              <small>{{ data.feature.label }}</small>
+              <h6 class="mb-0 mt-1">{{ data.feature.name }}</h6>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div
+      class="bg-light border border-secondary border-opacity-25 p-3 rounded d-inline-block mt-4"
+    >
+      <h6 class="small">Current Reservation:</h6>
+
+      <div class="d-sm-flex align-items-center">
+        <div class="avatar avatar-xs flex-shrink-0">
+          <img
+            class="avatar-img rounded-circle"
+            src="assets/images/avatar/09.jpg"
+            alt="avatar"
+          />
+        </div>
+
+        <h6 class="mb-0 ms-2">Lori Stevens</h6>
+      </div>
+
+      <div class="hstack gap-4 gap-md-5 flex-wrap mt-2">
+        <div>
+          <small>Check-in:</small>
+          <h6 class="fw-normal mb-0">18 Dec 2022 9:00AM</h6>
+        </div>
+        <div>
+          <small>Check-out:</small>
+          <h6 class="fw-normal mb-0">22 Dec 2022 8:00PM</h6>
+        </div>
+        <div>
+          <small>Total Amount:</small>
+          <h6 class="text-success mb-0">{{ currencyType }}1528</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

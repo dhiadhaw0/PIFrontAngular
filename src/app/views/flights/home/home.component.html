@@ -1,0 +1,34 @@
+<main class="container py-5">
+  <!-- Hero Section with Account Balance -->
+  <div class="text-center mb-5">
+    <h1 class="display-4 mb-3">Welcome to Digital Banking</h1>
+    <p class="lead mb-4">Manage your transactions securely and efficiently</p>
+    <app-account-balance 
+      [balance]="accountBalance"
+      [accountId]="accountDetails.accountId"
+    />
+  </div>
+
+  <!-- Transaction Types -->
+  <app-transaction-types 
+    [types]="transactionTypes"
+    (typeSelected)="startTransaction($event)"
+  />
+
+  <!-- Quick Actions -->
+  <app-quick-actions [actions]="quickActions" />
+
+  <!-- Recent Transactions -->
+  <app-recent-transactions [transactions]="recentTransactions" />
+
+  <!-- Transaction Modal -->
+  <app-transaction-modal
+    [showForm]="showTransactionForm"
+    [selectedType]="selectedTransactionType"
+    [form]="transactionForm"
+    [accountDetails]="accountDetails"
+    (formClosed)="showTransactionForm = false"
+    (formSubmitted)="onSubmit()"
+  />
+
+</main>

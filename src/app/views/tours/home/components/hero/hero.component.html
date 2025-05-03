@@ -1,0 +1,135 @@
+<section class="pt-0">
+  <div class="container position-relative">
+    <div
+      class="rounded-3 p-4 p-sm-5"
+      style="
+        background-image: url(assets/images/about/learn.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      "
+    >
+      <div class="row justify-content-between pt-0 pb-5">
+        <div class="col-md-7 col-lg-8 col-xxl-7 pb-5 mb-0 mb-lg-5">
+          <div class="bg-dark bg-opacity-75 rounded-3 p-4" style="box-shadow: 0 2px 16px rgba(0,0,0,0.2);">
+            <h1 class="text-white" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">Learn New Skills Online – Anytime, Anywhere</h1>
+            <p class="text-white mb-0" style="text-shadow: 0 1px 4px rgba(0,0,0,0.4);">
+              Join thousands of learners and boost your career with expert-led courses.
+            </p>
+            <div class="mt-3">
+              <form class="d-flex" (submit)="$event.preventDefault()">
+                <input type="text" class="form-control form-control-lg me-2" placeholder="What do you want to learn? (e.g. Python, Marketing, Design)" style="max-width: 400px;">
+                <button class="btn btn-primary btn-lg" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5 col-lg-4 col-xl-3 mb-3 mb-sm-0">
+          <div class="card shadow p-2 pb-0">
+            <div class="rounded-3 overflow-hidden position-relative">
+              <img
+                [src]="'assets/images/category/course/01.jpg'"
+                class="card-img"
+                alt="Featured Course"
+              />
+              <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+                <span class="badge bg-success mb-2">Featured</span>
+                <h5 class="text-white mb-1">Introduction to Microfinance</h5>
+                <div class="d-flex align-items-center mb-2">
+                  <img src="assets/images/team/01.jpg" class="rounded-circle me-2" width="32" height="32" alt="Instructor">
+                  <span class="text-white-50">Dr. Jane Smith</span>
+                </div>
+                <div class="mb-2">
+                  <span class="badge bg-warning text-dark me-2"><i class="fa-solid fa-star text-warning me-1"></i>4.8</span>
+                  <span class="text-white-50">4 weeks • Online</span>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <span class="h5 text-success mb-0">$99</span>
+                  <span class="text-decoration-line-through text-white-50 ms-2">$120</span>
+                </div>
+                <button class="btn btn-primary w-100">Enroll Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-n7">
+      <div class="col-11 mx-auto">
+        <form class="bg-mode shadow rounded-3 p-4">
+          <div class="row g-4 align-items-center justify-content-center">
+            <div class="col-xl-10">
+              <div class="row g-4">
+                <div class="col-md-6 col-lg-5">
+                  <label class="h6 fw-normal mb-0"><i class="bi bi-search text-primary me-1"></i>What do you want to learn?</label>
+                  <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
+                    <input type="text" class="form-control form-control-lg" placeholder="e.g. Python, Marketing, Design" />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <label class="h6 fw-normal mb-0"><i class="bi bi-bar-chart text-primary me-1"></i>Skill Level</label>
+                  <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
+                    <select class="form-select form-select-lg">
+                      <option value="">All Levels</option>
+                      <option>Beginner</option>
+                      <option>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                  <label class="h6 fw-normal mb-0"><i class="bi bi-tags text-primary me-1"></i>Categories</label>
+                  <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
+                    <div class="d-flex flex-wrap gap-2">
+                      <span class="badge bg-primary-soft text-primary">Finance</span>
+                      <span class="badge bg-success-soft text-success">Technology</span>
+                      <span class="badge bg-warning-soft text-warning">Business</span>
+                      <span class="badge bg-info-soft text-info">Education</span>
+                      <span class="badge bg-secondary-soft text-secondary">Design</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2">
+              <div class="d-grid">
+                <button class="btn btn-lg btn-primary mb-0" type="submit">Find Courses</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row g-2 mt-6">
+      <div class="col-lg-2">
+        <h4 class="mb-0">Recent Course Searches</h4>
+      </div>
+
+      <div class="col-lg-10">
+        <div class="hstack flex-wrap gap-3">
+          @for (item of alertData; track $index) {
+            <ngb-alert
+              type="light"
+              [dismissible]="false"
+              class="bg-light d-flex align-items-center border-0 small px-3 py-1 show"
+              id="course"
+              role="alert"
+            >
+              <span class="me-1">{{ item }}</span>
+              <button
+                type="button"
+                class="btn-close small p-2"
+                (click)="close($index)"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </ngb-alert>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

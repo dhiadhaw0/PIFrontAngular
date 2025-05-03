@@ -1,0 +1,320 @@
+// Variables
+$primary-color: #2196f3;
+$secondary-color: #f5f5f5;
+$text-color: #333;
+$border-radius: 12px;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+// Profile Header
+.profile-header {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+  margin-bottom: 30px;
+
+  .profile-cover {
+    height: 200px;
+    background: linear-gradient(135deg, $primary-color, darken($primary-color, 20%));
+    position: relative;
+
+    .settings-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: white;
+      cursor: pointer;
+      transition: $transition;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .profile-info {
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    margin-top: -60px;
+
+    .profile-photo {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+
+      img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid white;
+        box-shadow: $box-shadow;
+      }
+
+      .edit-photo-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: $primary-color;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        color: white;
+        cursor: pointer;
+        transition: $transition;
+
+        &:hover {
+          background: darken($primary-color, 10%);
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      color: $text-color;
+    }
+
+    .profession {
+      color: #666;
+      margin: 5px 0 20px;
+    }
+
+    .profile-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+
+      .stat {
+        text-align: center;
+
+        .stat-value {
+          display: block;
+          font-size: 24px;
+          font-weight: bold;
+          color: $primary-color;
+        }
+
+        .stat-label {
+          color: #666;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .edit-profile-btn {
+      background: $primary-color;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: $transition;
+
+      i {
+        margin-right: 5px;
+      }
+
+      &:hover {
+        background: darken($primary-color, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// Profile Content
+.profile-content {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  .profile-section {
+    background: white;
+    border-radius: $border-radius;
+    padding: 20px;
+    box-shadow: $box-shadow;
+
+    h2 {
+      margin: 0 0 20px;
+      color: $text-color;
+      font-size: 20px;
+    }
+  }
+}
+
+// Financial Overview
+.financial-overview {
+  .financial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+
+    .financial-card {
+      background: $secondary-color;
+      padding: 15px;
+      border-radius: $border-radius;
+      text-align: center;
+
+      .label {
+        display: block;
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .value {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+// Bank Accounts
+.bank-accounts {
+  .accounts-grid {
+    display: grid;
+    gap: 20px;
+
+    .account-card {
+      background: $secondary-color;
+      border-radius: $border-radius;
+      padding: 20px;
+
+      .account-type {
+        font-weight: bold;
+        color: $primary-color;
+        margin-bottom: 15px;
+      }
+
+      .account-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+
+        .detail {
+          .label {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 3px;
+          }
+
+          .value {
+            display: block;
+            font-size: 14px;
+            color: $text-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Personal Information
+.personal-info {
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+
+    .info-item {
+      .label {
+        display: block;
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .value {
+        display: block;
+        color: $text-color;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// Financial Score
+.financial-score {
+  .score-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      flex-shrink: 0;
+
+      .score-value {
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      .score-label {
+        font-size: 14px;
+      }
+    }
+
+    .score-details {
+      flex-grow: 1;
+
+      .score-range {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        color: #666;
+        font-size: 14px;
+      }
+
+      .score-bar {
+        height: 8px;
+        background: $secondary-color;
+        border-radius: 4px;
+        overflow: hidden;
+
+        .score-progress {
+          height: 100%;
+          transition: $transition;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

@@ -1,0 +1,15 @@
+<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+  <ngb-pagination
+    [collectionSize]="60"
+    [page]="page"
+    [maxSize]="2"
+    class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0"
+  >
+    <ng-template ngbPaginationPrevious>
+      <i class="fa-solid fa-angle-left"></i>
+    </ng-template>
+    <ng-template ngbPaginationNext>
+      <i class="fa-solid fa-angle-right"></i>
+    </ng-template>
+  </ngb-pagination>
+</nav>

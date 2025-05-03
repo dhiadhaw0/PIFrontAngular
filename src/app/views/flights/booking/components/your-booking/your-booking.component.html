@@ -1,0 +1,90 @@
+<div class="card bg-transparent p-0">
+  <div class="card-header bg-transparent p-0">
+    <h1 class="card-title fs-2 mb-0">Credit Application</h1>
+  </div>
+
+  <div class="card-body p-0 mt-3">
+    <ngb-alert [dismissible]="false" type="info" role="alert">
+      Please fill in your financial information to apply for credit
+    </ngb-alert>
+
+    <form
+      class="bg-light rounded-3 p-4"
+      [formGroup]="paymentForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="col-12 mb-3">
+        <label class="form-label">Employment Status *</label>
+        <select class="form-select" formControlName="employmentStatus">
+          <option value="">Select your employment status</option>
+          <option value="employed">Employed</option>
+          <option value="self-employed">Self-Employed</option>
+          <option value="unemployed">Unemployed</option>
+          <option value="student">Student</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="submit && form['employmentStatus'].errors">
+          Please select your employment status
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <label class="form-label">Monthly Income ({{ currencyType }}) *</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="monthlyIncome"
+          placeholder="Enter your monthly income"
+        />
+        <div class="invalid-feedback" *ngIf="submit && form['monthlyIncome'].errors">
+          Please enter a valid monthly income
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <label class="form-label">Employment Duration (months) *</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="employmentDuration"
+          placeholder="Enter duration of employment"
+        />
+        <div class="invalid-feedback" *ngIf="submit && form['employmentDuration'].errors">
+          Please enter a valid duration
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <label class="form-label">Preferred Loan Term (months) *</label>
+        <select class="form-select" formControlName="loanTerm">
+          <option value="12">12 months</option>
+          <option value="24">24 months</option>
+          <option value="36">36 months</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="submit && form['loanTerm'].errors">
+          Please select a loan term
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="acceptTerms"
+            id="acceptTerms"
+          />
+          <label class="form-check-label" for="acceptTerms">
+            I agree to the terms and conditions of the credit application
+          </label>
+        </div>
+        <div class="invalid-feedback" *ngIf="submit && form['acceptTerms'].errors">
+          You must accept the terms and conditions
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary w-100 mb-0">Submit Application</button>
+      </div>
+    </form>
+  </div>
+</div>

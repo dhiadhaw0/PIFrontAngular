@@ -1,0 +1,61 @@
+<div class="row g-4 justify-content-between align-items-center">
+  <div class="col-lg-5">
+    <ul class="nav nav-pills-shadow nav-responsive" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link mb-0 me-sm-2"
+          [ngClass]="{ active: activeButton == 1 }"
+          (click)="showButton(1)"
+          data-bs-toggle="tab"
+          href="javascript:void(0);"
+          aria-selected="true"
+          role="tab"
+          >All Reviews</a
+        >
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link mb-0 me-sm-2"
+          [ngClass]="{ active: activeButton == 2 }"
+          (click)="showButton(2)"
+          data-bs-toggle="tab"
+          href="javascript:void(0);"
+          aria-selected="false"
+          tabindex="-1"
+          role="tab"
+          >Published</a
+        >
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link mb-0"
+          data-bs-toggle="tab"
+          [ngClass]="{ active: activeButton == 3 }"
+          (click)="showButton(3)"
+          href="javascript:void(0);"
+          aria-selected="false"
+          tabindex="-1"
+          role="tab"
+          >Deleted</a
+        >
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-6 col-lg-3">
+    <form>
+      <select
+        selectFormInput
+        [options]="{ searchEnabled: false }"
+        class="form-select js-choice"
+        aria-label=".form-select-sm"
+      >
+        <option value="">Sort by hotels</option>
+        <option>Pride moon Village Resort & Spa</option>
+        <option>Courtyard by Marriott New York</option>
+        <option>Park Plaza Lodge Hotel</option>
+        <option>Royal Beach Resort</option>
+      </select>
+    </form>
+  </div>
+</div>

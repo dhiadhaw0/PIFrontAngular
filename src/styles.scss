@@ -1,0 +1,110 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'quill/dist/quill.bubble.css';
+@import 'quill/dist/quill.snow.css';
+@import 'glightbox/dist/css/glightbox.min.css';
+
+@import 'assets/scss/style';
+@import 'bs-stepper/dist/css/bs-stepper.min.css';
+
+.ngx-slider .ngx-slider-selection {
+  background: rgb(81, 67, 217) !important;
+}
+
+.ngx-slider {
+  margin: 0px !important;
+
+  .ngx-slider-pointer {
+    width: 20px !important;
+    height: 20px !important;
+    right: -17px !important;
+    top: -7px !important;
+    cursor: e-resize !important;
+    border-radius: 100% !important;
+    border: 5px solid #fff !important;
+    background: var(--bs-primary) !important;
+    box-shadow: 0px 0px 0px 1px rgb(var(--bs-primary-rgb));
+  }
+}
+
+.ngx-slider.animate .ngx-slider-bubble.ngx-slider-limit {
+  display: none;
+}
+
+.ngx-slider .ngx-slider-pointer:after {
+  content: none !important;
+}
+
+.ngx-slider-floor,
+.ngx-slider-ceil,
+.ngx-slider-model-value,
+.ngx-slider-model-high {
+  display: none !important;
+}
+
+.ng-otp-input-wrapper[_ngcontent-ng-c1701526001]
+  .otp-input[_ngcontent-ng-c1701526001]:not(:last-child) {
+  margin-right: 16px !important;
+}
+
+.otp-input[_ngcontent-ng-c1701526001]:focus {
+  color: var(--bs-gray-900);
+  background-color: var(--bs-body-bg);
+  border-color: rgba(var(--bs-primary-rgb), 0.7);
+  outline: 0;
+}
+
+.pagination {
+  margin-bottom: 0px;
+}
+
+#tour {
+  margin-bottom: 0px;
+}
+[data-bs-theme='dark'] {
+  .bs-stepper .line {
+    background-color: var(--bs-gray-200);
+  }
+  .ql-toolbar.ql-snow {
+    border: 1px solid #5f5f68 !important;
+  }
+  .ql-container.ql-snow {
+    border: 1px solid #5f5f68 !important;
+  }
+}
+
+#splide02-list {
+  margin-top: 15px !important;
+}
+
+.splide-main {
+  img {
+    border-radius: 7px !important;
+  }
+}
+
+.topNav {
+  .btn-close {
+    color: white;
+  }
+}
+
+.splide__arrow {
+  --bs-bg-opacity: 1 !important;
+  background-color: rgba(
+    var(--bs-primary-rgb),
+    var(--bs-bg-opacity)
+  ) !important;
+}
+.splide__arrow svg {
+  fill: #ffff !important;
+  height: 0.9em !important;
+  width: 0.9em !important;
+}
+
+.precious-slider {
+  .slide-items {
+    display: flex !important;
+    align-items: end !important;
+  }
+}

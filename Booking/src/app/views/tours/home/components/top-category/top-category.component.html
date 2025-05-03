@@ -1,0 +1,32 @@
+<section class="pt-0 pt-md-5">
+  <div class="container">
+    <div class="row mb-3 mb-sm-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-0">Top Categories</h2>
+      </div>
+    </div>
+
+    <div class="row g-4 g-xl-5">
+      @for (item of topCategoriesData; track $index) {
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+          <div class="row g-2 g-md-3 align-items-center position-relative">
+            <div class="col-md-6">
+              <img [src]="item.image" class="rounded-3" alt="" />
+            </div>
+
+            <div class="col-md-6">
+              <div class="p-2 p-md-0">
+                <h5 class="mb-1">
+                  <a href="javascript:void(0)" class="stretched-link">{{
+                    item.name
+                  }}</a>
+                </h5>
+                <span>{{ item.places }} Places</span>;
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

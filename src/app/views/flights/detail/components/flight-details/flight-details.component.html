@@ -1,0 +1,51 @@
+<section>
+  <div class="container position-relative" data-sticky-container>
+    <div class="row g-4">
+      <div class="col-xl-9">
+        <div class="vstack gap-4">
+          <detail-flight-information />
+          <detail-important-information />
+
+          <detail-traveller-detail />
+        </div>
+      </div>
+
+      <aside class="col-xl-3">
+        <div
+          ng-sticky
+          class="sticky-element"
+          data-sticky
+          data-margin-top="80"
+          data-margin-bottom="100"
+          data-sticky-for="1199"
+        >
+          <div class="row g-4">
+            <div class="col-md-6 col-xl-12">
+              <detail-fare-summary />
+            </div>
+
+            <div class="col-md-6 col-xl-12">
+              <div class="card card-body bg-light">
+                <div class="cardt-title">
+                  <h5>Offer & Discount</h5>
+                </div>
+
+                <div class="input-group mt-2">
+                  <input
+                    class="form-control form-control"
+                    placeholder="Coupon code"
+                  />
+                  <button type="button" class="btn btn-primary">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-12">
+              <detail-cancellation-charges />
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

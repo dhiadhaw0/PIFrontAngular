@@ -1,0 +1,242 @@
+<section class="position-relative">
+  <div
+    class="position-absolute top-50 start-0 translate-middle-y d-none d-md-block"
+  >
+    <img src="assets/images/element/decoration.svg" alt="" />
+  </div>
+
+  <div class="container">
+    <div class="row g-4 g-lg-5 align-items-center">
+      <div class="col-lg-6 position-relative">
+        <h6 class="text-uppercase">🤩 Easy Way To Conform Ticket</h6>
+
+        <h1 class="mb-2">Book Your Tour Ticket Now!</h1>
+
+        <p class="mb-4">
+          Speedily say has suitable disposal add boy. On forth doubt miles of
+          child. Exercise joy man children rejoiced.
+        </p>
+
+        <form class="row g-4">
+          <div class="col-12">
+            <label class="small">Destination</label>
+            <div
+              class="form-border-bottom form-control-transparent d-flex align-items-center"
+            >
+              <div class="flex-shrink-0 me-2">
+                <i class="bi bi-geo-alt text-secondary d-block"></i>
+              </div>
+
+              <div class="flex-grow-1">
+                <div class="form-fs-lg">
+                  <select
+                    selectFormInput
+                    class="form-select js-choice h5"
+                    data-search-enabled="true"
+                    aria-label=".form-select-sm"
+                  >
+                    <option value="">Select location</option>
+                    <option>San Jacinto, USA</option>
+                    <option>North Dakota, Canada</option>
+                    <option>West Virginia, Paris</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="small">Check in</label>
+            <div
+              class="form-border-bottom form-control-transparent d-flex align-items-center"
+            >
+              <i class="bi bi-calendar text-secondary d-block me-2"></i>
+
+              <div class="form-fs-lg">
+                <input
+                  type="text"
+                  class="form-control flatpickr"
+                  mwlFlatpickr
+                  data-date-format="d/M/Y"
+                  placeholder="Select Date"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="small">Check Out</label>
+            <div
+              class="form-border-bottom form-control-transparent d-flex align-items-center"
+            >
+              <i class="bi bi-calendar text-secondary d-block me-2"></i>
+
+              <div class="form-fs-lg">
+                <input
+                  type="text"
+                  class="form-control flatpickr"
+                  mwlFlatpickr
+                  data-date-format="d/M/Y"
+                  placeholder="Select Date"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="small">Occupant</label>
+            <div
+              class="form-border-bottom form-control-transparent d-flex align-items-center"
+            >
+              <i class="fa-solid fa-user-group text-secondary d-block me-2"></i>
+
+              <div class="form-fs-lg">
+                <div class="dropdown guest-selector me-2" ngbDropdown>
+                  <input
+                    type="text"
+                    [value]="getGuestsValue()"
+                    ngbDropdownToggle
+                    class="form-guest-selector form-control selection-result"
+                    placeholder="Select occupant"
+                    id="dropdownShare"
+                    data-bs-auto-close="outside"
+                    data-bs-toggle="dropdown"
+                  />
+
+                  <ul
+                    class="dropdown-menu guest-selector-dropdown"
+                    aria-labelledby="dropdownShare"
+                    ngbDropdownMenu
+                  >
+                    <li class="d-flex justify-content-between">
+                      <div>
+                        <h6 class="mb-0">Adults</h6>
+                        <small>Ages 13 or above</small>
+                      </div>
+
+                      <div class="hstack gap-1 align-items-center">
+                        <button
+                          type="button"
+                          class="btn btn-link adult-remove p-0 mb-0"
+                          (click)="updateGuests('adults', false)"
+                        >
+                          <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                        </button>
+                        <h6 class="guest-selector-count mb-0 adults">
+                          {{ formValue.guests.adults }}
+                        </h6>
+                        <button
+                          type="button"
+                          class="btn btn-link adult-add p-0 mb-0"
+                          (click)="updateGuests('adults')"
+                        >
+                          <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                        </button>
+                      </div>
+                    </li>
+
+                    <li class="dropdown-divider"></li>
+
+                    <li class="d-flex justify-content-between">
+                      <div>
+                        <h6 class="mb-0">Child</h6>
+                        <small>Ages 13 below</small>
+                      </div>
+
+                      <div class="hstack gap-1 align-items-center">
+                        <button
+                          type="button"
+                          class="btn btn-link child-remove p-0 mb-0"
+                          (click)="updateGuests('children', false)"
+                        >
+                          <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                        </button>
+                        <h6 class="guest-selector-count mb-0 child">
+                          {{ formValue.guests.children }}
+                        </h6>
+                        <button
+                          type="button"
+                          class="btn btn-link child-add p-0 mb-0"
+                          (click)="updateGuests('children')"
+                        >
+                          <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                        </button>
+                      </div>
+                    </li>
+
+                    <li class="dropdown-divider"></li>
+
+                    <li class="d-flex justify-content-between">
+                      <div>
+                        <h6 class="mb-0">Rooms</h6>
+                        <small>Max room 8</small>
+                      </div>
+
+                      <div class="hstack gap-1 align-items-center">
+                        <button
+                          type="button"
+                          class="btn btn-link room-remove p-0 mb-0"
+                          (click)="updateGuests('rooms', false)"
+                        >
+                          <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                        </button>
+                        <h6 class="guest-selector-count mb-0 rooms">
+                          {{ formValue.guests.rooms }}
+                        </h6>
+                        <button
+                          type="button"
+                          class="btn btn-link room-add p-0 mb-0"
+                          (click)="updateGuests('rooms')"
+                        >
+                          <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="small">Tour type</label>
+            <div
+              class="form-border-bottom form-control-transparent d-flex align-items-center"
+            >
+              <div class="flex-shrink-0 me-2">
+                <i class="fa-solid fa-torii-gate text-secondary d-block"></i>
+              </div>
+
+              <div class="flex-grow-1">
+                <div class="form-fs-lg">
+                  <select
+                    selectFormInput
+                    class="form-select js-choice h5"
+                    data-search-enabled="true"
+                    aria-label=".form-select-sm"
+                  >
+                    <option value="">Select type</option>
+                    <option>Adventure</option>
+                    <option>Beach</option>
+                    <option>Desert</option>
+                    <option>History</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button class="btn btn-primary w-100 mb-0">
+              Check Availability
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-lg-6 position-relative">
+        <img src="assets/images/bg/09.jpg" class="rounded" alt="" />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,114 @@
+<section class="pt-0">
+  <div class="container">
+    <div class="row g-4 align-items-center justify-content-between mb-4">
+      <div class="col-12 col-xl-8">
+        <h5 class="mb-0">Showing 1-7 of 32 result</h5>
+      </div>
+
+      <div class="col-xl-2">
+        <form class="form-control-bg-light">
+          <select
+            selectFormInput
+            class="form-select js-choice"
+            [options]="{ searchEnabled: false }"
+          >
+            <option value="">Most Viewed</option>
+            <option>Recently search</option>
+            <option>Most popular</option>
+            <option>Top rated</option>
+          </select>
+        </form>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      @for (item of tourCards; track $index) {
+        <div class="col-md-6 col-xl-4">
+          <div class="card card-hover-shadow pb-0 h-100">
+            <div class="position-relative">
+              <img [src]="item.image" class="card-img-top" alt="Card image" />
+
+              <div class="card-img-overlay d-flex flex-column p-4 z-index-1">
+                <div>
+                  <span class="badge text-bg-danger me-1">{{ item.sale }}</span>
+                  <span class="badge text-bg-dark">{{ item.type }}</span>
+                </div>
+
+                <div class="w-100 mt-auto">
+                  <span class="badge text-bg-white fs-6"
+                    >{{ item.days }} days / {{ item.nights }} nights</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body px-3">
+              <h5 class="card-title mb-0">
+                <a routerLink="/tours/detail" class="stretched-link">{{
+                  item.name
+                }}</a>
+              </h5>
+              <span class="small"
+                ><i class="far fa-calendar-alt me-2"></i>{{ item.date }}</span
+              >
+
+              <ul class="nav nav-divider mt-3 mb-0">
+                @if (item.benefits.flight) {
+                  <li class="nav-item h6 fw-normal mb-0">
+                    <i class="fa-solid fa-plane text-orange me-2"></i
+                    >{{ item.benefits.flight }} Flight
+                  </li>
+                }
+                @if (item.benefits.hotel) {
+                  <li class="nav-item h6 fw-normal mb-0">
+                    <i class="fa-solid fa-hotel text-info me-2"></i
+                    >{{ item.benefits.hotel }} Hotel
+                  </li>
+                }
+                @if (item.benefits.activities) {
+                  <li class="nav-item h6 fw-normal mb-0">
+                    <i class="fa-solid fa-person-skating text-danger me-2"></i
+                    >{{ item.benefits.activities }} Activities
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <!-- Card footer START-->
+            <div class="card-footer pt-0">
+              <div
+                class="d-sm-flex justify-content-sm-between align-items-center flex-wrap"
+              >
+                <div class="hstack gap-2">
+                  <h5 class="fw-normal text-success mb-0">
+                    {{ currencyType }}{{ item.price }}
+                  </h5>
+                  <small>/per person</small>
+                  @if (item.disc) {
+                    <span class="text-decoration-line-through"
+                      >{{ currencyType }}1800</span
+                    >
+                  }
+                </div>
+
+                <div class="mt-2 mt-sm-0">
+                  <a
+                    href="javascript:void(0);"
+                    class="btn btn-sm btn-primary mb-0"
+                    >View Details</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <grid-pagination />
+      </div>
+    </div>
+  </div>
+</section>

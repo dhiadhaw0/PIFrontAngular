@@ -1,0 +1,16 @@
+<div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4">
+  <p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+
+  <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+    <ngb-pagination
+      [collectionSize]="150"
+      [maxSize]="2"
+      [page]="page"
+      size="sm"
+      class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0"
+    >
+      <ng-template ngbPaginationPrevious>Prev </ng-template>
+      <ng-template ngbPaginationNext>Next </ng-template>
+    </ngb-pagination>
+  </nav>
+</div>

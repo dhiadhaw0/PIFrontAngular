@@ -1,0 +1,114 @@
+<main>
+  <nav class="navbar sidebar navbar-expand-xl navbar-light">
+    <app-logo-box />
+
+    <div
+      class="offcanvas offcanvas-start flex-row custom-scrollbar h-100"
+      data-bs-backdrop="true"
+      tabindex="-1"
+      id="offcanvasSidebar"
+    >
+      <div class="offcanvas-body sidebar-content d-flex flex-column pt-4">
+        <vertical-app-menu [menuItems]="adminmenuItems"></vertical-app-menu>
+        <div
+          class="d-flex align-items-center justify-content-between text-primary-hover mt-auto p-3"
+        >
+          <a
+            class="h6 fw-light mb-0 text-body"
+            routerLink="/auth/sign-in"
+            data-bs-toggle="tooltip"
+            placement="top"
+            aria-label="Sign out"
+          >
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+          </a>
+          <a
+            class="h6 mb-0 text-body"
+            routerLink="/admin/settings"
+            data-bs-toggle="tooltip"
+            placement="top"
+            aria-label="Settings"
+          >
+            <i class="bi bi-gear-fill"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-content">
+    <nav class="navbar top-bar navbar-light py-0 py-xl-3">
+      <div class="container-fluid p-0">
+        <div class="d-flex align-items-center w-100">
+          <div class="d-flex align-items-center d-xl-none">
+            <a class="navbar-brand" routerLink="/">
+              <img
+                class="navbar-brand-item h-40px"
+                src="assets/images/logo-icon.svg"
+                alt=""
+              />
+            </a>
+          </div>
+
+          <admin-vertical-menu-button />
+
+          <div class="navbar-expand-lg ms-auto ms-xl-0">
+            <button
+              class="navbar-toggler ms-auto p-0 me-3"
+              (click)="isCollapsed = !isCollapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarTopContent"
+              aria-controls="navbarTopContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="bi bi-search"></i>
+            </button>
+
+            <div
+              #collapse="ngbCollapse"
+              [(ngbCollapse)]="isCollapsed"
+              class="collapse navbar-collapse w-100 z-index-1"
+              id="navbarTopContent"
+            >
+              <div class="nav my-3 my-xl-0 flex-nowrap align-items-center">
+                <div class="nav-item w-100">
+                  <form class="position-relative">
+                    <input
+                      class="form-control bg-light pe-5"
+                      type="search"
+                      placeholder="Search"
+                      aria-label="Search"
+                    />
+                    <button
+                      class="bg-transparent px-2 py-0 border-0 position-absolute top-50 end-0 translate-middle-y"
+                      type="submit"
+                    >
+                      <i class="fas fa-search fs-6 text-primary"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+            <app-theme-switcher
+              className="nav-item dropdown me-3"
+              [btnclassName]="'nav-notification lh-0 btn btn-light'"
+            />
+
+            <app-notification-dropdown className="me-3" />
+
+            <app-profile-dropdown [showThemeToggler]="false" />
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="page-content-wrapper p-xxl-4">
+      <router-outlet />
+    </div>
+  </div>
+</main>

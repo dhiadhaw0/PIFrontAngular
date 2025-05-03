@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row g-4">
+    <!-- Title -->
+    <div class="col-12">
+      <h1 class="fs-3">My Learning</h1>
+      <p class="mb-0">Continue learning your enrolled courses</p>
+    </div>
+
+    <!-- Course items -->
+    <div class="col-12">
+      <div class="row g-4">
+        <div class="col-sm-6 col-lg-4" *ngFor="let course of enrolledCourses">
+          <div class="card shadow h-100">
+            <!-- Image -->
+            <img [src]="course.image" class="card-img-top" alt="{{ course.name }}">
+
+            <!-- Card body -->
+            <div class="card-body pb-0">
+              <!-- Title -->
+              <h5 class="card-title"><a href="#" class="text-decoration-none">{{ course.name }}</a></h5>
+              <!-- Progress bar -->
+              <div class="progress mb-2" style="height: 6px;">
+                <div class="progress-bar bg-primary" role="progressbar" [style.width.%]="course.progress"></div>
+              </div>
+              <p class="mb-2 text-truncate-2">{{ course.description }}</p>
+              <!-- Info -->
+              <div class="d-flex justify-content-between">
+                <p class="mb-2"><i class="fas fa-user-graduate me-2"></i>{{ course.instructor }}</p>
+                <p class="mb-2 text-success">{{ course.progress }}% Completed</p>
+              </div>
+            </div>
+
+            <!-- Card footer -->
+            <div class="card-footer pt-0 pb-3">
+              <div class="d-flex justify-content-between">
+                <span class="h6 fw-light mb-0"><i class="far fa-calendar-alt text-primary me-2"></i>{{ course.enrolledDate | date }}</span>
+                <a href="#" class="btn btn-sm btn-primary-soft">Continue</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

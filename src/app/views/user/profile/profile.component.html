@@ -1,0 +1,147 @@
+<div class="profile-container">
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="profile-cover">
+      <button class="settings-btn" (click)="onOpenSettings()">
+        <i class="fas fa-cog"></i>
+      </button>
+    </div>
+    <div class="profile-info">
+      <div class="profile-photo">
+        <img [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName">
+        <button class="edit-photo-btn" (click)="onEditPhoto()">
+          <i class="fas fa-camera"></i>
+        </button>
+      </div>
+      <div class="profile-details">
+        <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+        <p class="profession">{{ user.profession }}</p>
+        <div class="profile-stats">
+          <div class="stat">
+            <span class="stat-value">{{ user.stats.credits }}</span>
+            <span class="stat-label">Credits</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{{ user.stats.formations }}</span>
+            <span class="stat-label">Formations</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{{ user.stats.transactions }}</span>
+            <span class="stat-label">Transactions</span>
+          </div>
+        </div>
+      </div>
+      <button class="edit-profile-btn" (click)="onEditProfile()">
+        <i class="fas fa-edit"></i> Edit Profile
+      </button>
+    </div>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="profile-content">
+    <!-- Financial Overview -->
+    <section class="profile-section financial-overview">
+      <h2>Financial Overview</h2>
+      <div class="financial-grid">
+        <div class="financial-card">
+          <span class="label">Portfolio Value</span>
+          <span class="value">{{ formatCurrency(user.portfolioValue) }}</span>
+        </div>
+        <div class="financial-card">
+          <span class="label">Available Balance</span>
+          <span class="value">{{ formatCurrency(user.availableBalance) }}</span>
+        </div>
+        <div class="financial-card">
+          <span class="label">Savings</span>
+          <span class="value">{{ formatCurrency(user.savings) }}</span>
+        </div>
+        <div class="financial-card">
+          <span class="label">Investments</span>
+          <span class="value">{{ formatCurrency(user.investments) }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bank Accounts -->
+    <section class="profile-section bank-accounts">
+      <h2>Bank Accounts</h2>
+      <div class="accounts-grid">
+        <div class="account-card" *ngFor="let account of user.bankAccounts">
+          <div class="account-type">{{ account.type }}</div>
+          <div class="account-details">
+            <div class="detail">
+              <span class="label">IBAN</span>
+              <span class="value">{{ account.iban }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">Balance</span>
+              <span class="value">{{ formatCurrency(account.balance) }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">Bank Code</span>
+              <span class="value">{{ account.bankCode }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">RIB</span>
+              <span class="value">{{ account.rib }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Personal Information -->
+    <section class="profile-section personal-info">
+      <h2>Personal Information</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Email</span>
+          <span class="value">{{ user.email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Phone</span>
+          <span class="value">{{ user.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Address</span>
+          <span class="value">{{ user.address }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Date of Birth</span>
+          <span class="value">{{ formatDate(user.dateOfBirth) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">CIN</span>
+          <span class="value">{{ user.cin }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Tax ID</span>
+          <span class="value">{{ user.taxId }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Financial Score -->
+    <section class="profile-section financial-score">
+      <h2>Financial Score</h2>
+      <div class="score-container">
+        <div class="score-circle" [style.background-color]="getFinancialScoreColor(user.financialScore)">
+          <span class="score-value">{{ user.financialScore }}</span>
+          <span class="score-label">Score</span>
+        </div>
+        <div class="score-details">
+          <div class="score-range">
+            <span>Poor</span>
+            <span>Fair</span>
+            <span>Good</span>
+            <span>Excellent</span>
+          </div>
+          <div class="score-bar">
+            <div class="score-progress" [style.width]="(user.financialScore / 1000 * 100) + '%'"
+                 [style.background-color]="getFinancialScoreColor(user.financialScore)"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

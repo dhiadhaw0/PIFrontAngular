@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Docs - Booking Theme</title>
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Stackbros">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+  <!-- Google Font -->
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+  <!-- Plugins CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/doc.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/prism.css">
+
+</head>
+
+<body>
+
+  <!-- **************** MAIN CONTENT START **************** -->
+  <main>
+    <!-- Navbar top START -->
+    <div class="navbar-top bg-dark px-3 px-sm-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- Logo START -->
+        <a class="navbar-brand py-3" href="index.html">
+          <img class="navbar-brand-item h-30px" src="assets/images/logo-light.svg" alt="logo">
+        </a>
+        <!-- Logo END -->
+
+        <!-- Navbar right -->
+        <div>
+          <ul class="text-end list-inline m-0">
+            <li class="list-inline-item me-2 me-md-4"> <a class="text-white" href="https://themes.stackbros.in/booking_ng/">Live Preview</a> </li>
+            <li class="list-inline-item me-2 me-md-4"> <a class="text-white" href="mailto:stackbros07@gmail.com">Support</a> </li>
+            <li class="list-inline-item text-white"> <span class="badge text-bg-danger">v1.1.0</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Navbar top END -->
+
+    <div class="container-fluid px-0">
+      <div class="page-wrapper">
+        <!-- Left sidebar START -->
+        <nav class="navbar navbar-expand-sm navbar-light bg-light px-3">
+          <a class="navbar-brand py-2 d-sm-none" href="#">Doc nav</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#docNav" aria-controls="docNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="docNav">
+            <div class="left-sidebar bg-light z-index-1">
+              <div class="content h-100vh">
+                <div class="list-group list-group-borderless p-3 p-md-4">
+                  <b class="text-dark text-uppercase mb-2">Getting Started</b>
+                  <a class="list-group-item" href="index.html">Introduction</a>
+                  <a class="list-group-item" href="setup.html">Dev Environment Setup</a>
+                  <a class="list-group-item" href="customization.html">Customization</a>
+                  <a class="list-group-item" href="color-scheme.html">Color Scheme</a>
+                  <a class="list-group-item" href="logo-settings.html">Logo Settings</a>
+                  <a class="list-group-item" href="fonts.html">Fonts</a>
+                  <a class="list-group-item" href="dark-mode.html">Dark mode</a>
+                  <a class="list-group-item" href="sources-and-credits.html">Sources and Credits</a>
+                  <a class="list-group-item" href="changelog.html">Changelog</a>
+                  <b class="text-dark text-uppercase mt-3 mb-2">Components</b>
+                  <a class="list-group-item" href="font-icons.html">Font icons</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- Left sidebar END -->
+
+        <!-- Main content START -->
+        <div class="main-content">
+          <div class="row">
+            <div class="col-12">
+              <!-- Page title -->
+              <div class="my-5">
+                <h1 class="h2">Development Environment Setup</h1>
+                <p class="lead">Learn how to use the npm scripts included with Booking to build, compile source code, and more.</p>
+                <hr class="my-5">
+              </div>
+              <!-- Page content START -->
+
+
+              <!-- Version log START -->
+              <h4 class="mt-5">1. Install node</h4>
+              <p>In order to use Angular, you will need to download Node JS. If you don't have Node installed in your system, Please download the stable version of Node.js (LTS) NOT the latest.</p>
+              <!-- Version log END -->
+              <div class="card border-0 mb-4 mt-4">
+                <div>
+                  <h5 class="py-2">The list of available Bun commands (scripts)</h5>
+                  <p>If you don't have <a href="https://bun.sh/" target="_blank"><strong>bun</strong></a> installed on
+                    your
+                    PC, use the <code>npm i -g bun</code> or <code>sudo npm i -g bun</code> to install</p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered" style="min-width: 600px;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Command</th>
+                          <th scope="col">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="align-middle">
+                          <td><code>bun i</code></td>
+                          <td>This would install all required dependencies in node_modules folder.
+                          </td>
+                        </tr>
+                        <tr class="align-middle">
+                          <td><code>bun dev </code></td>
+                          <td>Runs the project locally, starts the development server.
+
+                          </td>
+                        </tr>
+                        <tr class="align-middle">
+                          <td><code>bun run build </code></td>
+                          <td>It bundles with production mode. Your app is now ready to be deployed.
+
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <h5 class="py-2">The list of available Yarn commands (scripts)</h5>
+                  <p>If you don't have <a href="https://yarnpkg.com/" target="_blank"><strong>yarn</strong></a> installed
+                    on
+                    your PC, use the next command <code>npm i -g yarn </code>or <code> sudo npm i -g yarn</code></p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered" style="min-width: 600px;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Command</th>
+                          <th scope="col">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="align-middle">
+                          <td><code>yarn </code></td>
+                          <td>This would install all required dependencies in node_modules folder.
+                          </td>
+                        </tr>
+                        <tr class="align-middle">
+                          <td><code>yarn dev </code></td>
+                          <td>Runs the project locally, starts the development server.
+                          </td>
+                        </tr>
+                        <tr class="align-middle">
+                          <td><code>yarn build </code></td>
+                          <td>It bundles with production mode. Your app is now ready to be deployed.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <h5 class="py-2">The list of available Npm commands (scripts)</h5>
+                  <p><a href="https://www.npmjs.com/" target="_blank"><strong>npm</strong></a> comes preinstalled when you
+                    install <a href="https://nodejs.org/en" target="_blank">Nodejs</a></p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered" style="min-width: 600px;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Command</th>
+                          <th scope="col">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="align-middle">
+                          <td><code>npm i </code></td>
+                          <td>This would install all required dependencies in node_modules folder.
+                          </td>
+                        </tr>
+                        <tr class="align-middle">
+                          <td><code>npm run dev </code></td>
+                          <td>Runs the project locally, starts the development server.
+                          </td>
+                        </tr>
+                        <tr class="align-middle">
+                          <td><code>npm run build </code></td>
+                          <td>It bundles with production mode. Your app is now ready to be deployed.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <h4 class="mt-5">2. Angular CLI</h4>
+              <p>The second step is to install the Angular CLI (Command Line Interface). The CLI tool will help you create, build, test, and deploy your Angular applications.</p>
+              <div class="position-relative">
+                <pre id="copy-3" class="my-3 language-markup pb-0"><code class=" language-markup" data-lang="html"> npm install --global @angular/cli@latest  
+                                    </code></pre>
+                <button id="copy_id-3" data-clipboard-action="copy" data-clipboard-target="#copy-3" class="copy-link btn btn-primary btn-sm">Copy</button>
+              </div>
+
+              <h4 class="mt-5">3. Install NPM modules</h4>
+              <p>First, change the command line path into your project where package.json is located.</p>
+              <p>Once the path of your command line is changed to project folder, run the following command. It will install all the dependencies listed in package.json file.</p>
+              <div class="position-relative">
+                <pre id="copy-2" class="my-3 language-markup pb-0"><code class=" language-markup" data-lang="html">npm install
+                                    </code></pre>
+                <button id="copy_id-2" data-clipboard-action="copy" data-clipboard-target="#copy-2" class="copy-link btn btn-primary btn-sm">Copy</button>
+              </div>
+              <img class="d-block img-fluid " src="assets/images/npm_install_step2.png" alt="npm installation Step2">
+              <p class="my-4">It might take a couple of minutes depends on your Internet connection and CPU.
+                After
+                successful
+                completion of <code>npm install</code> command, you will be able to see
+                <code>node_modules</code> folder
+                that npm created (Please refer to attached screenshot for final folders your project will
+                contain).
+                Everything is now installed and ready to go!
+              </p>
+
+              <img class="d-block img-fluid" src="assets/images/files_after_npm_install.png" alt="npm installed">
+
+              <h4 class="mt-5">4. Run server</h4>
+              <div class="position-relative">
+                <pre id="copy-4" class="my-3 language-markup pb-0"><code class=" language-markup" data-lang="html">npm start
+                                    </code></pre>
+                <button id="copy_id-4" data-clipboard-action="copy" data-clipboard-target="#copy-4" class="copy-link btn btn-primary btn-sm">Copy</button>
+              </div>
+              <img class="d-block img-fluid" src="assets/images/how_to_run_vite.png" alt="npm installation Step2">  
+
+              <h4 class="mt-5">4. Creating Build for Production</h4>
+              <p>After you're done with changes, for production and deployment you'll need to create build
+                which you
+                can put on server. The command for creating production build is given below</p>
+              <div class="position-relative">
+                <pre id="copy-5" class="my-3 language-markup pb-0"><code class=" language-markup" data-lang="html">npm run build
+  </code></pre>
+                <button id="copy_id-5" data-clipboard-action="copy" data-clipboard-target="#copy-5" class="copy-link btn btn-primary btn-sm">Copy</button>
+
+              </div>
+              <img class="d-block img-fluid" src="assets/images/how_to_make_build.png" alt="How to make build with CMD">
+              <img class="d-block img-fluid mt-3" src="assets/images/build_generated_2.png" alt="How to make build with CMD">
+
+              <!-- Page content END -->
+            </div>
+          </div>
+        </div>
+        <!-- Main content END -->
+      </div>
+    </div>
+  </main>
+
+  <!-- =======================
+JavaScripts -->
+
+  <!-- Bootstrap JS -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+  <script src="assets/js/simple-scrollbar.min.js"></script>
+  <script src="assets/js/prism.js"></script>
+  <script src="assets/js/clipboard.min.js"></script>
+
+  <!-- ThemeFunctions -->
+  <script src="assets/js/functions.js"></script>
+
+</body>
+
+</html>

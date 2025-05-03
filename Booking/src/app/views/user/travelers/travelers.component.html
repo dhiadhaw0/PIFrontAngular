@@ -1,0 +1,188 @@
+<div class="card border">
+  <div class="card-header border-bottom">
+    <h4 class="card-header-title">Travelers Detail</h4>
+  </div>
+
+  <div class="card-body vstack gap-4">
+    <div class="card">
+      <div
+        class="card-header d-flex justify-content-between align-items-center p-0"
+      >
+        <div class="d-flex align-items-center">
+          <div class="avatar avatar-sm">
+            <img
+              class="avatar-img rounded-circle"
+              src="assets/images/avatar/09.jpg"
+              alt="avatar"
+            />
+          </div>
+
+          <div class="ms-2">
+            <h6 class="mb-0">Lori Stevens</h6>
+          </div>
+        </div>
+
+        <a href="javascript:void(0);" class="btn btn-sm btn-link p-0 mb-0"
+          >Remove</a
+        >
+      </div>
+
+      <form class="card-body p-0 pt-3">
+        <div class="mb-3">
+          <label class="form-label">Full name</label>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              value="Lori"
+              placeholder="First name"
+            />
+            <input
+              type="text"
+              class="form-control"
+              value="Stevens"
+              placeholder="Last name"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Date of Birth</label>
+          <input
+            type="text"
+            class="form-control flatpickr"
+            mwlFlatpickr
+            value="29 Aug 1996"
+            placeholder="Enter date of birth"
+            data-date-format="d M Y"
+          />
+        </div>
+      </form>
+    </div>
+
+    <hr />
+
+    <div class="card">
+      <div
+        class="card-header d-flex justify-content-between align-items-center p-0"
+      >
+        <div class="d-flex align-items-center">
+          <div class="avatar avatar-sm">
+            <img
+              class="avatar-img rounded-circle"
+              src="assets/images/avatar/01.jpg"
+              alt="avatar"
+            />
+          </div>
+
+          <div class="ms-2">
+            <h6 class="mb-0">Jacqueline Miller</h6>
+          </div>
+        </div>
+
+        <a href="javascript:void(0);" class="btn btn-sm btn-link p-0 mb-0"
+          >Remove</a
+        >
+      </div>
+
+      <form class="card-body p-0 pt-3">
+        <div class="mb-3">
+          <label class="form-label">Full name</label>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              value="Jacqueline"
+              placeholder="First name"
+            />
+            <input
+              type="text"
+              class="form-control"
+              value="Miller"
+              placeholder="Last name"
+            />
+          </div>
+        </div>
+
+        <div class="">
+          <label class="form-label">Date of Birth</label>
+          <input
+            type="text"
+            class="form-control flatpickr"
+            mwlFlatpickr
+            value="15 May 1994"
+            placeholder="Enter date of birth"
+            data-date-format="d M Y"
+          />
+        </div>
+      </form>
+    </div>
+
+    <div class="text-end">
+      <button
+        class="btn btn-primary mb-0"
+        (click)="openModal(content)"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#inquiryForm"
+      >
+        <i class="bi bi-plus-lg"></i> Add New Traveler
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template
+  #content
+  let-modal
+  class="modal fade"
+  id="inquiryForm"
+  aria-hidden="true"
+>
+  <div class="modal-header">
+    <h5 class="modal-title" id="inquiryFormlabel">Add New Traveler</h5>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modal.dismiss('Cross click')"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="modal-body p-3">
+    <form>
+      <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="First name" />
+          <input type="text" class="form-control" placeholder="Last name" />
+        </div>
+        <small
+          >Enter this person's name exactly as it's written on their official
+          travel document</small
+        >
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Date of Birth</label>
+        <input
+          type="text"
+          class="form-control flatpickr"
+          mwlFlatpickr
+          data-date-format="d M y"
+        />
+        <small
+          >It's important to enter a correct date of birth because these details
+          can be used for booking or ticketing purposes</small
+        >
+      </div>
+
+      <div class="text-end">
+        <button class="btn btn-sm btn-dark mb-0" type="button">
+          Add Traveler
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

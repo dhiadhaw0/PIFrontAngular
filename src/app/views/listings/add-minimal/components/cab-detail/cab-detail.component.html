@@ -1,0 +1,82 @@
+<div class="card shadow">
+  <div class="card-header border-bottom">
+    <h5 class="mb-0">Cab Detail</h5>
+  </div>
+
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Car name</label>
+        <input class="form-control" type="text" placeholder="Enter car name" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Car type *</label>
+        <div class="d-sm-flex">
+          <div class="form-check radio-bg-light me-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+              checked=""
+            />
+            <label class="form-check-label" for="flexRadioDefault1"> Ac </label>
+          </div>
+
+          <div class="form-check radio-bg-light me-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+            />
+            <label class="form-check-label" for="flexRadioDefault2">
+              Non Ac
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Car model</label>
+        <select
+          selectFormInput
+          class="form-select js-choice"
+          data-search-enabled="true"
+        >
+          <option value="">Select item</option>
+          <option>Sedan</option>
+          <option>Micro</option>
+          <option>CUV</option>
+          <option>SUV</option>
+          <option>Pick up</option>
+          <option>Coupe</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Model Year</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Enter car model year"
+        />
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Upload image *</label>
+        <dropzone
+          class="dropzone new-listing-drop"
+          [config]="dropzoneConfig"
+          [message]="'Drop files here or click to upload.'"
+        ></dropzone>
+        <p class="small mb-0 mt-2">
+          <b>Note:</b> Only JPG, JPEG, and PNG. Our suggested dimensions are
+          600px * 450px. The larger image will be cropped to 4:3 to fit our
+          thumbnails/previews.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

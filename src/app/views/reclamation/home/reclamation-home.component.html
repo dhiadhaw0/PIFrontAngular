@@ -1,0 +1,201 @@
+<section class="pt-0 pt-lg-5">
+  <div class="container">
+    <!-- Title -->
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h1 class="fs-2 mb-0">Claims & Support Center</h1>
+        <p class="mb-0">We're here to help resolve any issues you've encountered</p>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="row g-4">
+      <!-- Technical Issues -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="card card-hover h-100 shadow p-0">
+          <div class="card-body p-4">
+            <div class="text-center mb-4">
+              <div class="icon-xl bg-primary bg-opacity-10 text-primary rounded-circle mb-3">
+                <i class="bi bi-exclamation-triangle-fill fs-3"></i>
+              </div>
+              <h4 class="mb-3">Technical Issues</h4>
+            </div>
+            <ul class="list-group list-group-borderless mb-4">
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                System Access Problems
+              </li>
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                Account Login Issues
+              </li>
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                App/Website Errors
+              </li>
+            </ul>
+            <div class="d-grid">
+              <button class="btn btn-primary-soft" (click)="applyForClaim('TECHNICAL')">
+                Submit Technical Claim
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Concerns -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="card card-hover h-100 shadow p-0">
+          <div class="card-body p-4">
+            <div class="text-center mb-4">
+              <div class="icon-xl bg-warning bg-opacity-10 text-warning rounded-circle mb-3">
+                <i class="bi bi-currency-dollar fs-3"></i>
+              </div>
+              <h4 class="mb-3">Financial Concerns</h4>
+            </div>
+            <ul class="list-group list-group-borderless mb-4">
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                Payment Issues
+              </li>
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                Refund Requests
+              </li>
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                Billing Questions
+              </li>
+            </ul>
+            <div class="d-grid">
+              <button class="btn btn-warning-soft" (click)="applyForClaim('FINANCIAL')">
+                Submit Financial Claim
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Services -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="card card-hover h-100 shadow p-0">
+          <div class="card-body p-4">
+            <div class="text-center mb-4">
+              <div class="icon-xl bg-info bg-opacity-10 text-info rounded-circle mb-3">
+                <i class="bi bi-person-circle fs-3"></i>
+              </div>
+              <h4 class="mb-3">Account Services</h4>
+            </div>
+            <ul class="list-group list-group-borderless mb-4">
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                Account Recovery
+              </li>
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                Profile Updates
+              </li>
+              <li class="list-group-item d-flex align-items-center mb-2">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                Security Concerns
+              </li>
+            </ul>
+            <div class="d-grid">
+              <button class="btn btn-info-soft" (click)="applyForClaim('ACCOUNT')">
+                Submit Account Claim
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Claim Modal with Blurry Background -->
+<div class="modal fade" id="claimModal" tabindex="-1" aria-labelledby="claimModalLabel" aria-hidden="true" data-bs-backdrop="blur">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-header bg-light border-bottom-0 pb-3">
+        <h4 class="modal-title" id="claimModalLabel">
+          <i class="bi bi-clipboard-check text-primary me-2"></i>
+          Submit Your Claim
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form [formGroup]="claimForm" (ngSubmit)="submitClaim()" class="row g-4">
+          <!-- Subject -->
+          <div class="col-12">
+            <label class="form-label fw-bold">Subject <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-lg" formControlName="sujet" placeholder="Brief description of your issue">
+            <div *ngIf="claimForm.get('sujet')?.invalid && claimForm.get('sujet')?.touched" class="text-danger small mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i>
+              Subject is required
+            </div>
+          </div>
+
+          <!-- Category & Urgency Level -->
+          <div class="col-md-6">
+            <label class="form-label fw-bold">Category <span class="text-danger">*</span></label>
+            <select class="form-select form-select-lg" formControlName="categorie">
+              <option value="" disabled>Select a category</option>
+              <option value="PROBLEME_TRANSACTION">Transaction Issue</option>
+              <option value="COMPTE_BLOQUE">Account Issue</option>
+              <option value="ERREUR_SOLDE">Balance Error</option>
+              <option value="AUTRES">Other</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-bold">Urgency Level <span class="text-danger">*</span></label>
+            <select class="form-select form-select-lg" formControlName="niveauUrgence">
+              <option value="BASSE">Low Priority</option>
+              <option value="MOYENNE">Medium Priority</option>
+              <option value="HAUTE">High Priority</option>
+            </select>
+          </div>
+
+          <!-- Description -->
+          <div class="col-12">
+            <label class="form-label fw-bold">Description <span class="text-danger">*</span></label>
+            <textarea class="form-control" formControlName="description" rows="4" 
+              placeholder="Please provide detailed information about your issue. Include any relevant details that could help us resolve your claim faster."></textarea>
+            <div *ngIf="claimForm.get('description')?.invalid && claimForm.get('description')?.touched" class="text-danger small mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i>
+              Description must be at least 20 characters
+            </div>
+          </div>
+
+          <!-- File Upload -->
+          <div class="col-12">
+            <label class="form-label fw-bold">Supporting Documents</label>
+            <div class="input-group">
+              <input type="file" class="form-control form-control-lg" (change)="onFileSelected($event)" 
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              <span class="input-group-text bg-light"><i class="bi bi-paperclip"></i></span>
+            </div>
+            <div class="form-text text-muted">
+              <i class="bi bi-info-circle me-1"></i>
+              Max file size: 5MB. Accepted formats: PDF, DOC, DOCX, JPG, PNG
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-top-0 pt-0">
+        <button type="button" class="btn btn-light btn-lg px-4" data-bs-dismiss="modal">
+          <i class="bi bi-x me-2"></i>Cancel
+        </button>
+        <button type="button" class="btn btn-primary btn-lg px-4" (click)="submitClaim()" 
+          [disabled]="!claimForm.valid || isSubmitting">
+          <i class="bi bi-send me-2"></i>
+          <span *ngIf="!isSubmitting">Submit Claim</span>
+          <span *ngIf="isSubmitting">
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Submitting...
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
