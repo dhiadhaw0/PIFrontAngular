@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { RouterModule } from '@angular/router';
+import { WalletService } from 'src/app/services/wallet.service';
+import { Portfeuille, StatutPortfeuille } from 'src/app/models/wallet/wallet.model';
 
+// Keeping this interface for compatibility with existing code
 interface WalletBalance {
   totalBalance: number;
   availableBalance: number;
@@ -74,13 +77,20 @@ export class HomeComponent implements OnInit {
     totalBalance: 0
   };
 
+  // Wallet data from the backend
+  wallets: Portfeuille[] = [];
+  selectedWallet: Portfeuille | null = null;
+  isLoading: boolean = false;
+  errorMessage: string = '';
+
   actions: Action[] = [
     { type: 'send', title: 'Send', icon: 'bi bi-send' },
     { type: 'receive', title: 'Receive', icon: 'bi bi-download' },
     { type: 'exchange', title: 'Exchange', icon: 'bi bi-arrow-left-right' },
     { type: 'history', title: 'History', icon: 'bi bi-clock-history' },
     { type: 'invest', title: 'Invest', icon: 'bi bi-graph-up' },
-    { type: 'transfer', title: 'Transfer', icon: 'bi bi-arrow-left-right' }
+    { type: 'transfer', title: 'Transfer', icon: 'bi bi-arrow-left-right' },
+    { type: 'delete', title: 'Delete', icon: 'bi bi-trash' }
   ];
 
   transactions: Transaction[] = [
@@ -121,9 +131,12 @@ export class HomeComponent implements OnInit {
   isDarkTheme = false;
   qrValue = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private walletService: WalletService
+  ) {
     this.pinForm = this.fb.group({
-      pin: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
+      pin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
     });
     this.form = this.fb.group({
       amount: ['', [Validators.required, Validators.min(0)]],
@@ -134,10 +147,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.calculateExpectedReturn();
-    this.updateDashboardStats();
+    this.loadWallets();
     
-    // Initialize transactions
+    // Initialize transactions for demo purposes
     this.transactions = [
       {
         id: 1,
@@ -165,6 +177,135 @@ export class HomeComponent implements OnInit {
       }
     ];
     this.allTransactions = [...this.transactions];
+  }
+  
+  /**
+   * Load all wallets from the backend
+   */
+  loadWallets(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    
+    this.walletService.getAllWallets().subscribe({
+      next: (wallets) => {
+        this.wallets = wallets;
+        this.isLoading = false;
+        
+        if (wallets.length > 0) {
+          this.selectWallet(wallets[0]);
+        }
+        
+        console.log('Loaded wallets:', wallets);
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.errorMessage = error.message || 'Failed to load wallets';
+        console.error('Error loading wallets:', error);
+      }
+    });
+  }
+  
+  /**
+   * Select a wallet and load its details
+   */
+  selectWallet(wallet: Portfeuille): void {
+    // Make sure we're using the correct wallet ID
+    const walletId = wallet.idPortfeuille || wallet.id;
+    
+    if (!walletId) {
+      console.error('Cannot select wallet: No ID found', wallet);
+      return;
+    }
+    
+    this.isLoading = true;
+    this.walletService.getWalletById(walletId).subscribe({
+      next: (walletDetails) => {
+        this.selectedWallet = walletDetails;
+        this.isLoading = false;
+        console.log('Selected wallet details:', walletDetails);
+        
+        // Update UI with wallet details
+        this.updateWalletDisplay(walletDetails);
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.errorMessage = error.message || `Failed to load wallet details for ID: ${walletId}`;
+        console.error('Error loading wallet details:', error);
+      }
+    });
+  }
+  
+  /**
+   * Update wallet display based on selected wallet
+   */
+  updateWalletDisplay(wallet: Portfeuille): void {
+    if (!wallet) return;
+    
+    // Update the wallet data display
+    this.walletData = {
+      totalBalance: wallet.valeurTotale || 0,
+      availableBalance: wallet.soldeDisponible || 0,
+      pendingTransactions: 0, // Not provided by backend
+      lastUpdated: new Date().toISOString(),
+      currency: 'USD', // Default currency
+      pin: wallet.codePin || '0000',
+      investedAmount: wallet.montantInvestie || 0,
+      savingsAmount: wallet.montantEpargne || 0,
+      creditAmount: wallet.montantCredit || 0,
+      expectedReturn: wallet.rendementPrevisionnel || 0
+    };
+    
+    this.updateDashboardStats();
+  }
+  
+  /**
+   * Delete the selected wallet
+   */
+  deleteWallet(): void {
+    if (!this.selectedWallet) {
+      alert('Please select a wallet to delete');
+      return;
+    }
+    
+    // Make sure we're using the correct wallet ID
+    const walletId = this.selectedWallet.idPortfeuille || this.selectedWallet.id;
+    
+    if (!walletId) {
+      console.error('Cannot delete wallet: No ID found', this.selectedWallet);
+      alert('Error: Wallet ID not found');
+      return;
+    }
+    
+    if (!confirm(`Are you sure you want to delete this wallet? This cannot be undone.`)) {
+      return;
+    }
+    
+    this.isLoading = true;
+    
+    this.walletService.deleteWallet(Number(walletId)).subscribe({
+      next: () => {
+        console.log(`Wallet with ID ${walletId} deleted successfully`);
+        // Remove from the local array
+        this.wallets = this.wallets.filter(w => 
+          (w.idPortfeuille !== walletId && w.id !== walletId)
+        );
+        
+        this.selectedWallet = null;
+        this.isLoading = false;
+        
+        alert('Wallet deleted successfully');
+        
+        // Select another wallet if available
+        if (this.wallets.length > 0) {
+          this.selectWallet(this.wallets[0]);
+        }
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error(`Error deleting wallet with ID ${walletId}:`, error);
+        alert(`Failed to delete wallet: ${error.message || 'Server error'}`); 
+      }
+    });
   }
 
   calculateExpectedReturn(): number {
@@ -216,6 +357,9 @@ export class HomeComponent implements OnInit {
       case 'history':
         // Navigate to transaction history
         console.log('View history');
+        break;
+      case 'delete':
+        this.deleteWallet();
         break;
       default:
         break;
