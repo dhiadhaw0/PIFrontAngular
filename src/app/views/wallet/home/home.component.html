@@ -87,10 +87,12 @@
         </div>
       </div>
 
+
       <!-- Quick Actions -->
       <div class="quick-actions">
         <button *ngFor="let action of actions" 
                 class="action-btn" 
+                [class.danger]="action.type === 'delete'"  
                 (click)="handleAction(action.type)">
           <i [class]="action.icon"></i>
           <span>{{ action.title }}</span>
@@ -98,7 +100,8 @@
       </div>
 
       <!-- Action Modals -->
-      <div class="modal-overlay" *ngIf="showForm || showQRCode">
+      <div class="modal-overlay" *ngIf="showForm || showQRCode || showDetails">
+      
         <!-- Send Money Modal -->
         <div class="action-modal" *ngIf="selectedType === 'send'">
           <div class="modal-header">
@@ -110,7 +113,7 @@
           <form [formGroup]="form" (ngSubmit)="submit()">
             <div class="form-group">
               <label><i class="bi bi-person"></i> Recipient</label>
-              <input type="text" 
+              <input type="number" 
                      class="form-control" 
                      formControlName="recipient" 
                      placeholder="Enter recipient's wallet address">
@@ -121,13 +124,6 @@
                      class="form-control" 
                      formControlName="amount" 
                      placeholder="Enter amount">
-            </div>
-            <div class="form-group">
-              <label><i class="bi bi-chat-text"></i> Description</label>
-              <input type="text" 
-                     class="form-control" 
-                     formControlName="description" 
-                     placeholder="What's this for?">
             </div>
             <button type="submit" 
                     class="btn-primary" 
@@ -241,10 +237,10 @@
           </form>
         </div>
 
-        <!-- Transfer Modal -->
+        <!-- G Modal -->
         <div class="action-modal" *ngIf="selectedType === 'transfer'">
           <div class="modal-header">
-            <h3><i class="bi bi-arrow-left-right"></i> Transfer Money</h3>
+            <h3><i class="bi bi-arrow-left-right"></i> transfer</h3>
             <button class="btn-close" (click)="closeForm()">
               <i class="bi bi-x"></i>
             </button>
@@ -286,6 +282,111 @@
           </form>
         </div>
 
+        <!-- Update Wallet Modal -->
+        <div class="action-modal" *ngIf="selectedType === 'update'">
+          <div class="modal-header">
+            <h3><i class="bi bi-pencil"></i> Update Wallet</h3>
+            <button class="btn-close" (click)="closeForm()">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+          <form [formGroup]="updateForm" (ngSubmit)="submitUpdateForm()">
+            <div class="form-group">
+              <label><i class="bi bi-currency-dollar"></i> Total Value</label>
+              <input type="number" 
+                     class="form-control" 
+                     formControlName="valeurTotale" 
+                     placeholder="Enter total value">
+            </div>
+            <div class="form-group">
+              <label><i class="bi bi-piggy-bank"></i> Savings Amount</label>
+              <input type="number" 
+                     class="form-control" 
+                     formControlName="montantEpargne" 
+                     placeholder="Enter savings amount">
+            </div>
+            <div class="form-group">
+              <label><i class="bi bi-graph-up"></i> Invested Amount</label>
+              <input type="number" 
+                     class="form-control" 
+                     formControlName="montantInvestie" 
+                     placeholder="Enter invested amount">
+            </div>
+            <div class="form-group">
+              <label><i class="bi bi-wallet2"></i> Available Balance</label>
+              <input type="number" 
+                     class="form-control" 
+                     formControlName="soldeDisponible" 
+                     placeholder="Enter available balance">
+            </div>
+            <div class="form-group">
+              <label><i class="bi bi-lock"></i> PIN Code</label>
+              <input type="password" 
+                     class="form-control" 
+                     formControlName="codePin" 
+                     placeholder="Enter 4-digit PIN"
+                     maxlength="4">
+            </div>
+            <button type="submit" 
+                    class="btn-primary" 
+                    [disabled]="!updateForm.valid">
+              <i class="bi bi-check-circle"></i> Update Wallet
+            </button>
+          </form>
+        </div>
+        
+        <!-- Wallet Details Modal -->
+        <div class="action-modal" *ngIf="showDetails">
+          <div class="modal-header">
+            <h3><i class="bi bi-info-circle"></i> Wallet Details</h3>
+            <button class="btn-close" (click)="closeForm()">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+          <div class="wallet-details-container" *ngIf="selectedWallet">
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-credit-card"></i> Wallet ID:</span>
+              <span class="detail-value">{{ selectedWallet.idPortfeuille || selectedWallet.id }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-currency-dollar"></i> Total Value:</span>
+              <span class="detail-value">{{ selectedWallet.valeurTotale | currency:'USD' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-piggy-bank"></i> Savings Amount:</span>
+              <span class="detail-value">{{ selectedWallet.montantEpargne | currency:'USD' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-graph-up"></i> Invested Amount:</span>
+              <span class="detail-value">{{ selectedWallet.montantInvestie | currency:'USD' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-wallet2"></i> Available Balance:</span>
+              <span class="detail-value">{{ selectedWallet.soldeDisponible | currency:'USD' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedWallet.montantCredit !== undefined">
+              <span class="detail-label"><i class="bi bi-cash"></i> Credit Amount:</span>
+              <span class="detail-value">{{ selectedWallet.montantCredit | currency:'USD' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedWallet.rendementPrevisionnel !== undefined">
+              <span class="detail-label"><i class="bi bi-bar-chart"></i> Expected Return:</span>
+              <span class="detail-value">{{ selectedWallet.rendementPrevisionnel | currency:'USD' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedWallet.scoreFinancier !== undefined">
+              <span class="detail-label"><i class="bi bi-star"></i> Financial Score:</span>
+              <span class="detail-value">{{ selectedWallet.scoreFinancier }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedWallet.dateCreation !== undefined">
+              <span class="detail-label"><i class="bi bi-calendar"></i> Creation Date:</span>
+              <span class="detail-value">{{ selectedWallet.dateCreation | date:'medium' }}</span>
+            </div>
+            <div class="detail-item" *ngIf="selectedWallet.statutPortfeuille !== undefined">
+              <span class="detail-label"><i class="bi bi-check-circle"></i> Status:</span>
+              <span class="detail-value">{{ selectedWallet.statutPortfeuille }}</span>
+            </div>
+          </div>
+        </div>
+        
         <!-- History Modal -->
         <div class="action-modal" *ngIf="selectedType === 'history'">
           <div class="modal-header">
