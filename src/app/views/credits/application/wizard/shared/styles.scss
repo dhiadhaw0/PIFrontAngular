@@ -1,0 +1,47 @@
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn {
+  min-width: 120px;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border-color: #ced4da;
+}
+
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &.selected {
+    border: 2px solid #007bff;
+    background-color: rgba(0, 123, 255, 0.05);
+  }
+
+  .card-title {
+    color: #007bff;
+  }
+
+  .list-unstyled {
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+} 

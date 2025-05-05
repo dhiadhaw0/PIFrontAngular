@@ -1,0 +1,94 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Financial Information</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="financialForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="salaire" class="form-label">Monthly Income</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="salaire" formControlName="salaire"
+                  placeholder="Enter your monthly income">
+              </div>
+              <div class="text-danger" *ngIf="financialForm.get('salaire')?.invalid && 
+                financialForm.get('salaire')?.touched">
+                <small *ngIf="financialForm.get('salaire')?.errors?.['required']">
+                  Monthly income is required
+                </small>
+                <small *ngIf="financialForm.get('salaire')?.errors?.['min']">
+                  Income must be a positive number
+                </small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="profession" class="form-label">Profession</label>
+              <input type="text" class="form-control" id="profession" formControlName="profession"
+                placeholder="Enter your profession">
+              <div class="text-danger" *ngIf="financialForm.get('profession')?.invalid && 
+                financialForm.get('profession')?.touched">
+                <small>Profession is required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="employmentYears" class="form-label">Years of Employment</label>
+              <input type="number" class="form-control" id="employmentYears" formControlName="employmentYears"
+                placeholder="Enter years of employment">
+              <div class="text-danger" *ngIf="financialForm.get('employmentYears')?.invalid && 
+                financialForm.get('employmentYears')?.touched">
+                <small>Years of employment is required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="bankAccounts" class="form-label">Number of Bank Accounts</label>
+              <input type="number" class="form-control" id="bankAccounts" formControlName="bankAccounts"
+                placeholder="Enter number of bank accounts">
+              <div class="text-danger" *ngIf="financialForm.get('bankAccounts')?.invalid && 
+                financialForm.get('bankAccounts')?.touched">
+                <small>At least one bank account is required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="monthlyExpenses" class="form-label">Monthly Expenses</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="monthlyExpenses" formControlName="monthlyExpenses"
+                  placeholder="Enter your monthly expenses">
+              </div>
+              <div class="text-danger" *ngIf="financialForm.get('monthlyExpenses')?.invalid && 
+                financialForm.get('monthlyExpenses')?.touched">
+                <small>Monthly expenses is required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="otherLoans" class="form-label">Other Active Loans</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="otherLoans" formControlName="otherLoans"
+                  placeholder="Enter total amount of other active loans">
+              </div>
+              <div class="text-danger" *ngIf="financialForm.get('otherLoans')?.invalid && 
+                financialForm.get('otherLoans')?.touched">
+                <small>Please enter 0 if you have no other loans</small>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="financialForm.invalid">
+                Next Step
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,50 @@
+@import '../shared/styles.scss';
+
+// Component specific styles
+.confirmation-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 4rem;
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.confirmation-message {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.details-list {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.detail-value {
+  color: #212529;
+}
+
+.btn {
+  min-width: 120px;
+}
+
+.card {
+  .fa-5x {
+    margin-bottom: 1rem;
+  }
+} 

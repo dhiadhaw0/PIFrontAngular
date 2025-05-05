@@ -1,0 +1,68 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Basic Credit Information</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="montantDemande" class="form-label">Loan Amount Requested</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="montantDemande" formControlName="montantDemande"
+                  placeholder="Enter amount">
+              </div>
+              <div class="text-danger" *ngIf="basicInfoForm.get('montantDemande')?.invalid && 
+                basicInfoForm.get('montantDemande')?.touched">
+                <small *ngIf="basicInfoForm.get('montantDemande')?.errors?.['required']">
+                  Loan amount is required
+                </small>
+                <small *ngIf="basicInfoForm.get('montantDemande')?.errors?.['min']">
+                  Minimum loan amount is $1000
+                </small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="creditDuration" class="form-label">Loan Duration (months)</label>
+              <input type="number" class="form-control" id="creditDuration" formControlName="creditDuration"
+                placeholder="Enter duration in months">
+              <div class="text-danger" *ngIf="basicInfoForm.get('creditDuration')?.invalid && 
+                basicInfoForm.get('creditDuration')?.touched">
+                <small *ngIf="basicInfoForm.get('creditDuration')?.errors?.['required']">
+                  Loan duration is required
+                </small>
+                <small *ngIf="basicInfoForm.get('creditDuration')?.errors?.['min']">
+                  Minimum duration is 6 months
+                </small>
+                <small *ngIf="basicInfoForm.get('creditDuration')?.errors?.['max']">
+                  Maximum duration is 60 months
+                </small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Purpose of Loan</label>
+              <textarea class="form-control" id="description" formControlName="description" rows="3"
+                placeholder="Please describe the purpose of your loan"></textarea>
+              <div class="text-danger" *ngIf="basicInfoForm.get('description')?.invalid && 
+                basicInfoForm.get('description')?.touched">
+                <small *ngIf="basicInfoForm.get('description')?.errors?.['required']">
+                  Please describe the purpose of your loan
+                </small>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="basicInfoForm.invalid">
+                Next Step
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
