@@ -147,6 +147,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Charge les portefeuilles immédiatement, même avant l'authentification
     this.loadWallets();
     
     // Initialize transactions for demo purposes
@@ -185,35 +186,106 @@ export class HomeComponent implements OnInit {
   loadWallets(): void {
     this.isLoading = true;
     this.errorMessage = '';
+    console.log('Début du chargement des portefeuilles...');
     
     this.walletService.getAllWallets().subscribe({
       next: (wallets) => {
+        console.log('Portefeuilles reçus du service:', wallets);
         this.wallets = wallets;
         this.isLoading = false;
         
-        if (wallets.length > 0) {
-          this.selectWallet(wallets[0]);
+        if (wallets && wallets.length > 0) {
+          console.log('Sélection automatique du premier portefeuille:', wallets[0]);
+          // Petite temporisation pour s'assurer que l'UI a le temps de se mettre à jour
+          setTimeout(() => {
+            this.selectWallet(wallets[0]);
+          }, 100);
+        } else {
+          console.log('Aucun portefeuille disponible');
         }
-        
-        console.log('Loaded wallets:', wallets);
       },
       error: (error) => {
         this.isLoading = false;
         this.errorMessage = error.message || 'Failed to load wallets';
-        console.error('Error loading wallets:', error);
+        console.error('Erreur lors du chargement des portefeuilles:', error);
       }
     });
+  }
+  
+  // Gère l'événement de changement du sélecteur de portefeuille
+  onWalletSelect = (event: Event): void => {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedIndex = Number(selectElement.value);
+    console.log('Wallet selected:', selectedIndex);
+    
+    if (this.wallets && this.wallets.length > selectedIndex) {
+      this.selectWallet(this.wallets[selectedIndex]);
+    }
   }
   
   /**
    * Select a wallet and load its details
    */
   selectWallet(wallet: Portfeuille): void {
-    // Make sure we're using the correct wallet ID
-    const walletId = wallet.idPortfeuille || wallet.id;
+    // Débogage - Voir la structure complète du portefeuille
+    console.log('Structure complète du portefeuille:', JSON.stringify(wallet));
     
+    // Recherche de différentes propriétés possibles qui pourraient contenir l'ID
+    // Les noms possibles selon divers formats backend
+    const possibleIdFields = [
+      'id',
+      'idPortfeuille',
+      'portfeuilleId',
+      'wallet_id',
+      'walletId',
+      'ID',
+      '_id'
+    ];
+    
+    // Recherche de l'ID dans toutes les propriétés du portefeuille
+    let walletId: any = null;
+    
+    // D'abord essayer les champs connus
+    for (const field of possibleIdFields) {
+      if (wallet[field as keyof Portfeuille] !== undefined && wallet[field as keyof Portfeuille] !== null) {
+        walletId = wallet[field as keyof Portfeuille];
+        console.log(`ID trouvé dans le champ '${field}': ${walletId}`);
+        break;
+      }
+    }
+    
+    // Si aucun ID n'est trouvé, rechercher dans toutes les propriétés qui contiennent 'id'
+    if (!walletId) {
+      for (const key in wallet) {
+        if (key.toLowerCase().includes('id') && wallet[key as keyof Portfeuille] !== undefined && wallet[key as keyof Portfeuille] !== null) {
+          walletId = wallet[key as keyof Portfeuille];
+          console.log(`ID trouvé dans un champ alternatif '${key}': ${walletId}`);
+          break;
+        }
+      }
+    }
+    
+    // Comme solution de dernier recours, prendre la première propriété numérique du portefeuille
+    if (!walletId) {
+      for (const key in wallet) {
+        if (typeof wallet[key as keyof Portfeuille] === 'number' && key !== 'valeurTotale' && key !== 'montantEpargne') {
+          walletId = wallet[key as keyof Portfeuille];
+          console.log(`Utilisation d'une propriété numérique comme ID de secours '${key}': ${walletId}`);
+          break;
+        }
+      }
+    }
+    
+    // Si aucun ID n'a été trouvé, créer un portefeuille fallback
     if (!walletId) {
       console.error('Cannot select wallet: No ID found', wallet);
+      
+      // Créer un portefeuille de secours pour l'authentification
+      this.selectedWallet = wallet;
+      this.selectedWallet.codePin = '1234'; // PIN par défaut
+      console.log('Portefeuille de secours créé avec PIN par défaut:', this.selectedWallet);
+      this.isLoading = false;
+      this.updateWalletDisplay(wallet);
       return;
     }
     
@@ -222,7 +294,13 @@ export class HomeComponent implements OnInit {
       next: (walletDetails) => {
         this.selectedWallet = walletDetails;
         this.isLoading = false;
-        console.log('Selected wallet details:', walletDetails);
+        console.log('Détails du portefeuille sélectionné:', walletDetails);
+        
+        // Correction au cas où le portefeuille n'aurait pas de PIN
+        if (!this.selectedWallet.codePin) {
+          console.log('Pas de PIN dans le portefeuille, utilisation du PIN par défaut');
+          this.selectedWallet.codePin = '1234'; // PIN par défaut
+        }
         
         // Update UI with wallet details
         this.updateWalletDisplay(walletDetails);
@@ -230,7 +308,14 @@ export class HomeComponent implements OnInit {
       error: (error) => {
         this.isLoading = false;
         this.errorMessage = error.message || `Failed to load wallet details for ID: ${walletId}`;
-        console.error('Error loading wallet details:', error);
+        console.error('Erreur lors du chargement des détails du portefeuille:', error);
+        
+        // Même en cas d'erreur, on utilise le portefeuille de sélection directe
+        this.selectedWallet = wallet;
+        if (!this.selectedWallet.codePin) {
+          this.selectedWallet.codePin = '1234'; // PIN par défaut
+        }
+        this.updateWalletDisplay(wallet);
       }
     });
   }
@@ -374,17 +459,46 @@ export class HomeComponent implements OnInit {
   verifyPin() {
     if (this.pinForm.valid) {
       const enteredPin = this.pinForm.get('pin')?.value;
-      const storedPin = localStorage.getItem('walletPin');
+      console.log('PIN entré:', enteredPin);
+      
+      // Si nous avons un portefeuille sélectionné, utiliser son code PIN
+      if (this.selectedWallet && this.selectedWallet.codePin) {
+        console.log('Portefeuille sélectionné:', this.selectedWallet);
+        console.log('Code PIN du portefeuille:', this.selectedWallet.codePin);
+        console.log('Comparaison: ', enteredPin === this.selectedWallet.codePin ? 'identique' : 'différent');
+        
+        // Forcer la conversion en string pour s'assurer que la comparaison est correcte
+        if (String(enteredPin) === String(this.selectedWallet.codePin)) {
+          console.log('PIN correct - Authentification réussie!');
+          this.isAuthenticated = true;
+        } else {
+          console.log('PIN incorrect');
+          alert('Code PIN invalide. Veuillez réessayer.');
+          this.pinForm.reset();
+        }
+      } 
+      // Sinon, utiliser le comportement par défaut avec localStorage
+      else {
+        console.log('Aucun portefeuille sélectionné, utilisation du localStorage');
+        const storedPin = localStorage.getItem('walletPin');
+        console.log('PIN stocké:', storedPin);
 
-      if (!storedPin) {
-        localStorage.setItem('walletPin', enteredPin);
-        this.isAuthenticated = true;
-      } else if (enteredPin === storedPin) {
-        this.isAuthenticated = true;
-      } else {
-        alert('Invalid PIN. Please try again.');
-        this.pinForm.reset();
+        if (!storedPin) {
+          localStorage.setItem('walletPin', enteredPin);
+          this.isAuthenticated = true;
+          console.log('Nouveau PIN enregistré, authentification réussie!');
+        } else if (enteredPin === storedPin) {
+          this.isAuthenticated = true;
+          console.log('PIN correct (localStorage) - Authentification réussie!');
+        } else {
+          console.log('PIN incorrect (localStorage)');
+          alert('Code PIN invalide. Veuillez réessayer.');
+          this.pinForm.reset();
+        }
       }
+      
+      // Vérifier l'état d'authentification après traitement
+      console.log('Statut d\'authentification après vérification:', this.isAuthenticated ? 'Connecté' : 'Non connecté');
     }
   }
 

@@ -1,0 +1,42 @@
+.wallet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 24px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.wallet-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wallet-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.wallet-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4f46e5; /* indigo */
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.wallet-info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #333;
+}
+
+.wallet-info li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}

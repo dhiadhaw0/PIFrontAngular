@@ -16,13 +16,20 @@ export class WalletService {
    * Get all wallets
    */
   getAllWallets(): Observable<Portfeuille[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/retrieve-all-portfeuilles`)
-      .pipe(
-        map(wallets => this.normalizeWalletIds(wallets)),
-        tap(wallets => console.log('Retrieved wallets:', wallets)),
-        catchError(this.handleError('getAllWallets'))
-      );
+    return this.http.get<any[]>(`${this.apiUrl}/retrieve-all-portfeuilles`).pipe(
+      map(wallets =>
+        this.normalizeWalletIds(
+          wallets.map(wallet => ({
+            ...wallet,
+            dateCreation: wallet.dateCreation ? new Date(wallet.dateCreation) : null
+          }))
+        )
+      ),
+      tap(wallets => console.log('Retrieved wallets:', wallets)),
+      catchError(this.handleError('getAllWallets'))
+    );
   }
+  
 
   /**
    * Get wallet by ID

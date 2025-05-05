@@ -1,0 +1,133 @@
+.wallet-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+  padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wallet-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #f0f0f0;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease forwards;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #4f46e5, #6366f1);
+  }
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.wallet-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4f46e5;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wallet-info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #f3f4f6;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    strong {
+      color: #4b5563;
+      font-weight: 600;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    
+    .amount {
+      color: #047857;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+    
+    .score {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background-color: #eef2ff;
+      color: #4f46e5;
+      font-weight: 500;
+    }
+    
+    .status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+      text-align: center;
+      min-width: 80px;
+      
+      &.status-active {
+        background-color: #ecfdf5;
+        color: #047857;
+      }
+      
+      &.status-suspended {
+        background-color: #fff7ed;
+        color: #c2410c;
+      }
+      
+      &.status-closed {
+        background-color: #f3f4f6;
+        color: #6b7280;
+      }
+    }
+  }
+}

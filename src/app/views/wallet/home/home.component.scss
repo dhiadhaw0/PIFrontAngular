@@ -329,42 +329,105 @@
       &:hover {
         background: var(--hover-bg);
         color: var(--text-primary);
+        transform: rotate(90deg);
       }
     }
   }
 
-  .form-group {
-    margin-bottom: 1rem;
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--text-secondary);
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      background: var(--bg-primary);
+  .auth-card {
+    background: var(--bg-primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    
+    h2 {
+      margin-bottom: 1.5rem;
+      font-weight: 600;
       color: var(--text-primary);
-      transition: all 0.3s ease;
-
-      &:focus {
-        outline: none;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 2px rgba(107, 92, 231, 0.2);
+    }
+    
+    .wallet-info-box {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--primary-color);
+      text-align: left;
+      
+      p {
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+      }
+      
+      strong {
+        color: var(--primary-color);
+      }
+    }
+    
+    .wallet-selector {
+      margin-bottom: 1.5rem;
+      text-align: left;
+      
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+      
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid var(--bg-secondary);
+        border-radius: 8px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        
+        &:focus {
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 2px rgba(107, 92, 231, 0.2);
+          outline: none;
+        }
+        
+        option {
+          padding: 0.5rem;
+        }
+      }
+    }
+    
+    .pin-input {
+      margin-bottom: 1.5rem;
+      
+      input {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.2rem;
+        text-align: center;
+        letter-spacing: 0.5rem;
+        border: 2px solid var(--bg-secondary);
+        border-radius: 12px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        
+        &:focus {
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 2px rgba(107, 92, 231, 0.2);
+          outline: none;
+        }
       }
     }
   }
-}
-
-.investment-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+  
+  .investment-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 .stat-card {
@@ -406,6 +469,8 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-clip: padding-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -617,4 +682,4 @@
       font-size: 1.2rem;
     }
   }
-} 
+}}

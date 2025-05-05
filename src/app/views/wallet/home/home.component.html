@@ -19,18 +19,29 @@
     <!-- PIN Authentication -->
     <div class="auth-container" *ngIf="!isAuthenticated">
       <div class="auth-card">
-        <h2>Enter PIN</h2>
+        <h2>Enter Wallet PIN</h2>
+        <!-- Notice d'information sur le portefeuille sélectionné -->
+        <div class="wallet-selector" *ngIf="wallets && wallets.length > 0">
+          <label>Choose a wallet:</label>
+          <select class="form-control" (change)="onWalletSelect($event)">
+            <option *ngFor="let wallet of wallets; let i = index" [value]="i">
+              Wallet #{{ wallet.idPortfeuille || wallet.id }}
+            </option>
+          </select>
+        </div>
         <form [formGroup]="pinForm" (ngSubmit)="verifyPin()">
           <div class="pin-input">
             <input type="password" 
                    class="form-control" 
                    formControlName="pin" 
-                   placeholder="Enter your PIN" 
+                   placeholder="Enter the wallet PIN
+" 
                    maxlength="6">
           </div>
           <button type="submit" 
                   class="btn-primary" 
-                  [disabled]="!pinForm.valid">Unlock Wallet</button>
+                  [disabled]="!pinForm.valid">Unlock the wallet
+                </button>
         </form>
       </div>
     </div>
