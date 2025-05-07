@@ -183,4 +183,140 @@ export class WalletService {
       return throwError(() => new Error(`${errorMessage} (${operation})`));
     };
   }
+
+  // Calculate yield
+  calculateYield(walletId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/${walletId}/calculer-rendement`);
+  }
+
+  // Get dashboard stats
+  getDashboardStats(walletId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${walletId}/dashboard-stats`);
+  }
+
+  // Generate PDF
+  generatePdf(walletId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/${walletId}/export/pdf`, {
+      responseType: 'blob'
+    });
+  }
+
+ // Invest
+invest(walletId: number, amount: number): Observable<any> {
+  // Add validation before making the request
+  if (!walletId || walletId <= 0) {
+    return throwError(() => new Error('Invalid wallet ID'));
+  }
+
+  if (!amount || amount <= 0) {
+    return throwError(() => new Error('Investment amount must be positive'));
+  }
+
+  console.log('Investment attempt with wallet ID:', walletId, 'and amount:', amount);
+
+  // Direct approach based on the error messages
+  // The API expects 'idPortfeuille' (with 't') as URL parameter
+  return this.http.post(`${this.apiUrl}/investir`, null, {
+    params: {
+      idPortfeuille: walletId.toString(), // Backend expects Long type
+      montant: amount.toString()          // Backend expects Float type
+    },
+    responseType: 'text' // Backend returns French text responses
+  }).pipe(
+    tap(response => {
+      console.log('Investment successful, response:', response);
+    }),
+    catchError(error => {
+      console.error('Investment API error:', error);
+      
+      // Extract the real error message from the response
+      let errorMessage = 'An error occurred during investment';
+      
+      if (error.error && typeof error.error === 'string') {
+        // This is a French message from the backend
+        errorMessage = error.error;
+        console.log('Received French error:', errorMessage);
+        
+        // Translate exact French error messages based on backend implementation
+        if (errorMessage.includes("Fonds insuffisants")) {
+          errorMessage = 'Insufficient funds for this investment';
+        } else if (errorMessage.includes("Portefeuille introuvable")) {
+          errorMessage = 'Wallet not found';
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      // Log the extracted message for debugging
+      console.error('Extracted error message:', errorMessage);
+      
+      return throwError(() => new Error(errorMessage));
+    })
+  );
+}
+
+  // Transfer
+  transfer(sourceId: number, destinationId: number, amount: number): Observable<any> {
+    // Add validation before making the request
+    if (!sourceId || sourceId <= 0) {
+      return throwError(() => new Error('Invalid source wallet ID'));
+    }
+
+    if (!destinationId || destinationId <= 0) {
+      return throwError(() => new Error('Invalid destination wallet ID'));
+    }
+    
+    if (!amount || amount <= 0) {
+      return throwError(() => new Error('Transfer amount must be positive'));
+    }
+
+    if (sourceId === destinationId) {
+      return throwError(() => new Error('Source and destination wallets cannot be the same'));
+    }
+    
+    console.log('Transfer attempt from wallet ID:', sourceId, 'to wallet ID:', destinationId, 'amount:', amount);
+  
+    // Direct approach based on the backend's expectations
+    // The API expects 'idSource', 'idDest', and 'montant' as URL parameters
+    return this.http.post(`${this.apiUrl}/transferer`, null, {
+      params: {
+        idSource: sourceId.toString(),     // Backend expects Long type
+        idDest: destinationId.toString(),  // Backend expects Long type
+        montant: amount.toString()         // Backend expects Float type
+      },
+      responseType: 'text' // Backend returns French text responses
+    }).pipe(
+      tap(response => {
+        console.log('Transfer successful, response:', response);
+      }),
+      catchError(error => {
+        console.error('Transfer API error:', error);
+        
+        // Extract the real error message from the response
+        let errorMessage = 'An error occurred during transfer';
+        
+        if (error.error && typeof error.error === 'string') {
+          // This is a French message from the backend
+          errorMessage = error.error;
+          console.log('Received French error:', errorMessage);
+          
+          // Translate exact French error messages based on backend implementation
+          if (errorMessage.includes("Fonds insuffisants")) {
+            errorMessage = 'Insufficient funds for this transfer';
+          } else if (errorMessage.includes("portefeuilles n'existe pas")) {
+            errorMessage = 'One of the wallets does not exist';
+          } else if (errorMessage.includes("n'est pas actif")) {
+            errorMessage = 'One of the wallets is not active';
+          }
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
+        // Log the extracted message for debugging
+        console.error('Extracted error message:', errorMessage);
+        
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }

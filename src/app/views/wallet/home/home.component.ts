@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { WalletService } from 'src/app/services/wallet.service';
 import { Portfeuille, StatutPortfeuille } from 'src/app/models/wallet/wallet.model';
 
+
 // Keeping this interface for compatibility with existing code
 interface WalletBalance {
   totalBalance: number;
@@ -20,15 +21,6 @@ interface WalletBalance {
   expectedReturn: number;
 }
 
-interface Transaction {
-  id: number;
-  type: 'credit' | 'debit' | 'investment' | 'transfer';
-  amount: number;
-  description: string;
-  date: string;
-  status: 'completed' | 'pending';
-  recipient?: string;
-}
 
 interface Action {
   type: string;
@@ -84,12 +76,7 @@ export class HomeComponent implements OnInit {
   errorMessage: string = '';
 
   actions: Action[] = [
-    { type: 'send', title: 'Send', icon: 'bi bi-send' },
-    { type: 'receive', title: 'Receive', icon: 'bi bi-download' },
-    { type: 'exchange', title: 'Exchange', icon: 'bi bi-arrow-left-right' },
-    { type: 'history', title: 'History', icon: 'bi bi-clock-history' },
-    { type: 'invest', title: 'Invest', icon: 'bi bi-graph-up' },
-    { type: 'transfer', title: 'Transfer', icon: 'bi bi-arrow-left-right' },
+   
     { type: 'update', title: 'Update', icon: 'bi bi-pencil' },
     { type: 'details', title: 'Details', icon: 'bi bi-info-circle' },
     { type: 'delete', title: 'Delete', icon: 'bi bi-trash' }
@@ -97,40 +84,12 @@ export class HomeComponent implements OnInit {
   
   // All actions are shown in the same grid now
 
-  transactions: Transaction[] = [
-    {
-      id: 1,
-      type: 'credit',
-      amount: 1500,
-      description: 'Payment received',
-      date: new Date().toISOString(),
-      status: 'completed'
-    },
-    {
-      id: 2,
-      type: 'debit',
-      amount: 800,
-      description: 'Online purchase',
-      date: new Date().toISOString(),
-      status: 'completed'
-    },
-    {
-      id: 3,
-      type: 'investment',
-      amount: 2000,
-      description: 'Investment in stocks',
-      date: new Date().toISOString(),
-      status: 'completed'
-    }
-  ];
-
-  private allTransactions: Transaction[] = [];
 
   showForm = false;
   showQRCode = false;
   selectedType = '';
   showDetails = false;
-  form: FormGroup;
+  form: FormGroup = new FormGroup({}); // Initialize with empty form group to avoid TS errors
   updateForm: FormGroup;
   pinForm: FormGroup;
   isAuthenticated = false;
@@ -144,13 +103,6 @@ export class HomeComponent implements OnInit {
     this.pinForm = this.fb.group({
       pin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
     });
-    this.form = this.fb.group({
-      amount: ['', [Validators.required, Validators.min(0)]],
-      description: ['', Validators.required],
-      recipient: [''],
-      investmentType: ['']
-    });
-    
     this.updateForm = this.fb.group({
       valeurTotale: [0, [Validators.required, Validators.min(0)]],
       montantEpargne: [0, [Validators.required, Validators.min(0)]],
@@ -163,35 +115,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // Charge les portefeuilles immédiatement, même avant l'authentification
     this.loadWallets();
-    
     // Initialize transactions for demo purposes
-    this.transactions = [
-      {
-        id: 1,
-        type: 'credit',
-        amount: 1000,
-        description: 'Salary Deposit',
-        date: new Date().toISOString(),
-        status: 'completed'
-      },
-      {
-        id: 2,
-        type: 'debit',
-        amount: 500,
-        description: 'Grocery Shopping',
-        date: new Date().toISOString(),
-        status: 'completed'
-      },
-      {
-        id: 3,
-        type: 'investment',
-        amount: 2000,
-        description: 'Stock Investment',
-        date: new Date().toISOString(),
-        status: 'pending'
-      }
-    ];
-    this.allTransactions = [...this.transactions];
+  
   }
   
   /**
@@ -308,16 +233,15 @@ export class HomeComponent implements OnInit {
       next: (walletDetails) => {
         this.selectedWallet = walletDetails;
         this.isLoading = false;
-        console.log('Détails du portefeuille sélectionné:', walletDetails);
         
-        // Correction au cas où le portefeuille n'aurait pas de PIN
+        // Update the selected wallet with the latest details
+        this.selectedWallet = { ...walletDetails };
+        
+        // Handle rare case where PIN might be missing
         if (!this.selectedWallet.codePin) {
-          console.log('Pas de PIN dans le portefeuille, utilisation du PIN par défaut');
           this.selectedWallet.codePin = '1234'; // PIN par défaut
         }
-        
-        // Update UI with wallet details
-        this.updateWalletDisplay(walletDetails);
+        this.updateWalletDisplay(wallet);
       },
       error: (error) => {
         this.isLoading = false;
@@ -454,27 +378,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  calculateExpectedReturn(): number {
-    // Simple calculation based on investment amount and duration
-    const amount = this.form.get('amount')?.value || 0;
-    const duration = this.form.get('duration')?.value;
-    
-    let multiplier = 1;
-    switch (duration) {
-      case 'short':
-        multiplier = 1.05; // 5% return for short term
-        break;
-      case 'medium':
-        multiplier = 1.1; // 10% return for medium term
-        break;
-      case 'long':
-        multiplier = 1.15; // 15% return for long term
-        break;
-    }
-    
-    return amount * multiplier;
-  }
-
+ 
   updateDashboardStats() {
     this.dashboardStats = {
       totalValue: this.walletData.totalBalance,
@@ -487,51 +391,77 @@ export class HomeComponent implements OnInit {
     };
   }
 
-  handleAction(type: string) {
+  handleAction(type: string): void {
     this.selectedType = type;
+    this.showForm = true;
+    this.showQRCode = false;
+    this.showDetails = false;
+    this.errorMessage = '';
+    
+    // Reset form when showing
+    if (this.form) {
+      this.form.reset();
+    }
+    
     switch (type) {
-      case 'send':
-      case 'invest':
-      case 'transfer':
-        this.showForm = true;
-        this.showQRCode = false;
-        this.showDetails = false;
-        break;
-      case 'receive':
-        this.showQRCode = true;
-        this.showForm = false;
-        this.showDetails = false;
-        break;
       case 'update':
         if (!this.selectedWallet) {
           alert('Please select a wallet to update');
+          this.showForm = false;
           return;
         }
         this.initUpdateForm();
-        this.showForm = true;
-        this.showQRCode = false;
-        this.showDetails = false;
         break;
+        
       case 'details':
         if (!this.selectedWallet) {
           alert('Please select a wallet to view details');
+          this.showForm = false;
           return;
         }
         this.showDetails = true;
         this.showForm = false;
-        this.showQRCode = false;
         break;
-      case 'history':
-        // Navigate to transaction history
-        console.log('View history');
-        break;
+        
       case 'delete':
         this.deleteWallet();
+        this.showForm = false;
         break;
+        
+      case 'calculate-yield':
+        this.calculateYield();
+        this.showForm = false;
+        break;
+        
+      case 'export-pdf':
+        this.exportToPdf();
+        this.showForm = false;
+        break;
+        
+      case 'invest':
+        if (!this.selectedWallet) {
+          alert('Please select a wallet to invest');
+          this.showForm = false;
+          return;
+        }
+        this.initInvestForm();
+        break;
+        
+      case 'transfer':
+        if (!this.selectedWallet) {
+          alert('Please select a wallet for transfer');
+          this.showForm = false;
+          return;
+        }
+        this.initTransferForm();
+        break;
+        
       default:
+        this.showForm = false;
         break;
     }
   }
+   
 
   closeForm() {
     this.showForm = false;
@@ -586,61 +516,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  submit() {
-    if (this.form.valid) {
-      const formValue = this.form.value;
-      const amount = parseFloat(formValue.amount);
-
-      switch (this.selectedType) {
-        case 'send':
-          if (amount <= this.walletData.availableBalance) {
-            this.walletData.availableBalance -= amount;
-            this.transactions.unshift({
-              id: this.transactions.length + 1,
-              type: 'debit',
-              amount: amount,
-              description: formValue.description || 'Send money',
-              date: new Date().toISOString(),
-              status: 'completed',
-              recipient: formValue.recipient
-            });
-          }
-          break;
-        case 'invest':
-          if (amount <= this.walletData.availableBalance) {
-            this.walletData.availableBalance -= amount;
-            this.walletData.investedAmount += amount;
-          this.transactions.unshift({
-            id: this.transactions.length + 1,
-              type: 'investment',
-            amount: amount,
-              description: formValue.description || 'Investment',
-            date: new Date().toISOString(),
-            status: 'completed'
-          });
-            this.calculateExpectedReturn();
-          }
-          break;
-        case 'transfer':
-          if (amount <= this.walletData.availableBalance) {
-            this.walletData.availableBalance -= amount;
-            this.transactions.unshift({
-              id: this.transactions.length + 1,
-              type: 'transfer',
-              amount: amount,
-              description: formValue.description || 'Transfer',
-              date: new Date().toISOString(),
-              status: 'completed',
-              recipient: formValue.recipient
-            });
-          }
-          break;
-      }
-
-      this.updateDashboardStats();
-      this.closeForm();
-    }
-  }
 
   /**
    * Initialize the update form with the selected wallet's values
@@ -715,33 +590,307 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  trackById(index: number, item: Transaction): number {
-    return item.id;
-  }
 
-  getTransactionIcon(type: string): string {
-    switch (type) {
-      case 'credit':
-        return 'bi-arrow-down';
-      case 'debit':
-        return 'bi-arrow-up';
-      case 'investment':
-        return 'bi-graph-up';
-      case 'transfer':
-        return 'bi-arrow-left-right';
-      default:
-        return 'bi-circle';
+
+
+
+
+
+
+
+
+  calculateYield(): void {
+    if (!this.selectedWallet) {
+      alert('Please select a wallet first');
+      return;
     }
+  
+    // Make sure we have a valid ID, even if it's just a fallback value
+    const walletId = this.selectedWallet.idPortfeuille || this.selectedWallet.id || 1;
+  
+    this.isLoading = true;
+    this.walletService.calculateYield(walletId).subscribe({
+      next: (yieldValue) => {
+        this.walletData.expectedReturn = yieldValue;
+        this.updateDashboardStats();
+        this.isLoading = false;
+        alert(`Yield calculated: ${yieldValue}`);
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Error calculating yield:', error);
+        alert('Failed to calculate yield');
+      }
+    });
+  }
+  
+  // Export wallet to PDF
+  exportToPdf(): void {
+    if (!this.selectedWallet) {
+      alert('Please select a wallet first');
+      return;
+    }
+  
+    // Make sure we have a valid ID, even if it's just a fallback value
+    const walletId = this.selectedWallet.idPortfeuille || this.selectedWallet.id || 1;
+  
+    this.isLoading = true;
+    this.walletService.generatePdf(walletId).subscribe({
+      next: (pdfBlob) => {
+        const url = window.URL.createObjectURL(pdfBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `wallet_${walletId}_report.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Error generating PDF:', error);
+        alert('Failed to generate PDF report');
+      }
+    });
   }
 
-  filterTransactions(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    const filter = select.value;
+  
+  
+  investMoney(): void {
+    if (!this.selectedWallet) {
+      this.showError('Please select a wallet first');
+      return;
+    }
+  
+    // Robust wallet ID extraction
+    const walletId = this.getWalletId(this.selectedWallet);
+    if (!walletId) {
+      this.showError('Invalid wallet selected - missing ID');
+      return;
+    }
+  
+    const amount = this.form.get('amount')?.value;
+    if (!amount || amount <= 0) {
+      this.showError('Please enter a valid investment amount (minimum 0.01)');
+      return;
+    }
+  
+    this.isLoading = true;
+    this.walletService.invest(walletId, amount).subscribe({
+      next: () => {
+        this.handleInvestmentSuccess();
+      },
+      error: (error) => {
+        this.handleInvestmentError(error);
+      }
+    });
+  }
+  
+  // Add these helper methods
+  private getWalletId(wallet: Portfeuille): number | null {
+    // Try all possible ID fields
+    const possibleIdFields = [
+      'idPortefeuille', // With 'f' (most common in your backend)
+      'idPortfeuille', // With 't' (alternate spelling)
+      'id',
+      'walletId',
+      'portefeuilleId'
+    ];
+  
+    for (const field of possibleIdFields) {
+      const id = wallet[field as keyof Portfeuille];
+      if (id !== undefined && id !== null && !isNaN(Number(id))) {
+        return Number(id);
+      }
+    }
+  
+    console.error('No valid ID found in wallet:', wallet);
+    return null;
+  }
+  
+  private handleInvestmentSuccess(): void {
+    this.isLoading = false;
+    this.showSuccess('Investment successful!');
+    this.closeForm();
     
-    if (filter === 'all') {
-      this.transactions = [...this.allTransactions];
-    } else {
-      this.transactions = this.allTransactions.filter((tx: Transaction) => tx.type === filter);
+    // Save the current wallet ID before refreshing
+    const currentWalletId = this.selectedWallet ? 
+      (this.selectedWallet.idPortfeuille || this.selectedWallet.id) : null;
+      
+    // Reload all wallets from backend
+    this.walletService.getAllWallets().subscribe({
+      next: (wallets) => {
+        this.wallets = wallets;
+        console.log('Wallets refreshed after investment:', wallets);
+        
+        // Re-select the same wallet to update UI
+        if (currentWalletId && wallets && wallets.length > 0) {
+          const updatedWallet = wallets.find(w => 
+            (w.idPortfeuille === currentWalletId || w.id === currentWalletId)
+          );
+          
+          if (updatedWallet) {
+            console.log('Re-selecting updated wallet:', updatedWallet);
+            this.selectWallet(updatedWallet);
+          }
+        }
+      },
+      error: (error) => {
+        console.error('Failed to refresh wallets after investment:', error);
+      }
+    });
+  }
+  
+  private handleInvestmentError(error: any): void {
+    this.isLoading = false;
+    console.error('Investment error:', error);
+    
+    let errorMessage = 'Investment failed';
+    if (error.error?.message) {
+      errorMessage = error.error.message;
+    } else if (error.message) {
+      errorMessage = error.message;
+    }
+    
+    this.showError(errorMessage);
+  }
+  
+  private showError(message: string): void {
+    // Use your preferred notification method
+    alert(message); // Replace with toast/notification service
+  }
+  
+  private showSuccess(message: string): void {
+    // Use your preferred notification method
+    alert(message); // Replace with toast/notification service
+  }
+  // Transfer money between wallets
+  transferMoney(): void {
+    // Get source wallet ID - use either the form value or the selected wallet
+    let sourceId = this.form.get('sourceWallet')?.value;
+    if (!sourceId && this.selectedWallet) {
+      sourceId = this.getWalletId(this.selectedWallet);
+      // Update the form value if it wasn't set
+      this.form.get('sourceWallet')?.setValue(sourceId);
+    }
+    
+    // Get destination wallet ID from form
+    const destinationId = this.form.get('destinationWallet')?.value;
+    const amount = this.form.get('amount')?.value;
+    
+    // Validate inputs
+    if (!sourceId) {
+      this.showError('Please select a source wallet');
+      return;
+    }
+    
+    if (!destinationId) {
+      this.showError('Please select a destination wallet');
+      return;
+    }
+  
+    if (!amount || amount <= 0) {
+      this.showError('Please enter a valid transfer amount');
+      return;
+    }
+  
+    // Convert to numbers before comparing to ensure consistent type comparison
+    const numericSourceId = Number(sourceId);
+    const numericDestId = Number(destinationId);
+
+    console.log('Comparing source ID:', numericSourceId, 'and destination ID:', numericDestId);
+    
+    if (numericSourceId === numericDestId) {
+      this.showError('Source and destination wallets cannot be the same');
+      return;
+    }
+  
+    this.isLoading = true;
+    // Use the numeric IDs we calculated to ensure consistent typing
+    this.walletService.transfer(numericSourceId, numericDestId, amount).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.showSuccess('Transfer successful!');
+        this.closeForm();
+        
+        // Save the current wallet ID before refreshing
+        const currentWalletId = this.selectedWallet ? 
+          (this.selectedWallet.idPortfeuille || this.selectedWallet.id) : null;
+        
+        // Reload all wallets from backend
+        this.walletService.getAllWallets().subscribe({
+          next: (wallets) => {
+            this.wallets = wallets;
+            console.log('Wallets refreshed after transfer:', wallets);
+            
+            // Re-select the same wallet to update UI
+            if (currentWalletId && wallets && wallets.length > 0) {
+              const updatedWallet = wallets.find(w => 
+                (w.idPortfeuille === currentWalletId || w.id === currentWalletId)
+              );
+              
+              if (updatedWallet) {
+                console.log('Re-selecting updated wallet after transfer:', updatedWallet);
+                this.selectWallet(updatedWallet);
+              }
+            }
+          },
+          error: (error) => {
+            console.error('Failed to refresh wallets after transfer:', error);
+          }
+        });
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Transfer failed:', error);
+        
+        // Extract clear error message
+        let errorMessage = error.message || 'Transfer failed';
+        this.showError(errorMessage);
+      }
+    });
+  }
+  
+  
+  
+  // Initialize investment form
+  initInvestForm(): void {
+    this.form.reset();
+    this.form.patchValue({
+      amount: '',
+      description: 'Investment',
+      investmentType: 'stocks',
+      // Initialize all form controls to prevent undefined values
+      sourceWallet: '',
+      destinationWallet: ''
+    });
+  }
+  
+  // Initialize transfer form
+  initTransferForm(): void {
+    this.form.reset();
+    
+    // Initialize the form with empty values first
+    this.form = this.fb.group({
+      amount: ['', [Validators.required, Validators.min(0.01)]],
+      description: ['Transfer between wallets'],
+      sourceWallet: ['', Validators.required],
+      destinationWallet: ['', Validators.required],
+      investmentType: ['']
+    });
+    
+    if (this.selectedWallet) {
+      // Get the wallet ID using our helper method - safely handle null
+      const sourceId = this.getWalletId(this.selectedWallet);
+      console.log('Transfer form - Setting source wallet ID:', sourceId);
+      
+      if (sourceId !== null) {
+        // Set the source wallet ID in the form
+        this.form.get('sourceWallet')?.setValue(sourceId.toString());
+        console.log('Source wallet ID set in form:', this.form.get('sourceWallet')?.value);
+      }
     }
   }
+
 }
