@@ -1,95 +1,106 @@
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-lg-8">
-      <div class="card shadow-lg border-0">
-        <div class="card-header bg-primary text-white py-4">
-          <h3 class="card-title mb-0 text-center">
-            {{ transaction ? 'Edit Transaction' : 'Create New Transaction' }}
-          </h3>
-        </div>
-        <div class="card-body p-5">
-          <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
-            <!-- Date -->
-            <div class="mb-4">
-              <label class="form-label">Date</label>
-              <input type="date" class="form-control" formControlName="date" [max]="today">
-              @if (transactionForm.get('date')?.invalid && transactionForm.get('date')?.touched) {
-                <div class="text-danger mt-1">Please select a valid date</div>
-              }
-            </div>
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <h2 class="mb-3">{{ getTransactionTitle() }}</h2>
+            <p class="text-muted">Fill in the details below to complete your transaction</p>
+          </div>
 
+          <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
             <!-- Amount -->
             <div class="mb-4">
               <label class="form-label">Amount</label>
               <div class="input-group">
                 <span class="input-group-text">$</span>
-                <input type="number" class="form-control" formControlName="montant"
-                       step="0.01" min="0.01" placeholder="Enter amount">
+                <input type="number" class="form-control" formControlName="amount" placeholder="Enter amount" step="0.01">
               </div>
-              @if (transactionForm.get('montant')?.invalid && transactionForm.get('montant')?.touched) {
-                <div class="text-danger mt-1">Please enter a valid amount (minimum 0.01)</div>
+              @if (transactionForm.get('amount')?.invalid && transactionForm.get('amount')?.touched) {
+                <div class="text-danger mt-1">
+                  Please enter a valid amount
+                </div>
               }
             </div>
 
-            <!-- Transaction Type -->
+            <!-- Description -->
             <div class="mb-4">
-              <label class="form-label">Transaction Type</label>
-              <select class="form-select" formControlName="typeTransaction">
-                <option value="">Select transaction type</option>
-                @for (type of transactionTypes; track type.value) {
-                  <option [value]="type.value">{{ type.label }}</option>
-                }
-              </select>
-              @if (transactionForm.get('typeTransaction')?.invalid &&
-                   transactionForm.get('typeTransaction')?.touched) {
-                <div class="text-danger mt-1">Please select a transaction type</div>
+              <label class="form-label">Description</label>
+              <textarea class="form-control" formControlName="description" rows="3" placeholder="Enter transaction description"></textarea>
+              @if (transactionForm.get('description')?.invalid && transactionForm.get('description')?.touched) {
+                <div class="text-danger mt-1">
+                  Please enter a description
+                </div>
               }
             </div>
 
-            <!-- Recipient (shown for PAIEMENT or VIREMENT) -->
-            @if (['PAIEMENT', 'VIREMENT'].includes(transactionForm.get('typeTransaction')?.value)) {
+            <!-- Recipient Account (for transfers) -->
+            @if (showRecipientField) {
               <div class="mb-4">
-                <label class="form-label">Recipient</label>
-                <input type="text" class="form-control" formControlName="recipient" placeholder="Enter recipient name">
-                @if (transactionForm.get('recipient')?.invalid && transactionForm.get('recipient')?.touched) {
-                  <div class="text-danger mt-1">Recipient is required for this transaction type</div>
+                <label class="form-label">Recipient Account Number</label>
+                <input type="text" class="form-control" formControlName="recipientAccount" placeholder="Enter recipient account number">
+                @if (transactionForm.get('recipientAccount')?.invalid && transactionForm.get('recipientAccount')?.touched) {
+                  <div class="text-danger mt-1">
+                    Please enter recipient account number
+                  </div>
                 }
               </div>
             }
 
-            <!-- Payment Reference (only shown if type is PAIEMENT) -->
-            @if (transactionForm.get('typeTransaction')?.value === 'PAIEMENT') {
+            <!-- Payment Details (for payments) -->
+            @if (showPaymentDetails) {
               <div class="mb-4">
-                <label class="form-label">Payment Reference</label>
-                <input type="text" class="form-control" formControlName="paymentReference" placeholder="Enter payment reference">
-                @if (transactionForm.get('paymentReference')?.invalid && transactionForm.get('paymentReference')?.touched) {
-                  <div class="text-danger mt-1">Payment reference is required</div>
+                <label class="form-label">Payment Method</label>
+                <select class="form-select" formControlName="paymentMethod">
+                  <option value="">Select payment method</option>
+                  <option value="credit">Credit Card</option>
+                  <option value="debit">Debit Card</option>
+                </select>
+                @if (transactionForm.get('paymentMethod')?.invalid && transactionForm.get('paymentMethod')?.touched) {
+                  <div class="text-danger mt-1">
+                    Please select a payment method
+                  </div>
                 }
               </div>
-            }
 
-            <!-- Destination Account ID (only shown if type is VIREMENT) -->
-            @if (transactionForm.get('typeTransaction')?.value === 'VIREMENT') {
+              <div class="row g-3 mb-4">
+                <div class="col-md-8">
+                  <label class="form-label">Card Number</label>
+                  <input type="text" class="form-control" formControlName="cardNumber" placeholder="Enter card number">
+                  @if (transactionForm.get('cardNumber')?.invalid && transactionForm.get('cardNumber')?.touched) {
+                    <div class="text-danger mt-1">
+                      Please enter card number
+                    </div>
+                  }
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">CVV</label>
+                  <input type="text" class="form-control" formControlName="cvv" placeholder="CVV">
+                  @if (transactionForm.get('cvv')?.invalid && transactionForm.get('cvv')?.touched) {
+                    <div class="text-danger mt-1">
+                      Please enter CVV
+                    </div>
+                  }
+                </div>
+              </div>
+
               <div class="mb-4">
-                <label class="form-label">Destination Account ID</label>
-                <input type="number" class="form-control" formControlName="toCompteId" placeholder="Enter destination account ID">
-                @if (transactionForm.get('toCompteId')?.invalid && transactionForm.get('toCompteId')?.touched) {
-                  <div class="text-danger mt-1">Destination account ID is required</div>
+                <label class="form-label">Expiry Date</label>
+                <input type="month" class="form-control" formControlName="expiryDate">
+                @if (transactionForm.get('expiryDate')?.invalid && transactionForm.get('expiryDate')?.touched) {
+                  <div class="text-danger mt-1">
+                    Please enter expiry date
+                  </div>
                 }
               </div>
             }
 
             <!-- Submit Button -->
-            <div class="d-grid gap-2 mt-4">
-              <button type="submit" class="btn btn-primary" [disabled]="!transactionForm.valid || isSubmitting">
-                @if (isSubmitting) {
-                  <span class="spinner-border spinner-border-sm me-2"></span>
-                  Saving...
-                } @else {
-                  {{ transaction ? 'Update' : 'Create' }} Transaction
-                }
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="!transactionForm.valid">
+                Complete Transaction
               </button>
-              <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+              <button type="button" class="btn btn-outline-secondary" (click)="router.navigate(['/transactions/home'])">
                 Cancel
               </button>
             </div>
@@ -98,4 +109,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> 

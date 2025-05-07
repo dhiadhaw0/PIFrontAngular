@@ -7,7 +7,7 @@ import { CompteBancaire, User } from '../models/compte-bancaire.model';
   providedIn: 'root'
 })
 export class CompteBancaireService {
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'http://localhost:8085/api';
 
   constructor(private http: HttpClient) {}
 
@@ -28,7 +28,7 @@ export class CompteBancaireService {
   }
 
   updateCompte(compte: CompteBancaire): Observable<CompteBancaire> {
-    return this.http.put<CompteBancaire>(`${this.apiUrl}/comptes/${compte.id}`, compte);
+    return this.http.put<CompteBancaire>(`${this.apiUrl}/comptes/${compte.idCompte}`, compte);
   }
 
   deleteCompte(id: number): Observable<void> {
