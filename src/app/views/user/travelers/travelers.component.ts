@@ -2,6 +2,8 @@ import { Component, TemplateRef, inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { CompteBancaireService } from '../../../services/compte-bancaire.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export enum TypeCompteBancaire {
   COURANT = 'COURANT',
@@ -9,8 +11,8 @@ export enum TypeCompteBancaire {
   PROFESSIONNEL = 'PROFESSIONNEL'
 }
 
-interface CompteBancaire {
-  idCompte: number;
+export interface CompteBancaire {
+  idCompte?: number;  // Make it optional
   IBAN: string;
   rib: string;
   codeBanque: string;
@@ -18,6 +20,7 @@ interface CompteBancaire {
   devise: string;
   typeCompteBancaire: TypeCompteBancaire;
 }
+
 
 @Component({
   selector: 'app-bank-accounts',
@@ -27,39 +30,38 @@ interface CompteBancaire {
   styleUrls: ['./travelers.component.scss']
 })
 export class TravelersComponent {
+  compteForm: FormGroup;
   private modalService = inject(NgbModal)
-  
+  comptesBancaires: CompteBancaire[]=[]
   // Expose enum to template
   protected TypeCompteBancaire = TypeCompteBancaire;
   
-  comptesBancaires: CompteBancaire[] = [
-    {
-      idCompte: 1,
-      IBAN: 'FR76 3000 1007 1234 5678 9012 345',
-      rib: '30001 00712 34567890123 45',
-      codeBanque: '30001',
-      solde: 15420.50,
-      devise: 'EUR',
-      typeCompteBancaire: TypeCompteBancaire.COURANT
-    },
-    {
-      idCompte: 2,
-      IBAN: 'FR76 3000 1007 9876 5432 1098 765',
-      rib: '30001 00798 76543210987 65',
-      codeBanque: '30001',
-      solde: 45750.75,
-      devise: 'EUR',
-      typeCompteBancaire: TypeCompteBancaire.EPARGNE
-    }
-  ];
+  constructor(
+    private fb: FormBuilder,
+    private compteService: CompteBancaireService
+  ) {
+    this.compteForm = this.fb.group({
+      IBAN: ['', Validators.required],
+      rib: ['', Validators.required],
+      codeBanque: ['', Validators.required],
+      solde: [0, Validators.required],
+      devise: ['', Validators.required],
+      typeCompteBancaire: ['', Validators.required]
+    });
+  }
 
   openModal(content: TemplateRef<any>) {
     this.modalService.open(content, { size: 'lg' });
   }
 
-  formatIBAN(iban: string): string {
-    return iban.replace(/(.{4})/g, '$1 ').trim();
+  formatIBAN(iban: string | undefined) {
+    if (!iban) {
+      console.error('IBAN is undefined!');
+      return 'Invalid IBAN';
+    }
+    return iban.replace(/(.{4})/g, '$1 ');
   }
+  
 
   formatRIB(rib: string): string {
     return rib.replace(/(.{5})/g, '$1 ').trim();
@@ -68,9 +70,9 @@ export class TravelersComponent {
   getAccountTypeLabel(type: TypeCompteBancaire): string {
     switch (type) {
       case TypeCompteBancaire.COURANT:
-        return 'Current Account';
+        return 'COURANT';
       case TypeCompteBancaire.EPARGNE:
-        return 'Savings Account';
+        return 'EPARGNE';
       case TypeCompteBancaire.PROFESSIONNEL:
         return 'Professional Account';
       default:
@@ -90,4 +92,27 @@ export class TravelersComponent {
         return 'bi-bank';
     }
   }
+  onSubmit(): void {
+    if (this.compteForm.valid) {
+      const userId = 1; // <-- Replace with actual user ID (e.g., from login/session)
+      this.compteService.createCompte(userId, this.compteForm.value)
+        .subscribe({
+          next: res => alert('Compte créé avec succès!'),
+          error: err => console.error('Erreur lors de la création:', err)
+        });
+    }
+}
+ngOnInit(): void {
+  this.loadAccounts();
+}
+loadAccounts(): void {
+  this.compteService.getAllComptes().subscribe({
+    next: (data) => {
+      this.comptesBancaires = data;
+      console.log('Loaded accounts:', data); // ✅ You'll now see this in the console
+    },
+    error: (err) => console.error('Failed to load accounts:', err)
+  });
+}
+
 }

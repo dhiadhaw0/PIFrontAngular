@@ -6,6 +6,8 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { TravelersComponent } from './travelers/travelers.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { SettingsComponent } from './settings/settings.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 const routes: Routes = [
   {
@@ -33,14 +35,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    BookingsComponent,
-    TravelersComponent,
-    WishlistComponent,
-    SettingsComponent
+    
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    TravelersComponent,
+    HttpClientModule,
     RouterModule.forChild(routes)
   ]
 })

@@ -80,7 +80,7 @@
   </div>
 
   <div class="modal-body p-4">
-    <form>
+    <form [formGroup]="compteForm" (ngSubmit)="onSubmit()">
       <div class="row g-4">
         <div class="col-12">
           <label class="form-label">Account Type</label>
@@ -94,32 +94,28 @@
 
         <div class="col-12">
           <label class="form-label">IBAN</label>
-          <input type="text" class="form-control" placeholder="Enter IBAN" />
+          <input formControlName="IBAN" placeholder="IBAN">
           <small class="text-muted">Enter the IBAN exactly as provided by your bank</small>
         </div>
 
         <div class="col-md-6">
           <label class="form-label">RIB</label>
-          <input type="text" class="form-control" placeholder="Enter RIB" />
+          <input formControlName="rib" placeholder="RIB">
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Bank Code</label>
-          <input type="text" class="form-control" placeholder="Enter bank code" />
+          <input formControlName="codeBanque" placeholder="Code Banque">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Initial Balance</label>
-          <input type="number" class="form-control" placeholder="0.00" />
+          <label class="form-label">Solde</label>
+          <input formControlName="solde" type="number" placeholder="Solde">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Currency</label>
-          <select class="form-select">
-            <option value="EUR">EUR</option>
-            <option value="USD">USD</option>
-            <option value="GBP">GBP</option>
-          </select>
+          <label class="form-label">Devise</label>
+          <input formControlName="devise" placeholder="Devise">
         </div>
       </div>
 

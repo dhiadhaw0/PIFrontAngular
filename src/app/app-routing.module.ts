@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TravelersComponent } from './views/user/travelers/travelers.component';
+
 
 const routes: Routes = [
   {
@@ -10,7 +12,7 @@ const routes: Routes = [
     path: '',
     redirectTo: 'user/bookings',
     pathMatch: 'full'
-  }
+  },{ path: 'accounts', component: TravelersComponent }
 ];
 
 @NgModule({
